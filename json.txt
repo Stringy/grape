@@ -1,0 +1,598 @@
+&{map
+		  [
+		  kind: Listing 
+		  data: map[
+					 modhash:
+					 children:[map[
+										  kind:t3 
+										  data:map[
+													 banned_by:<nil>
+													 link_flair_text:<nil> 
+													 title:Can someone recommend me some books on computer architecture and operating systems? 
+													 thumbnail: 
+													 num_comments:3 
+													 selftext_html:<nil> url:http://www.reddit.com/r/learnprogramming/comments/1es9u6/can_someone_recommend_me_some_books_on_computer/ author_flair_text:<nil> subreddit:learnprogramming id:1es9u6 hidden:false subreddit_id:t5_2r7yd name:t3_1es9u6 created:1.369195388e+09 distinguished:<nil> media:<nil> link_flair_css_class:<nil> is_self:true permalink:/r/learnprogramming/comments/1es9u6/can_someone_recommend_me_some_books_on_computer/ likes:<nil> score:12 approved_by:<nil> created_utc:1.369166588e+09 ups:13 selftext: over_18:false edited:false clicked:false author_flair_css_class:<nil> saved:false author:myusern domain:self.learnprogramming media_embed:map[] downs:1 num_reports:<nil>]] map[kind:t3 data:map[domain:self.learnprogramming selftext_html:<nil> author:penis_loaf num_comments:97 distinguished:<nil> media_embed:map[] clicked:false title:How did the original Nintendo (NES) count beyond 255 if it was only 8-bit? banned_by:<nil> author_flair_css_class:<nil> saved:false is_self:true ups:225 id:1eqp8w hidden:false subreddit_id:t5_2r7yd selftext: likes:<nil> over_18:false created:1.369134819e+09 url:http://www.reddit.com/r/learnprogramming/comments/1eqp8w/how_did_the_original_nintendo_nes_count_beyond/ created_utc:1.369106019e+09 subreddit:learnprogramming media:<nil> approved_by:<nil> link_flair_css_class:<nil> author_flair_text:<nil> link_flair_text:<nil> score:173 thumbnail: edited:false downs:52 permalink:/r/learnprogramming/comments/1eqp8w/how_did_the_original_nintendo_nes_count_beyond/ name:t3_1eqp8w num_reports:<nil>]] map[kind:t3 data:map[clicked:false num_comments:3 selftext:I just recently picked up a project of mine from a while back that I really want to finish, but I have a problem with the sound. It's set to play a sound when I click, or hold click, but it only plays once. After that, it won't play anymore, and I'm really not sure why. I'm using an enumerator/class I found on a website for playing the sound, and the code looks... well, sound... so I'm not sure what the problem is. I will include links to the sounds enum and the particular piece of code where I am using it. Can someone tell me why they think it might not be playing properly?
+
+Sounds Enum: http://pastebin.com/Hqt5dPQ6
+Playing the Sound: http://pastebin.com/LQLNS8hE
+
+The Sounds enum is initialized in the constructor of the framework in which I play the sound. It plays once, so I know it's initialized properly. What I don't understand is why it only works once. It stops the sound if already playing and rewinds it before playing.
+
+I appreciate any help.
+
+EDIT: I forgot to mention that when the sound DOES play, the game freezes momentarily while the sound plays. It will continue to play if the button is held down, but once released, it will no longer play. link_flair_css_class:<nil> banned_by:<nil> likes:<nil> id:1es2pe media:<nil> hidden:false author_flair_css_class:<nil> saved:false is_self:true created_utc:1.369161444e+09 distinguished:<nil> downs:1 url:http://www.reddit.com/r/learnprogramming/comments/1es2pe/java_cant_play_sound_more_than_once/ ups:12 name:t3_1es2pe created:1.369190244e+09 author_flair_text:<nil> thumbnail: edited:1.36916268e+09 author:packetpirate domain:self.learnprogramming selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;I just recently picked up a project of mine from a while back that I really want to finish, but I have a problem with the sound. It&amp;#39;s set to play a sound when I click, or hold click, but it only plays once. After that, it won&amp;#39;t play anymore, and I&amp;#39;m really not sure why. I&amp;#39;m using an enumerator/class I found on a website for playing the sound, and the code looks... well, sound... so I&amp;#39;m not sure what the problem is. I will include links to the sounds enum and the particular piece of code where I am using it. Can someone tell me why they think it might not be playing properly?&lt;/p&gt;
+
+&lt;p&gt;Sounds Enum: &lt;a href="http://pastebin.com/Hqt5dPQ6"&gt;http://pastebin.com/Hqt5dPQ6&lt;/a&gt;
+Playing the Sound: &lt;a href="http://pastebin.com/LQLNS8hE"&gt;http://pastebin.com/LQLNS8hE&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The Sounds enum is initialized in the constructor of the framework in which I play the sound. It plays once, so I know it&amp;#39;s initialized properly. What I don&amp;#39;t understand is why it only works once. It stops the sound if already playing and rewinds it before playing.&lt;/p&gt;
+
+&lt;p&gt;I appreciate any help.&lt;/p&gt;
+
+&lt;p&gt;EDIT: I forgot to mention that when the sound DOES play, the game freezes momentarily while the sound plays. It will continue to play if the button is held down, but once released, it will no longer play.&lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; title:[Java] Can't Play Sound More Than Once... over_18:false subreddit_id:t5_2r7yd num_reports:<nil> media_embed:map[] subreddit:learnprogramming link_flair_text:<nil> score:11 approved_by:<nil> permalink:/r/learnprogramming/comments/1es2pe/java_cant_play_sound_more_than_once/]] map[kind:t3 data:map[banned_by:<nil> link_flair_text:<nil> edited:1.369161186e+09 url:http://www.reddit.com/r/learnprogramming/comments/1erizw/cc_difference_between_and/ author:GreenFox1505 created_utc:1.369145672e+09 ups:25 subreddit:learnprogramming clicked:false title:[c/c++] Difference between "." and "-&gt;". thumbnail: is_self:true domain:self.learnprogramming downs:5 saved:false selftext:I've never understood the necessity of using "." AND "-&gt;" for members of an object. As far as I can tell, there is never a situation where both make sense immediately following an object. It's ether one or the other, so why doesn't the compiler just substitute what you actually need when you get it wrong.
+
+I understand that "." refers to a member of an object and "-&gt;" refers to a member of a pointer to an object, but I don't understand the need for the distinction. What grammar caused the need to tell these two apart? Is it a holdover from when our compilers were not as smart as they can be now? Or is it just to remind the programmer that he is working with a pointer and needs to be more careful with what he's doing (at the price of efficiency)?
+
+edit: [ok, got the answer I was looking for!](http://www.reddit.com/r/learnprogramming/comments/1erizw/cc_difference_between_and/ca35565)
+
+[we're done here](http://www.youtube.com/watch?v=UzNBGwCx1wE) likes:<nil> id:1erizw media:<nil> author_flair_css_class:<nil> num_comments:25 distinguished:<nil> subreddit_id:t5_2r7yd name:t3_1erizw score:20 approved_by:<nil> link_flair_css_class:<nil> num_reports:<nil> media_embed:map[] selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;I&amp;#39;ve never understood the necessity of using &amp;quot;.&amp;quot; AND &amp;quot;-&amp;gt;&amp;quot; for members of an object. As far as I can tell, there is never a situation where both make sense immediately following an object. It&amp;#39;s ether one or the other, so why doesn&amp;#39;t the compiler just substitute what you actually need when you get it wrong.&lt;/p&gt;
+
+&lt;p&gt;I understand that &amp;quot;.&amp;quot; refers to a member of an object and &amp;quot;-&amp;gt;&amp;quot; refers to a member of a pointer to an object, but I don&amp;#39;t understand the need for the distinction. What grammar caused the need to tell these two apart? Is it a holdover from when our compilers were not as smart as they can be now? Or is it just to remind the programmer that he is working with a pointer and needs to be more careful with what he&amp;#39;s doing (at the price of efficiency)?&lt;/p&gt;
+
+&lt;p&gt;edit: &lt;a href="http://www.reddit.com/r/learnprogramming/comments/1erizw/cc_difference_between_and/ca35565"&gt;ok, got the answer I was looking for!&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://www.youtube.com/watch?v=UzNBGwCx1wE"&gt;we&amp;#39;re done here&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; over_18:false hidden:false permalink:/r/learnprogramming/comments/1erizw/cc_difference_between_and/ created:1.369174472e+09 author_flair_text:<nil>]] map[kind:t3 data:map[domain:self.learnprogramming selftext:So I have some coding background, and I think I understand the basics of SQL, however I have no idea on how to... run it. I basically want to pull information from a publicly-accessible database, and transform the data into a sortable spreadsheet. Do I need to download software? Set up a server? I'm kind of lost here... title:[x-post from r/SQL] What do I need to get started with SQL? over_18:false banned_by:<nil> clicked:false thumbnail: created:1.369189096e+09 score:8 saved:false media_embed:map[] likes:<nil> id:1es14s media:<nil> downs:4 num_reports:<nil> selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;So I have some coding background, and I think I understand the basics of SQL, however I have no idea on how to... run it. I basically want to pull information from a publicly-accessible database, and transform the data into a sortable spreadsheet. Do I need to download software? Set up a server? I&amp;#39;m kind of lost here...&lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; link_flair_text:<nil> approved_by:<nil> is_self:true created_utc:1.369160296e+09 edited:false author_flair_css_class:<nil> permalink:/r/learnprogramming/comments/1es14s/xpost_from_rsql_what_do_i_need_to_get_started/ name:t3_1es14s distinguished:<nil> subreddit:learnprogramming link_flair_css_class:<nil> url:http://www.reddit.com/r/learnprogramming/comments/1es14s/xpost_from_rsql_what_do_i_need_to_get_started/ author:m0nkeybl1tz num_comments:1 hidden:false subreddit_id:t5_2r7yd author_flair_text:<nil> ups:12]] map[kind:t3 data:map[approved_by:<nil> permalink:/r/learnprogramming/comments/1es0a2/has_anyone_worked_with_pcap_files_before_i_want/ name:t3_1es0a2 author:HearToLearn distinguished:<nil> selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;Is there a simpler way to read the .pcap files into MATLAB files for post-processing? Thanks.&lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; over_18:false hidden:false is_self:true created_utc:1.369159714e+09 ups:10 selftext:Is there a simpler way to read the .pcap files into MATLAB files for post-processing? Thanks. id:1es0a2 clicked:false num_reports:<nil> author_flair_css_class:<nil> downs:2 num_comments:1 media:<nil> link_flair_css_class:<nil> url:http://www.reddit.com/r/learnprogramming/comments/1es0a2/has_anyone_worked_with_pcap_files_before_i_want/ author_flair_text:<nil> link_flair_text:<nil> subreddit_id:t5_2r7yd edited:false saved:false domain:self.learnprogramming banned_by:<nil> media_embed:map[] title:Has anyone worked with .pcap files before? I want to analyze them in MATLAB, and sharktools seems unnecessarily complicated. created:1.369188514e+09 subreddit:learnprogramming likes:<nil> score:8 thumbnail:]] map[kind:t3 data:map[domain:self.learnprogramming title:Is The C++ Programming Language 4th Ed by Bjarne Stroustrup worth getting? created_utc:1.369161214e+09 num_comments:7 saved:false name:t3_1es2e4 banned_by:<nil> permalink:/r/learnprogramming/comments/1es2e4/is_the_c_programming_language_4th_ed_by_bjarne/ ups:9 link_flair_text:<nil> id:1es2e4 clicked:false media:<nil> thumbnail: subreddit_id:t5_2r7yd link_flair_css_class:<nil> downs:2 author_flair_text:<nil> author:OpusMioda num_reports:<nil> distinguished:<nil> selftext: approved_by:<nil> over_18:false url:http://www.reddit.com/r/learnprogramming/comments/1es2e4/is_the_c_programming_language_4th_ed_by_bjarne/ media_embed:map[] hidden:false author_flair_css_class:<nil> subreddit:learnprogramming selftext_html:<nil> likes:<nil> score:7 edited:false is_self:true created:1.369190014e+09]] map[kind:t3 data:map[link_flair_css_class:<nil> author_flair_css_class:<nil> author:qzy766 media_embed:map[] likes:<nil> edited:false downs:2 id:1err65 thumbnail: subreddit_id:t5_2r7yd saved:false distinguished:<nil> link_flair_text:<nil> author_flair_text:<nil> ups:13 banned_by:<nil> hidden:false created:1.36918152e+09 domain:self.learnprogramming subreddit:learnprogramming score:11 over_18:false permalink:/r/learnprogramming/comments/1err65/what_online_resource_should_i_use_to_learn_coding/ url:http://www.reddit.com/r/learnprogramming/comments/1err65/what_online_resource_should_i_use_to_learn_coding/ num_comments:7 selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;I am somewhat experienced in that I work in Wordpress and can edit CSS to make something look how I want it to look in a theme I&amp;#39;ve purchased. However, I want to learn more so that I could build a website from scratch or be able to customize on a much more advanced level.&lt;/p&gt;
+
+&lt;p&gt;I know of a few websites that can offer this, but I&amp;#39;m wondering if anyone can lead me in the right direction. &lt;a href="http://teamtreehouse.com"&gt;Treehouse&lt;/a&gt;? &lt;a href="http://lynda.com"&gt;Lynda.com&lt;/a&gt;? Which has worked best for you, and what might you recommend for someone at my level?&lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; title:What online resource should I use to learn coding? media:<nil> approved_by:<nil> created_utc:1.36915272e+09 selftext:I am somewhat experienced in that I work in Wordpress and can edit CSS to make something look how I want it to look in a theme I've purchased. However, I want to learn more so that I could build a website from scratch or be able to customize on a much more advanced level.
+
+I know of a few websites that can offer this, but I'm wondering if anyone can lead me in the right direction. [Treehouse](http://teamtreehouse.com)? [Lynda.com](http://lynda.com)? Which has worked best for you, and what might you recommend for someone at my level? clicked:false is_self:true name:t3_1err65 num_reports:<nil>]] map[kind:t3 data:map[author_flair_css_class:<nil> name:t3_1esd1x num_reports:<nil> distinguished:<nil> media_embed:map[] score:3 link_flair_css_class:<nil> downs:1 is_self:true author_flair_text:<nil> subreddit:learnprogramming saved:false domain:self.learnprogramming selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;Hello, Im a computer science major and I&amp;#39;ve been learning and using php,html,and css for 2 years now. I also know Java (not much but some) and I was wondering if there is any groups out there who are willing to teach a newbie how to program better, need someone to work on a piece of code a newbie can write, or if anyone is looking for people to program with because I would be more than happy to help or join. &lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; link_flair_text:<nil> hidden:false permalink:/r/learnprogramming/comments/1esd1x/looking_for_a_group_to_learn_programming_with/ approved_by:<nil> created:1.369197649e+09 ups:4 selftext:Hello, Im a computer science major and I've been learning and using php,html,and css for 2 years now. I also know Java (not much but some) and I was wondering if there is any groups out there who are willing to teach a newbie how to program better, need someone to work on a piece of code a newbie can write, or if anyone is looking for people to program with because I would be more than happy to help or join.  likes:<nil> clicked:false over_18:false thumbnail: subreddit_id:t5_2r7yd created_utc:1.369168849e+09 banned_by:<nil> title:Looking for a group to learn programming with. author:pheonxfire num_comments:0 id:1esd1x media:<nil> edited:false url:http://www.reddit.com/r/learnprogramming/comments/1esd1x/looking_for_a_group_to_learn_programming_with/]] map[kind:t3 data:map[domain:self.learnprogramming subreddit:learnprogramming selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;&lt;a href="https://www.mykplan.com/participantsecure_net/TermsAndConditions.aspx"&gt;https://www.mykplan.com/participantsecure_net/TermsAndConditions.aspx&lt;/a&gt; 
+I am doing find by id/xpath/name and they all fail for the accept button. Here is my latest effort&lt;/p&gt;
+
+&lt;p&gt;driver.find_element_by_xpath(&amp;#39;//*[@id=&amp;quot;Accept&amp;quot;]&amp;#39;).click()
+copied straight from chrome web tool&lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; hidden:false link_flair_css_class:<nil> over_18:false subreddit_id:t5_2r7yd url:http://www.reddit.com/r/learnprogramming/comments/1erylt/selenium_web_driver_not_finding_element/ banned_by:<nil> media_embed:map[] link_flair_text:<nil> name:t3_1erylt likes:<nil> is_self:true permalink:/r/learnprogramming/comments/1erylt/selenium_web_driver_not_finding_element/ author_flair_text:<nil> author:xombe created_utc:1.369158413e+09 distinguished:<nil> approved_by:<nil> edited:false selftext:https://www.mykplan.com/participantsecure_net/TermsAndConditions.aspx 
+I am doing find by id/xpath/name and they all fail for the accept button. Here is my latest effort
+
+driver.find_element_by_xpath('//*[@id="Accept"]').click()
+copied straight from chrome web tool clicked:false author_flair_css_class:<nil> downs:1 saved:false id:1erylt media:<nil> thumbnail: created:1.369187213e+09 num_comments:8 num_reports:<nil> title:selenium web driver not finding element :( score:5 ups:6]] map[kind:t3 data:map[subreddit:learnprogramming clicked:false media:<nil> over_18:false permalink:/r/learnprogramming/comments/1erx04/javalwjgl_properly_handing_surface_normals_and/ author_flair_text:<nil> subreddit_id:t5_2r7yd downs:1 name:t3_1erx04 author:HorizonShadow banned_by:<nil> approved_by:<nil> hidden:false thumbnail: link_flair_css_class:<nil> is_self:true created:1.369186009e+09 ups:6 id:1erx04 num_reports:<nil> distinguished:<nil> media_embed:map[] selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;Hi. I&amp;#39;m new to openGL, and I&amp;#39;m having a problem with lighting. &lt;/p&gt;
+
+&lt;p&gt;I have a FloatBuffer filled with points (ordered correctly) that LWJGL displays fine, but when I include my surface normals in the rendering, nothing looks correct.&lt;/p&gt;
+
+&lt;p&gt;Rendering: &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    private void altDrawModel(){
+    //glPushMatrix();
+
+    glBegin(GL_QUADS);
+
+    for (int i = 0; i &amp;lt; mBuffer.capacity() / 3; i++){
+        glVertex3f(mBuffer.get(), mBuffer.get(), mBuffer.get());
+        glNormal3f(nBuffer.get(), nBuffer.get(), nBuffer.get());
+
+    }
+    glEnd();
+    nBuffer.flip();
+    mBuffer.flip();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Calculating surface normals:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    private void calculateNormals(FloatBuffer buf){
+    System.out.println(buf.capacity());
+    for (int i = 0; i &amp;lt; buf.capacity() / 9; i++){
+        float x1 = buf.get();
+        System.out.println(x1);
+
+        float y1 = buf.get();
+        float z1 = buf.get();
+        float x2 = buf.get();
+        float y2 = buf.get();
+        float z2 = buf.get();
+        float x3 = buf.get();
+        float y3 = buf.get();
+        float z3 = buf.get();
+
+        float normX = (y3-y1)*(z2-z1) - (y2-y1)*(z3-z1);
+        float normY = (z3-z1)*(x2-x1) - (z2-z1)*(x3-x1);
+        float normZ = (x3-x1)*(y2-y1) - (x2-x1)*(y3-y1);
+        float normLength = (float)Math.sqrt(Math.pow(normX,2) + Math.pow(normY,2) + Math.pow(normZ,2));
+        if(normLength == 0){
+            normX = 0;
+            normY = 0;
+            normZ = 1;
+        }
+        else{
+            normX /= normLength;
+            normY /= normLength;
+            normZ /= normLength;
+        }
+
+        System.out.println(&amp;quot;x: &amp;quot; + normX + &amp;quot; y: &amp;quot; + normY + &amp;quot; z: &amp;quot; + normZ);
+        nBuffer.put(normX).put(normY).put(normZ);
+    }
+
+    buf.flip();
+    nBuffer.rewind();
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the result: &lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://i.imgur.com/7zamcZD.png"&gt;http://i.imgur.com/7zamcZD.png&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I&amp;#39;ve been looking for an answer all day to no avail, so I&amp;#39;m finally asking. Anyone know what I&amp;#39;m doing wrong? (The lines are supposed to be there)&lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; selftext:Hi. I'm new to openGL, and I'm having a problem with lighting. 
+
+I have a FloatBuffer filled with points (ordered correctly) that LWJGL displays fine, but when I include my surface normals in the rendering, nothing looks correct.
+
+Rendering: 
+
+        private void altDrawModel(){
+        //glPushMatrix();
+
+        glBegin(GL_QUADS);
+
+        for (int i = 0; i &lt; mBuffer.capacity() / 3; i++){
+            glVertex3f(mBuffer.get(), mBuffer.get(), mBuffer.get());
+            glNormal3f(nBuffer.get(), nBuffer.get(), nBuffer.get());
+
+        }
+        glEnd();
+        nBuffer.flip();
+        mBuffer.flip();
+    }
+
+Calculating surface normals:
+
+        private void calculateNormals(FloatBuffer buf){
+        System.out.println(buf.capacity());
+        for (int i = 0; i &lt; buf.capacity() / 9; i++){
+            float x1 = buf.get();
+            System.out.println(x1);
+
+            float y1 = buf.get();
+            float z1 = buf.get();
+            float x2 = buf.get();
+            float y2 = buf.get();
+            float z2 = buf.get();
+            float x3 = buf.get();
+            float y3 = buf.get();
+            float z3 = buf.get();
+
+            float normX = (y3-y1)*(z2-z1) - (y2-y1)*(z3-z1);
+            float normY = (z3-z1)*(x2-x1) - (z2-z1)*(x3-x1);
+            float normZ = (x3-x1)*(y2-y1) - (x2-x1)*(y3-y1);
+            float normLength = (float)Math.sqrt(Math.pow(normX,2) + Math.pow(normY,2) + Math.pow(normZ,2));
+            if(normLength == 0){
+                normX = 0;
+                normY = 0;
+                normZ = 1;
+            }
+            else{
+                normX /= normLength;
+                normY /= normLength;
+                normZ /= normLength;
+            }
+
+            System.out.println("x: " + normX + " y: " + normY + " z: " + normZ);
+            nBuffer.put(normX).put(normY).put(normZ);
+        }
+
+        buf.flip();
+        nBuffer.rewind();
+
+    }
+
+and the result: 
+
+http://i.imgur.com/7zamcZD.png
+
+
+
+I've been looking for an answer all day to no avail, so I'm finally asking. Anyone know what I'm doing wrong? (The lines are supposed to be there)
+ edited:false likes:<nil> score:5 saved:false num_comments:1 link_flair_text:<nil> title:[Java/LWJGL] Properly handing surface normals and lighting. author_flair_css_class:<nil> url:http://www.reddit.com/r/learnprogramming/comments/1erx04/javalwjgl_properly_handing_surface_normals_and/ domain:self.learnprogramming created_utc:1.369157209e+09]] map[kind:t3 data:map[selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;I&amp;#39;ve heard the term before, and even read the wikipedia page a while ago.  It&amp;#39;s a type of architecture where very little is hard coded in files.  Using a website type example, all the fields are defined within the database, and pulled dynamically, etc.  It&amp;#39;s more specific than &amp;#39;Database-centric&amp;#39;.  Has anyone heard this term before?&lt;/p&gt;
+
+&lt;p&gt;Thanks!&lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; over_18:false thumbnail: url:http://www.reddit.com/r/learnprogramming/comments/1erq5a/name_of_the_architecturedesign_pattern_in_which/ num_reports:<nil> link_flair_text:<nil> subreddit_id:t5_2r7yd name:t3_1erq5a distinguished:<nil> id:1erq5a link_flair_css_class:<nil> is_self:true domain:self.learnprogramming banned_by:<nil> media_embed:map[] subreddit:learnprogramming score:3 permalink:/r/learnprogramming/comments/1erq5a/name_of_the_architecturedesign_pattern_in_which/ likes:<nil> media:<nil> approved_by:<nil> hidden:false author_flair_css_class:<nil> created:1.369180727e+09 author:douchermann ups:3 selftext:I've heard the term before, and even read the wikipedia page a while ago.  It's a type of architecture where very little is hard coded in files.  Using a website type example, all the fields are defined within the database, and pulled dynamically, etc.  It's more specific than 'Database-centric'.  Has anyone heard this term before?
+
+Thanks! clicked:false title:Name of the architecture/design pattern in which *everything* is dynamic? downs:0 saved:false author_flair_text:<nil> edited:false created_utc:1.369151927e+09 num_comments:3]] map[kind:t3 data:map[banned_by:<nil> selftext:Hi guys, im stuck in a project I am working on and am just wanting to get a little help to begin my code as I have no idea how to start it out and what I would need.. The project is to create an asteroids game in C using the ncurses library. Ive been at it for weeks and am just getting no where. Any help would be great! :)
+
+Also sorry for using this subreddit to ask such a thing, its my last resort! Ive tried everything :( clicked:false downs:0 media_embed:map[] likes:<nil> title:In need of Tutorials for Game Development in C language using ncurse library. hidden:false thumbnail: author:MyCatsSecondAccount saved:false permalink:/r/learnprogramming/comments/1erq1m/in_need_of_tutorials_for_game_development_in_c/ distinguished:<nil> author_flair_css_class:<nil> created_utc:1.369151836e+09 ups:3 num_reports:<nil> domain:self.learnprogramming subreddit:learnprogramming media:<nil> over_18:false subreddit_id:t5_2r7yd edited:false created:1.369180636e+09 url:http://www.reddit.com/r/learnprogramming/comments/1erq1m/in_need_of_tutorials_for_game_development_in_c/ selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;Hi guys, im stuck in a project I am working on and am just wanting to get a little help to begin my code as I have no idea how to start it out and what I would need.. The project is to create an asteroids game in C using the ncurses library. Ive been at it for weeks and am just getting no where. Any help would be great! :)&lt;/p&gt;
+
+&lt;p&gt;Also sorry for using this subreddit to ask such a thing, its my last resort! Ive tried everything :(&lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; approved_by:<nil> link_flair_css_class:<nil> name:t3_1erq1m num_comments:4 link_flair_text:<nil> id:1erq1m score:3 is_self:true author_flair_text:<nil>]] map[kind:t3 data:map[selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;I am trying to use viennacl library to find eigenvectors for a matrix. Within viennacl, they use boost library. I am having trouble getting the linker file &amp;#39;libboost_serialization-vc100-mt-gd-1_53.lib&amp;#39;. I can find older versions, but none for this one. From what I&amp;#39;ve seen they don&amp;#39;t support this library anymore so I&amp;#39;m kinda on my own on this. Any help would be great.&lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; selftext:I am trying to use viennacl library to find eigenvectors for a matrix. Within viennacl, they use boost library. I am having trouble getting the linker file 'libboost_serialization-vc100-mt-gd-1_53.lib'. I can find older versions, but none for this one. From what I've seen they don't support this library anymore so I'm kinda on my own on this. Any help would be great.
+ created_utc:1.369169423e+09 num_reports:<nil> likes:<nil> approved_by:<nil> author_flair_css_class:<nil> permalink:/r/learnprogramming/comments/1esduu/c_cant_get_boost_libraries_to_work/ banned_by:<nil> link_flair_text:<nil> edited:false link_flair_css_class:<nil> is_self:true created:1.369198223e+09 hidden:false subreddit_id:t5_2r7yd name:t3_1esduu num_comments:0 media_embed:map[] media:<nil> downs:0 over_18:false thumbnail: author_flair_text:<nil> ups:1 distinguished:<nil> subreddit:learnprogramming clicked:false title:[C++] Can't get boost libraries to work score:1 url:http://www.reddit.com/r/learnprogramming/comments/1esduu/c_cant_get_boost_libraries_to_work/ domain:self.learnprogramming id:1esduu saved:false author:c14soccerking]] map[kind:t3 data:map[selftext:I looked at GaTech's online masters, and it said their requirement is a degree in Comp Sci or a B.S. in a "related field".  I already have a B.S. in a social science and M.S. in business.  So I don't think that would count.
+
+Are there any good B.S. degrees that I can take online and won't cost over $15,000 to take online instruction?
+
+
+ id:1esby3 approved_by:<nil> link_flair_css_class:<nil> ups:1 distinguished:<nil> subreddit:learnprogramming selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;I looked at GaTech&amp;#39;s online masters, and it said their requirement is a degree in Comp Sci or a B.S. in a &amp;quot;related field&amp;quot;.  I already have a B.S. in a social science and M.S. in business.  So I don&amp;#39;t think that would count.&lt;/p&gt;
+
+&lt;p&gt;Are there any good B.S. degrees that I can take online and won&amp;#39;t cost over $15,000 to take online instruction?&lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; score:0 over_18:false thumbnail: edited:false author_flair_text:<nil> num_comments:0 banned_by:<nil> likes:<nil> title:Are there decent online CompSci degrees that do not cost an arm and a leg? author:FluffyRedDragon num_reports:<nil> permalink:/r/learnprogramming/comments/1esby3/are_there_decent_online_compsci_degrees_that_do/ media_embed:map[] clicked:false saved:false media:<nil> is_self:true url:http://www.reddit.com/r/learnprogramming/comments/1esby3/are_there_decent_online_compsci_degrees_that_do/ link_flair_text:<nil> hidden:false author_flair_css_class:<nil> downs:1 name:t3_1esby3 created_utc:1.369168096e+09 domain:self.learnprogramming subreddit_id:t5_2r7yd created:1.369196896e+09]] map[kind:t3 data:map[selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;I&amp;#39;m a CS student and I have about 1 years experience programming, mainly in C. I am not a bad programmer by any means but still a beginner. Well lately I have been having this idea that I really want to pursue either with a mobile app or web app. The problem is I know how to program neither. I am in my third semester of CS and so far I have taken intro to C, Data Structures and Algorithms in C, and now I&amp;#39;m in Java. &lt;/p&gt;
+
+&lt;p&gt;Anyways, I feel this idea is so worthy and if I were to hack together a protoype, I could surely get help from my university&amp;#39;s accelerator program. I just don&amp;#39;t know where to start. Sorry if this post is too vague. &lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; selftext:I'm a CS student and I have about 1 years experience programming, mainly in C. I am not a bad programmer by any means but still a beginner. Well lately I have been having this idea that I really want to pursue either with a mobile app or web app. The problem is I know how to program neither. I am in my third semester of CS and so far I have taken intro to C, Data Structures and Algorithms in C, and now I'm in Java. 
+
+Anyways, I feel this idea is so worthy and if I were to hack together a protoype, I could surely get help from my university's accelerator program. I just don't know where to start. Sorry if this post is too vague.  hidden:false edited:1.369165055e+09 permalink:/r/learnprogramming/comments/1es77e/i_need_advice_on_hacking_together_a_prototype/ name:t3_1es77e ups:2 banned_by:<nil> link_flair_text:<nil> id:1es77e score:0 is_self:true distinguished:<nil> title:I need advice on hacking together a prototype created:1.369193502e+09 url:http://www.reddit.com/r/learnprogramming/comments/1es77e/i_need_advice_on_hacking_together_a_prototype/ media_embed:map[] media:<nil> thumbnail: num_comments:4 num_reports:<nil> author_flair_css_class:<nil> clicked:false over_18:false saved:false domain:self.learnprogramming subreddit:learnprogramming approved_by:<nil> subreddit_id:t5_2r7yd downs:2 created_utc:1.369164702e+09 likes:<nil> link_flair_css_class:<nil> author_flair_text:<nil> author:Bich_tits]] map[kind:t3 data:map[media_embed:map[] selftext:http://www.cs.unc.edu/Courses/comp110-003-s13/ edited:false author_flair_text:<nil> clicked:false approved_by:<nil> hidden:false downs:1 permalink:/r/learnprogramming/comments/1erdq9/til_that_uncs_intro_to_computer_science_course/ name:t3_1erdq9 created_utc:1.369139894e+09 ups:5 num_reports:<nil> selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;&lt;a href="http://www.cs.unc.edu/Courses/comp110-003-s13/"&gt;http://www.cs.unc.edu/Courses/comp110-003-s13/&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; likes:<nil> link_flair_css_class:<nil> distinguished:<nil> banned_by:<nil> id:1erdq9 over_18:false is_self:true url:http://www.reddit.com/r/learnprogramming/comments/1erdq9/til_that_uncs_intro_to_computer_science_course/ domain:self.learnprogramming subreddit:learnprogramming link_flair_text:<nil> thumbnail: subreddit_id:t5_2r7yd saved:false created:1.369168694e+09 author:foxh8er title:TIL that UNC's Intro to Computer Science course has free course materials online. Hope it becomes useful to someone! media:<nil> score:4 author_flair_css_class:<nil> num_comments:1]] map[kind:t3 data:map[media_embed:map[] selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;Hi!  I&amp;#39;m a high school student interested in going into computer science when I&amp;#39;m off to college.  I am working on a project that involves editing a LONG .xml configuration file multiple times.  I thought that this was the perfect time to design a program to speed up the process.&lt;/p&gt;
+
+&lt;p&gt;What I want is simple.  Say there&amp;#39;s a variable on the .xml file called &amp;quot;karma&amp;quot;.  I want the user to be prompted &amp;quot;Enter a value for &amp;#39;Karma&amp;#39;&amp;quot;, where they can enter the value and the program will write it to an .xml file like...&lt;/p&gt;
+
+&lt;p&gt;&amp;lt;config&amp;gt;
+     karma = &amp;quot;input&amp;quot;
+&amp;lt;/config&amp;gt;&lt;/p&gt;
+
+&lt;p&gt;I know some stuff in Python, and I could write the program with that, but for some variables where only a few inputs work, a drop-down menu would be nice.  Some program with tabs for the different sections of the configuration file would be even better!&lt;/p&gt;
+
+&lt;p&gt;I know I&amp;#39;m being rather vague and hard to understand, but what would be the best way to go about creating such a program?&lt;/p&gt;
+
+&lt;p&gt;Thanks, Reddit!&lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; likes:<nil> permalink:/r/learnprogramming/comments/1es2jm/how_should_i_program_this/ author_flair_text:<nil> id:1es2jm media:<nil> approved_by:<nil> selftext:Hi!  I'm a high school student interested in going into computer science when I'm off to college.  I am working on a project that involves editing a LONG .xml configuration file multiple times.  I thought that this was the perfect time to design a program to speed up the process.
+
+What I want is simple.  Say there's a variable on the .xml file called "karma".  I want the user to be prompted "Enter a value for 'Karma'", where they can enter the value and the program will write it to an .xml file like...
+
+&lt;config&gt;
+     karma = "input"
+&lt;/config&gt;
+
+I know some stuff in Python, and I could write the program with that, but for some variables where only a few inputs work, a drop-down menu would be nice.  Some program with tabs for the different sections of the configuration file would be even better!
+
+I know I'm being rather vague and hard to understand, but what would be the best way to go about creating such a program?
+
+Thanks, Reddit! score:2 over_18:false edited:false author_flair_css_class:<nil> is_self:true banned_by:<nil> subreddit:learnprogramming link_flair_text:<nil> hidden:false downs:1 saved:false name:t3_1es2jm ups:3 link_flair_css_class:<nil> created_utc:1.369161324e+09 num_reports:<nil> distinguished:<nil> clicked:false title:How Should I Program This? thumbnail: subreddit_id:t5_2r7yd url:http://www.reddit.com/r/learnprogramming/comments/1es2jm/how_should_i_program_this/ num_comments:3 author:SSinischo domain:self.learnprogramming created:1.369190124e+09]] map[kind:t3 data:map[title:Is it possible to encase a file into a png? author_flair_css_class:<nil> created_utc:1.369144844e+09 selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;Say I have a small picture and I want to encase a word document within it? It would be invisible to the naked eye!&lt;/p&gt;
+
+&lt;p&gt;So, are there comments in the format? that might work...&lt;/p&gt;
+
+&lt;p&gt;It doesn&amp;#39;t have to be a PNG by the way, as long as it&amp;#39;s an image!&lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; clicked:false score:1 over_18:false downs:2 author:StoneJustStone subreddit:learnprogramming likes:<nil> hidden:false is_self:true permalink:/r/learnprogramming/comments/1eri6k/is_it_possible_to_encase_a_file_into_a_png/ selftext:Say I have a small picture and I want to encase a word document within it? It would be invisible to the naked eye!
+
+So, are there comments in the format? that might work...
+
+It doesn't have to be a PNG by the way, as long as it's an image! link_flair_text:<nil> saved:false created:1.369173644e+09 media:<nil> url:http://www.reddit.com/r/learnprogramming/comments/1eri6k/is_it_possible_to_encase_a_file_into_a_png/ author_flair_text:<nil> id:1eri6k thumbnail: subreddit_id:t5_2r7yd domain:self.learnprogramming approved_by:<nil> edited:false link_flair_css_class:<nil> name:t3_1eri6k ups:3 distinguished:<nil> banned_by:<nil> media_embed:map[] num_comments:6 num_reports:<nil>]] map[kind:t3 data:map[likes:<nil> media:<nil> author_flair_text:<nil> banned_by:<nil> title:Monster AI System Explained (Part 2 of 5) (+ Interactive Demos!) over_18:false thumbnail: downs:25 url:http://www.reddit.com/r/learnprogramming/comments/1ep0v4/monster_ai_system_explained_part_2_of_5/ num_comments:10 distinguished:<nil> id:1ep0v4 link_flair_css_class:<nil> saved:false permalink:/r/learnprogramming/comments/1ep0v4/monster_ai_system_explained_part_2_of_5/ name:t3_1ep0v4 author_flair_css_class:<nil> is_self:true media_embed:map[] selftext:This is a continuation of my previous game development "Explained" posts:
+
+
+[Monster AI System Explained (Part 1 of 5)](http://www.reddit.com/r/gamedev/comments/1eavwx/monster_ai_system_explained_part_1_of_5/)
+
+[Procedural Generation Explained](http://www.reddit.com/r/gamedev/comments/1dlwc4/procedural_dungeon_generation_algorithm_explained/)
+
+
+All techniques demonstrated are implemented in my game **[TinyKeep](http://tinykeep.com)**, which is currently **[Kickstarting](http://www.kickstarter.com/projects/phidinh/tinykeep)** (only 10 days of funding left to go!)
+
+
+Interactive demos for Parts 1, 1.1 &amp; Part 2 are at the usual place:
+
+http://tinykeep.com/ai
+
+
+**Part 1 Improvements**
+
+Before I crack on with Part 2, I want to quickly mention some minor improvements I've made to Part 1 as a result of community feedback from Reddit and elsewhere. Thanks everyone for helping me improve on the AI so far!
+
+[Part 1.1 YouTube Demo](http://youtu.be/YttkpNdS5bY)
+
+In short, the changes are: 
+
+1 . The co-ordinate of the last detected entity (either player character or breadcrumb) is saved as a variable every frame. So, while in Alert mode, if the Skeleton loses sight and smell of the target (all raycasts to the player character or dropped breadcrumbs return false), he will still continue to head towards this last detected location as its final target and re-evaluate from there. This is an improvement from the previous version where a monster would stop and go back to patrolling even though it has detected a target in the past - which is not expected behaviour.
+
+2 . If the Skeleton still cannot detect anything from this point (all raycasts to the player and breadcrumbs again return false), Alert mode is dropped and the monster makes a "best guess" where the character is and sets the patrol waypoint target. For this initial version, the "best guess" is simply the nearest waypoint to the character at the time. If the character moves away after this point, the best guess waypoint remains the same. I admit it's a little bit cheaty of the AI - since it now knows exactly where the character is in order to set the waypoint - but it works well and looks realistic enough because of its slow movement during non-alert patrol mode. Most players won't know the difference, it just looks like the the monster is heading in the general direction and its likely the player has moved on from this point anyway. Still - for completeness I may modify best guess to take into account the target's last seen velocity and extrapolate from there.
+
+Given these changes, we've removed the alert level (range 0-200 etc...) as we've found this feature has become redundant and offers no extra intelligence. It has simply been replaced with a boolean, so either alert or not. The "smell trails" have also been shortened significantly to balance out the extra added behaviours - with the last detected code there is no need to have such a long trail, lest we give the impression that the AI is cheating all of the time! This also gives the player the opportunity to hide behind corners and ambush monsters walking past.
+
+Let's move on to the fun stuff!
+
+
+**TinyKeep AI System (Part 2 of 5) : Retreating and Defense**
+
+Today we'll be following a little Fire Imp as we discuss Retreating and Defensive behaviours. Fire Imps (and other monsters marked with the "Shy" personality flag) will run away from the player if he gets too close. Put him in this level of distress for too long, and he'll breathe fire on you, while still attempting to flee.
+
+[Part 2 YouTube Demo](http://youtu.be/dIBuIELYd4c)
+
+1 . For the demo, Fire Imps in non-alert mode stay in one position, although other Shy monsters may roam/patrol in the same way as Skeletons. The Fire Imp is constantly looking around for signs of danger - every approximate second or so the monster rotates between a random range of -270 to 270.
+
+2 . Like the Skeletons, the Fire Imps employ line of sight, the FOV being slightly greater than the Skeletons due to it being prey and not predator. If a raycast to a threat returns true (threat being the player or aggressive monster), Alert mode is turned on and the Fire Imp faces the target. It will continue to face the target while in Alert mode, as long as it can still see and smell the target. At this point the Fire Imp will not flee just yet - the target is not close enough to be a major threat, but it is alerted and wary, and constantly tracking you with its sight.
+
+3 . While in Alert mode, if the player exceeds a certain distance threshold then the Fire Imp begins the flee. We use an inverse of the Seek Steering Behaviour, which creates the Flee Steering Behaviour. (Subtract the destination vector from the source vector, rather than the other way around). The resultant vector is normalized and scaled to the Fire Imp's max speed, so now the monster is repelled away from the player if it gets too close.
+
+4 . Unlike the Seek Behaviour, Fleeing comes with a greater risk of getting stuck on walls and sharp corners. Because it is being repelled by the player, the target destination could be anything - a wall, another monster etc.. We don't get this problem with Seeking, because the target is always the player, who is always in the an empty space. To prevent problems with getting stuck - we must increase the wall avoidance distance. The Fire Imp now follows the corridors and rooms rather getting stuck on them. This is also useful for when the Imp is stuck in a corner - it will slide nicely away if the player tries to advance further.
+
+5 . Each monster has it's own type of defensive behaviours while retreating. For this demo, if the Fire Imp is in Alert mode and is being chased around for a sustained period of time, it will begin to breathe fire at the player. This is simply a fire particle with a velocity towards the player at the time. Fire particles are short lived and decay after a second. If the Fire Imp is no longer being chased or comes off Alert mode, a cooldown period is activated before it breathes fire again.
+
+And that's it! Quite simple reactive behaviour but effective. I did try to use some kind of pathfinding to accomplish fleeing but the results were buggy and there was a lot more consideration required to make it look realistic. In the end the reactive technique using Fleeing Steering Behaviour returned better results. The key takeaway with game AI is that a combination of simpler rules often work better than a monolithic and complicated top-down system. Also - exaggerate your behaviours! Make them look around often, give them surprised animations, make use of sounds and speech. It doesn't matter how intelligent the AI is, if the player isn't given cues as to what is going on under the hood - the monsters will not SEEM intelligent.
+
+
+**If you like these articles and are interested in the game, please have a look at our project for more information:**
+
+[TinyKeep - A 3D Multiplayer Dungeon Crawler for Windows/Mac](http://www.kickstarter.com/projects/phidinh/tinykeep) ups:143 clicked:false approved_by:<nil> hidden:false created:1.369088675e+09 author:phidinh6 subreddit_id:t5_2r7yd edited:false num_reports:<nil> domain:self.learnprogramming subreddit:learnprogramming selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;This is a continuation of my previous game development &amp;quot;Explained&amp;quot; posts:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://www.reddit.com/r/gamedev/comments/1eavwx/monster_ai_system_explained_part_1_of_5/"&gt;Monster AI System Explained (Part 1 of 5)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://www.reddit.com/r/gamedev/comments/1dlwc4/procedural_dungeon_generation_algorithm_explained/"&gt;Procedural Generation Explained&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;All techniques demonstrated are implemented in my game &lt;strong&gt;&lt;a href="http://tinykeep.com"&gt;TinyKeep&lt;/a&gt;&lt;/strong&gt;, which is currently &lt;strong&gt;&lt;a href="http://www.kickstarter.com/projects/phidinh/tinykeep"&gt;Kickstarting&lt;/a&gt;&lt;/strong&gt; (only 10 days of funding left to go!)&lt;/p&gt;
+
+&lt;p&gt;Interactive demos for Parts 1, 1.1 &amp;amp; Part 2 are at the usual place:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://tinykeep.com/ai"&gt;http://tinykeep.com/ai&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Part 1 Improvements&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Before I crack on with Part 2, I want to quickly mention some minor improvements I&amp;#39;ve made to Part 1 as a result of community feedback from Reddit and elsewhere. Thanks everyone for helping me improve on the AI so far!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://youtu.be/YttkpNdS5bY"&gt;Part 1.1 YouTube Demo&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In short, the changes are: &lt;/p&gt;
+
+&lt;p&gt;1 . The co-ordinate of the last detected entity (either player character or breadcrumb) is saved as a variable every frame. So, while in Alert mode, if the Skeleton loses sight and smell of the target (all raycasts to the player character or dropped breadcrumbs return false), he will still continue to head towards this last detected location as its final target and re-evaluate from there. This is an improvement from the previous version where a monster would stop and go back to patrolling even though it has detected a target in the past - which is not expected behaviour.&lt;/p&gt;
+
+&lt;p&gt;2 . If the Skeleton still cannot detect anything from this point (all raycasts to the player and breadcrumbs again return false), Alert mode is dropped and the monster makes a &amp;quot;best guess&amp;quot; where the character is and sets the patrol waypoint target. For this initial version, the &amp;quot;best guess&amp;quot; is simply the nearest waypoint to the character at the time. If the character moves away after this point, the best guess waypoint remains the same. I admit it&amp;#39;s a little bit cheaty of the AI - since it now knows exactly where the character is in order to set the waypoint - but it works well and looks realistic enough because of its slow movement during non-alert patrol mode. Most players won&amp;#39;t know the difference, it just looks like the the monster is heading in the general direction and its likely the player has moved on from this point anyway. Still - for completeness I may modify best guess to take into account the target&amp;#39;s last seen velocity and extrapolate from there.&lt;/p&gt;
+
+&lt;p&gt;Given these changes, we&amp;#39;ve removed the alert level (range 0-200 etc...) as we&amp;#39;ve found this feature has become redundant and offers no extra intelligence. It has simply been replaced with a boolean, so either alert or not. The &amp;quot;smell trails&amp;quot; have also been shortened significantly to balance out the extra added behaviours - with the last detected code there is no need to have such a long trail, lest we give the impression that the AI is cheating all of the time! This also gives the player the opportunity to hide behind corners and ambush monsters walking past.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;#39;s move on to the fun stuff!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;TinyKeep AI System (Part 2 of 5) : Retreating and Defense&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Today we&amp;#39;ll be following a little Fire Imp as we discuss Retreating and Defensive behaviours. Fire Imps (and other monsters marked with the &amp;quot;Shy&amp;quot; personality flag) will run away from the player if he gets too close. Put him in this level of distress for too long, and he&amp;#39;ll breathe fire on you, while still attempting to flee.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://youtu.be/dIBuIELYd4c"&gt;Part 2 YouTube Demo&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;1 . For the demo, Fire Imps in non-alert mode stay in one position, although other Shy monsters may roam/patrol in the same way as Skeletons. The Fire Imp is constantly looking around for signs of danger - every approximate second or so the monster rotates between a random range of -270 to 270.&lt;/p&gt;
+
+&lt;p&gt;2 . Like the Skeletons, the Fire Imps employ line of sight, the FOV being slightly greater than the Skeletons due to it being prey and not predator. If a raycast to a threat returns true (threat being the player or aggressive monster), Alert mode is turned on and the Fire Imp faces the target. It will continue to face the target while in Alert mode, as long as it can still see and smell the target. At this point the Fire Imp will not flee just yet - the target is not close enough to be a major threat, but it is alerted and wary, and constantly tracking you with its sight.&lt;/p&gt;
+
+&lt;p&gt;3 . While in Alert mode, if the player exceeds a certain distance threshold then the Fire Imp begins the flee. We use an inverse of the Seek Steering Behaviour, which creates the Flee Steering Behaviour. (Subtract the destination vector from the source vector, rather than the other way around). The resultant vector is normalized and scaled to the Fire Imp&amp;#39;s max speed, so now the monster is repelled away from the player if it gets too close.&lt;/p&gt;
+
+&lt;p&gt;4 . Unlike the Seek Behaviour, Fleeing comes with a greater risk of getting stuck on walls and sharp corners. Because it is being repelled by the player, the target destination could be anything - a wall, another monster etc.. We don&amp;#39;t get this problem with Seeking, because the target is always the player, who is always in the an empty space. To prevent problems with getting stuck - we must increase the wall avoidance distance. The Fire Imp now follows the corridors and rooms rather getting stuck on them. This is also useful for when the Imp is stuck in a corner - it will slide nicely away if the player tries to advance further.&lt;/p&gt;
+
+&lt;p&gt;5 . Each monster has it&amp;#39;s own type of defensive behaviours while retreating. For this demo, if the Fire Imp is in Alert mode and is being chased around for a sustained period of time, it will begin to breathe fire at the player. This is simply a fire particle with a velocity towards the player at the time. Fire particles are short lived and decay after a second. If the Fire Imp is no longer being chased or comes off Alert mode, a cooldown period is activated before it breathes fire again.&lt;/p&gt;
+
+&lt;p&gt;And that&amp;#39;s it! Quite simple reactive behaviour but effective. I did try to use some kind of pathfinding to accomplish fleeing but the results were buggy and there was a lot more consideration required to make it look realistic. In the end the reactive technique using Fleeing Steering Behaviour returned better results. The key takeaway with game AI is that a combination of simpler rules often work better than a monolithic and complicated top-down system. Also - exaggerate your behaviours! Make them look around often, give them surprised animations, make use of sounds and speech. It doesn&amp;#39;t matter how intelligent the AI is, if the player isn&amp;#39;t given cues as to what is going on under the hood - the monsters will not SEEM intelligent.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;If you like these articles and are interested in the game, please have a look at our project for more information:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://www.kickstarter.com/projects/phidinh/tinykeep"&gt;TinyKeep - A 3D Multiplayer Dungeon Crawler for Windows/Mac&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; link_flair_text:<nil> score:118 created_utc:1.369059875e+09]] map[kind:t3 data:map[banned_by:<nil> link_flair_text:<nil> saved:false id:1erq64 distinguished:<nil> subreddit:learnprogramming permalink:/r/learnprogramming/comments/1erq64/im_taking_a_year_off_to_learn_programming_whats_a/ created:1.369180751e+09 num_comments:2 selftext:I'm a 22-year-old entrepreneur and recent economics graduate knowledgeable with HTML/CSS, but realized I need to learn programming if I want to get ahead. I consistently have ideas for web applications that I simply can't implement on my own and should I choose to get a job at a tech company, knowing programming will vastly increase my job prospects and earning potential.
+
+My plan is to learn Ruby on Rails and then Python over the course of a year, devoting 2-3 hours per day to my endeavor. The rest of my time is devoted to other business ventures. 
+
+1. First on my agenda is "Learn to Program" by Chris Pine to familiarize myself with Ruby. It's my understanding that this helps with learning Rails.
+
+2. After that I'm going to hop into "Agile Web Development with Rails."
+
+3. What can I do after this to cement my knowledge and learn more? Should I learn Python or perhaps MYSQL next? 
+
+
+Finally, can I realistically expect to have a useable knowledge of Rails and another language learning at 20/hours a week for a year? 
+
+
+ downs:3 author:redcremesoda created_utc:1.369151951e+09 hidden:false subreddit_id:t5_2r7yd domain:self.learnprogramming selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;I&amp;#39;m a 22-year-old entrepreneur and recent economics graduate knowledgeable with HTML/CSS, but realized I need to learn programming if I want to get ahead. I consistently have ideas for web applications that I simply can&amp;#39;t implement on my own and should I choose to get a job at a tech company, knowing programming will vastly increase my job prospects and earning potential.&lt;/p&gt;
+
+&lt;p&gt;My plan is to learn Ruby on Rails and then Python over the course of a year, devoting 2-3 hours per day to my endeavor. The rest of my time is devoted to other business ventures. &lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;First on my agenda is &amp;quot;Learn to Program&amp;quot; by Chris Pine to familiarize myself with Ruby. It&amp;#39;s my understanding that this helps with learning Rails.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;After that I&amp;#39;m going to hop into &amp;quot;Agile Web Development with Rails.&amp;quot;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;What can I do after this to cement my knowledge and learn more? Should I learn Python or perhaps MYSQL next? &lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Finally, can I realistically expect to have a useable knowledge of Rails and another language learning at 20/hours a week for a year? &lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; likes:<nil> clicked:false media:<nil> approved_by:<nil> edited:false link_flair_css_class:<nil> author_flair_css_class:<nil> url:http://www.reddit.com/r/learnprogramming/comments/1erq64/im_taking_a_year_off_to_learn_programming_whats_a/ title:I'm taking a year off to learn programming. What's a good plan of action? score:1 name:t3_1erq64 author_flair_text:<nil> ups:4 num_reports:<nil> media_embed:map[] over_18:false thumbnail: is_self:true]] map[kind:t3 data:map[subreddit:learnprogramming likes:<nil> score:13 name:t3_1eqnx5 over_18:false link_flair_css_class:<nil> is_self:true created_utc:1.369104942e+09 num_comments:18 domain:self.learnprogramming banned_by:<nil> media_embed:map[] subreddit_id:t5_2r7yd author_flair_text:<nil> selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;I was reading &lt;a href="http://www.wired.com/wiredscience/2013/05/twin-primes"&gt;this article&lt;/a&gt; and noticed the Sieve of Eratosthenes (page 2) could be applied to select a set of primes out of a set of whole integers.  It seems like the method I thought of (increment list, check if number divisible by 2, 3, 5, 7, 11, 13, etc., as max value of integer set dictates) would be exceptionally slow.  What are some examples of prime-finding code that are faster?&lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; thumbnail: downs:2 num_reports:<nil> approved_by:<nil> author_flair_css_class:<nil> permalink:/r/learnprogramming/comments/1eqnx5/faster_way_to_find_primes/ ups:15 selftext:I was reading [this article](http://www.wired.com/wiredscience/2013/05/twin-primes) and noticed the Sieve of Eratosthenes (page 2) could be applied to select a set of primes out of a set of whole integers.  It seems like the method I thought of (increment list, check if number divisible by 2, 3, 5, 7, 11, 13, etc., as max value of integer set dictates) would be exceptionally slow.  What are some examples of prime-finding code that are faster? saved:false url:http://www.reddit.com/r/learnprogramming/comments/1eqnx5/faster_way_to_find_primes/ author:indivitalism distinguished:<nil> link_flair_text:<nil> clicked:false media:<nil> hidden:false id:1eqnx5 title:Faster way to find primes? edited:false created:1.369133742e+09]] map[kind:t3 data:map[over_18:false downs:3 created:1.369120911e+09 media:<nil> author_flair_text:<nil> created_utc:1.369092111e+09 selftext:**Edit: Changing the default project compiler to LLVM GCC 4.2 solved the problem.**
+
+I have done macports, downloading and moving files over, etc. but I keep getting linker errors, etc.  link_flair_text:<nil> clicked:false score:23 link_flair_css_class:<nil> banned_by:<nil> selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;&lt;strong&gt;Edit: Changing the default project compiler to LLVM GCC 4.2 solved the problem.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;I have done macports, downloading and moving files over, etc. but I keep getting linker errors, etc. &lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; subreddit_id:t5_2r7yd saved:false is_self:true author:coaster367 subreddit:learnprogramming likes:<nil> id:1eq70y title:Has anyone been successful in having the C++ Boost library work with Xcode 4.6 on OS X Mountain Lion? If so, what did you do to set it up? approved_by:<nil> edited:1.369098525e+09 url:http://www.reddit.com/r/learnprogramming/comments/1eq70y/has_anyone_been_successful_in_having_the_c_boost/ num_comments:4 domain:self.learnprogramming media_embed:map[] num_reports:<nil> thumbnail: author_flair_css_class:<nil> ups:26 hidden:false permalink:/r/learnprogramming/comments/1eq70y/has_anyone_been_successful_in_having_the_c_boost/ name:t3_1eq70y distinguished:<nil>]] map[kind:t3 data:map[selftext:So I'm trying to understand the concept of inheritance.  I get the idea of sub and superclasses, but I'm having trouble implementing it.  I am creating a simple program called Trees that will initialize two trees, one of which is coniferous (never sheds its leaves) and deciduous (sheds leaves during winter).
+
+I have created a class called Tree, which instantiates a coniferous tree that grows by one metre when the grow() method is called.  I have also created a subclass of Tree called DeciduousTree, that checks to see if the season is warm or cold, and sheds or buds its leaves accordingly, using a boolean value called leaves.  The DeciduousTree class has its own unique mutator method "leafStatus()" that accepts a string "warm" or "cold" to change its status.
+
+For some reason, though, I cannot seem to call the leafStatus() method within the main program, it just seems to think that the method doesn't exist.  I don't understand what the problem is, can anybody enlighten me?
+
+Here is the main class:
+
+    public class Trees {
+
+        public static void main(String[] args) {
+        
+            Scanner in = new Scanner(System.in);
+            Tree pine = new Tree();
+            Tree maple = new DeciduousTree();
+            int seasonCounter = 0;
+        
+            do {
+                System.out.println("Input Season:");
+                String season = in.next();
+                seasonCounter++;
+                System.out.println("Season: " + season);
+                pine.grow();
+                maple.grow();
+                maple.leafStatus(season);
+            
+            } while(!"q".equals(in.next()));
+        }
+    }
+
+Here is the Tree superclass:
+
+    public class Tree {
+    
+        protected double height;
+    
+        public Tree() {
+            this.height = 1;
+        }
+    
+        public void grow() {
+            this.height += 1;
+        }
+    
+        public String details() {
+            return "This tree is " + this.height + " metres tall.";
+        }
+    }
+
+And here is the DeciduousTree subclass:
+
+    public class DeciduousTree extends Tree {
+    
+        private boolean leaves = true;
+    
+        public DeciduousTree() {
+            super();
+        }
+    
+        public String leafStatus(String inputSeason) {
+            if(inputSeason.equals("warm")) {
+                this.leaves = true;
+                return "Season changed to warm.";
+            }
+            else if(inputSeason.equals("cold")) {
+                this.leaves = false;
+                return "Season changed to cold.";
+            }
+            else {
+                return "Invalid season.";
+            }
+        }
+    
+        public String details() {
+            if(leaves=true) {
+                return "This tree is " + this.height + " metres tall, and it has leaves.";
+            }
+            else {
+                return "This tree is " + this.height + " metres tall, and it does not have leaves.";
+            }
+        }
+    } thumbnail: num_comments:6 media_embed:map[] selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;So I&amp;#39;m trying to understand the concept of inheritance.  I get the idea of sub and superclasses, but I&amp;#39;m having trouble implementing it.  I am creating a simple program called Trees that will initialize two trees, one of which is coniferous (never sheds its leaves) and deciduous (sheds leaves during winter).&lt;/p&gt;
+
+&lt;p&gt;I have created a class called Tree, which instantiates a coniferous tree that grows by one metre when the grow() method is called.  I have also created a subclass of Tree called DeciduousTree, that checks to see if the season is warm or cold, and sheds or buds its leaves accordingly, using a boolean value called leaves.  The DeciduousTree class has its own unique mutator method &amp;quot;leafStatus()&amp;quot; that accepts a string &amp;quot;warm&amp;quot; or &amp;quot;cold&amp;quot; to change its status.&lt;/p&gt;
+
+&lt;p&gt;For some reason, though, I cannot seem to call the leafStatus() method within the main program, it just seems to think that the method doesn&amp;#39;t exist.  I don&amp;#39;t understand what the problem is, can anybody enlighten me?&lt;/p&gt;
+
+&lt;p&gt;Here is the main class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Trees {
+
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+        Tree pine = new Tree();
+        Tree maple = new DeciduousTree();
+        int seasonCounter = 0;
+
+        do {
+            System.out.println(&amp;quot;Input Season:&amp;quot;);
+            String season = in.next();
+            seasonCounter++;
+            System.out.println(&amp;quot;Season: &amp;quot; + season);
+            pine.grow();
+            maple.grow();
+            maple.leafStatus(season);
+
+        } while(!&amp;quot;q&amp;quot;.equals(in.next()));
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here is the Tree superclass:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Tree {
+
+    protected double height;
+
+    public Tree() {
+        this.height = 1;
+    }
+
+    public void grow() {
+        this.height += 1;
+    }
+
+    public String details() {
+        return &amp;quot;This tree is &amp;quot; + this.height + &amp;quot; metres tall.&amp;quot;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And here is the DeciduousTree subclass:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class DeciduousTree extends Tree {
+
+    private boolean leaves = true;
+
+    public DeciduousTree() {
+        super();
+    }
+
+    public String leafStatus(String inputSeason) {
+        if(inputSeason.equals(&amp;quot;warm&amp;quot;)) {
+            this.leaves = true;
+            return &amp;quot;Season changed to warm.&amp;quot;;
+        }
+        else if(inputSeason.equals(&amp;quot;cold&amp;quot;)) {
+            this.leaves = false;
+            return &amp;quot;Season changed to cold.&amp;quot;;
+        }
+        else {
+            return &amp;quot;Invalid season.&amp;quot;;
+        }
+    }
+
+    public String details() {
+        if(leaves=true) {
+            return &amp;quot;This tree is &amp;quot; + this.height + &amp;quot; metres tall, and it has leaves.&amp;quot;;
+        }
+        else {
+            return &amp;quot;This tree is &amp;quot; + this.height + &amp;quot; metres tall, and it does not have leaves.&amp;quot;;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; score:1 edited:false author_flair_css_class:<nil> saved:false domain:self.learnprogramming banned_by:<nil> link_flair_text:<nil> clicked:false title:[Java] Calling a method in a subclass over_18:false hidden:false link_flair_css_class:<nil> created_utc:1.369150225e+09 url:http://www.reddit.com/r/learnprogramming/comments/1ero04/java_calling_a_method_in_a_subclass/ author_flair_text:<nil> author:iforgotmylegs subreddit:learnprogramming likes:<nil> approved_by:<nil> subreddit_id:t5_2r7yd name:t3_1ero04 id:1ero04 created:1.369179025e+09 num_reports:<nil> downs:1 is_self:true media:<nil> permalink:/r/learnprogramming/comments/1ero04/java_calling_a_method_in_a_subclass/ ups:2 distinguished:<nil>]] map[kind:t3 data:map[hidden:false downs:1 is_self:true url:http://www.reddit.com/r/learnprogramming/comments/1erll7/python_if_statement_question_in_learn_python_the/ media:<nil> over_18:false thumbnail: num_comments:3 banned_by:<nil> score:1 author_flair_css_class:<nil> permalink:/r/learnprogramming/comments/1erll7/python_if_statement_question_in_learn_python_the/ selftext:currently on example 48/49 on Learn Python the Hardway when I came across this.
+    
+    def match(word_list, expecting):
+        if word_list:
+            word = word_list.pop(0)
+            if word[0] == expecting:
+                return word
+            else:
+                return None
+        else:
+            return None
+
+word_list should be a list formatted like so 
+    
+    [("direction","up")("noun","bear")]
+
+does (if word_list) check if the list is empty and if it is return None otherwise return the tuple for the current word.  likes:<nil> link_flair_text:<nil> id:1erll7 saved:false distinguished:<nil> domain:self.learnprogramming clicked:false created_utc:1.369148114e+09 num_reports:<nil> selftext_html:&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;currently on example 48/49 on Learn Python the Hardway when I came across this.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def match(word_list, expecting):
+    if word_list:
+        word = word_list.pop(0)
+        if word[0] == expecting:
+            return word
+        else:
+            return None
+    else:
+        return None
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;word_list should be a list formatted like so &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[(&amp;quot;direction&amp;quot;,&amp;quot;up&amp;quot;)(&amp;quot;noun&amp;quot;,&amp;quot;bear&amp;quot;)]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;does (if word_list) check if the list is empty and if it is return None otherwise return the tuple for the current word. &lt;/p&gt;
+&lt;/div&gt;&lt;!-- SC_ON --&gt; created:1.369176914e+09 subreddit:learnprogramming title:[python] if statement question in Learn Python the Hardway. approved_by:<nil> media_embed:map[] subreddit_id:t5_2r7yd edited:false link_flair_css_class:<nil> name:t3_1erll7 author_flair_text:<nil> author:ggeoff ups:2]]] after:t3_1erll7 before:<nil>]]}
+PASS
+ok  	reddit	1.479s
