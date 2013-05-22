@@ -8,6 +8,7 @@ import (
 func TestReddit(t *testing.T) {
 	r := GetFrontPage()
 	//fmt.Println(r)
-	i := r.Items[0]
-	fmt.Println(i.Ups, i.Downs, i.Score)
+	for _, i := range r.Items {
+		fmt.Println(i.String())
+	}
 }

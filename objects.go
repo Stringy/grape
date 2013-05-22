@@ -21,32 +21,36 @@ type UserResponse struct {
 }
 
 type RedditPost struct {
-	Title    string
-	Url      string
-	Comments int `json:"num_comments"`
-	Author   string
-	IsSelf   bool `json:"is_self"`
-	IsNSFW   bool `json:"over_18"`
-	SelfText string
-	Created  float64 `json:"created_utc"`
-	Score    int
-	Ups      int
-	Downs    int
+	Title       string
+	Url         string
+	NumComments int `json:"num_comments"`
+	Author      string
+	IsSelf      bool `json:"is_self"`
+	IsNSFW      bool `json:"over_18"`
+	SelfText    string
+	Created     float64 `json:"created_utc"`
+	Score       int
+	Ups         int
+	Downs       int
+	Id          string
+	Sub         string `json:"subreddit"`
+	Comments    []Comment
 }
 
 func (r *RedditPost) String() string {
-	str := ""
-	str = fmt.Sprintf("Title: %s\n", r.Title)
-	str = fmt.Sprintf("%sUrl: %s\n", str, r.Url)
-	str = fmt.Sprintf("%sAuthor: %s\n", str, r.Author)
-	str = fmt.Sprintf("%sSelf? %v\n", str, r.IsSelf)
-	str = fmt.Sprintf("%sComments: %d\n", str, r.Comments)
-	str = fmt.Sprintf("%sNSFW? %v\n", str, r.IsNSFW)
-	str = fmt.Sprintf("%sText: %s\n", str, r.SelfText)
+	str := fmt.Sprintf(
+		"Title: %s\n\t%d Up \n\t%d Down\n\tAuthor: %s\n\tSub: %s\n",
+		r.Title,
+		r.Ups,
+		r.Downs,
+		r.Author,
+		r.Sub)
 	return str
 }
 
 type Subreddit struct {
+	Id    string
+	Name  string
 	Items []struct {
 		RedditPost `json:"data"`
 	} `json:"children"`
@@ -62,6 +66,7 @@ type Comment struct {
 	ScoreHidden bool `json:"score_hidden"`
 	Ups         int
 	Downs       int
+	Replies     []Comment
 }
 
 type CommentsResponse struct {

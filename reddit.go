@@ -37,6 +37,7 @@ func GetSubreddit(sub string) *Subreddit {
 	defer resp.Body.Close()
 	rresp := new(RedditResponse)
 	err = json.NewDecoder(resp.Body).Decode(rresp)
+	rresp.Data.Name = sub
 	return &rresp.Data
 }
 
