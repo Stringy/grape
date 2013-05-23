@@ -4,11 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	_ "github.com/bitly/go-simplejson"
 	"io"
-	_ "io/ioutil"
 	"net/http"
-	_ "time"
 )
 
 type Redditor struct {
@@ -20,9 +17,15 @@ type Redditor struct {
 	IsOver18 bool `json:"over_18"`
 	IsGold   bool `json:"is_gold"`
 	IsMod    bool `json:"is_mod"`
+	Cookie   string
+	ModHash  string
 }
 
-type UserResponse struct {
+func (r *Redditor) IsLoggedIn() bool {
+	return r.Cookie != "" && ModHash != ""
+}
+
+type userResponse struct {
 	Data Redditor
 }
 
@@ -65,7 +68,7 @@ func (r *RedditPost) GetComments() []Comment {
 	if resp.StatusCode != http.StatusOK {
 		panic(err)
 	}
-	cresp := make([]*CommentsResponse, 2)
+	cresp := make([]*commentsResponse, 2)
 	buf := new(bytes.Buffer)
 	_, err = io.Copy(buf, resp.Body)
 	if err != nil {
@@ -88,7 +91,7 @@ type Subreddit struct {
 	} `json:"children"`
 }
 
-type RedditResponse struct {
+type redditResponse struct {
 	Data Subreddit
 }
 
@@ -130,10 +133,20 @@ func commentFromJson(jComm jsonComment) Comment {
 	return *comment
 }
 
-type CommentsResponse struct {
+type commentsResponse struct {
 	Data struct {
 		Children []struct {
 			Data jsonComment `json:"data"`
+		}
+	}
+}
+
+type loginResponse struct {
+	Json struct {
+		Errors [][]string
+		Data   struct {
+			ModHash string
+			Cookie  string
 		}
 	}
 }
