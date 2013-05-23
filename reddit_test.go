@@ -1,13 +1,10 @@
 package reddit
 
 import (
-	"fmt"
+	_ "fmt"
 	"testing"
 )
 
 func TestReddit(t *testing.T) {
-	_, err := Login("", "", false)
-	if err != nil {
-		fmt.Println(err)
-	}
+	usernameAvailable("Stringy218")
 }
