@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	client *http.Client
+	client *http.Client //default http client for requests
 )
 
 const (
@@ -30,6 +30,8 @@ func init() {
 	client = new(http.Client)
 }
 
+// GetSubreddit gets the front page of a named subreddit
+// TODO: add support for arbitrary number of posts returned
 func GetSubreddit(sub string) *Subreddit {
 	req := constructDefaultRequest(
 		"GET",
@@ -45,6 +47,8 @@ func GetSubreddit(sub string) *Subreddit {
 	return &rresp.Data
 }
 
+// GetFrontPage currently gets the front page of *default* reddit
+// TODO: apply this to currently logged in user
 func GetFrontPage() *Subreddit {
 	req := constructDefaultRequest(
 		"GET",
@@ -59,6 +63,7 @@ func GetFrontPage() *Subreddit {
 	return &rresp.Data
 }
 
+// GetRedditor returns information about a given redditor
 func GetRedditor(user string) (*Redditor, error) {
 	req := constructDefaultRequest(
 		"GET",
@@ -85,6 +90,9 @@ func constructDefaultRequest(request_type, url string) *http.Request {
 	return req
 }
 
+//Login logs a user into reddit through the api login page
+//returns the same errors recieved from reddit, if applicable
+//otherwise returns a redditor with populated modhash and cookie strings
 func Login(user, pass string, rem bool) (*Redditor, error) {
 	resp, err := http.PostForm(
 		login,
