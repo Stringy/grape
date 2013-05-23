@@ -14,10 +14,11 @@ var (
 )
 
 const (
-	login     = "http://www.reddit.com/api/login"
-	subreddit = "http://www.reddit.com/r/%s.json"
-	frontpage = "http://www.reddit.com/.json"
-	user_url  = "http://www.reddit.com/user/%s/about.json"
+	login       = "http://www.reddit.com/api/login"
+	subreddit   = "http://www.reddit.com/r/%s.json"
+	frontpage   = "http://www.reddit.com/.json"
+	user_url    = "http://www.reddit.com/user/%s/about.json"
+	comment_url = "http://www.reddit.com/r/%s/%s.json"
 
 	default_ua = "Go Reddit API by String217 v0.1"
 )

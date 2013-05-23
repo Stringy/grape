@@ -6,9 +6,8 @@ import (
 )
 
 func TestReddit(t *testing.T) {
-	r := GetFrontPage()
-	//fmt.Println(r)
-	for _, i := range r.Items {
-		fmt.Println(i.String())
-	}
+	r := GetSubreddit("learnprogramming")
+	post := r.Items[0]
+	p := post.GetComments()
+	fmt.Println(len(p))
 }
