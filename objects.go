@@ -7,6 +7,7 @@ import (
 	_ "github.com/bitly/go-simplejson"
 	"io"
 	_ "io/ioutil"
+	"net/http"
 	_ "time"
 )
 
@@ -61,6 +62,9 @@ func (r *RedditPost) GetComments() []Comment {
 		panic(err)
 	}
 	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		panic(err)
+	}
 	cresp := make([]*CommentsResponse, 2)
 	buf := new(bytes.Buffer)
 	_, err = io.Copy(buf, resp.Body)
@@ -71,7 +75,7 @@ func (r *RedditPost) GetComments() []Comment {
 	//	fmt.Println(cresp[1])
 	comments := make([]Comment, len(cresp[1].Data.Children))
 	for i, comment := range cresp[1].Data.Children {
-		comments[i] = comment.Data
+		comments[i] = commentFromJson(comment.Data)
 	}
 	return comments
 }
@@ -88,7 +92,7 @@ type RedditResponse struct {
 	Data Subreddit
 }
 
-type Comment struct {
+type jsonComment struct {
 	Author      string
 	Body        string
 	ScoreHidden bool `json:"score_hidden"`
@@ -97,21 +101,39 @@ type Comment struct {
 	Replies     struct {
 		Data struct {
 			Children []struct {
-				Data Comment
+				Data jsonComment
 			}
 		}
 	}
 }
 
-type Comments struct {
-	Submission RedditResponse
-	Comments   *CommentsResponse
+type Comment struct {
+	Author      string
+	Body        string
+	ScoreHidden bool
+	Ups         int
+	Downs       int
+	Replies     []Comment
+}
+
+func commentFromJson(jComm jsonComment) Comment {
+	comment := new(Comment)
+	comment.Author = jComm.Author
+	comment.Body = jComm.Body
+	comment.ScoreHidden = jComm.ScoreHidden
+	comment.Ups = jComm.Ups
+	comment.Downs = jComm.Downs
+	comment.Replies = make([]Comment, len(jComm.Replies.Data.Children))
+	for i, jCommReply := range jComm.Replies.Data.Children {
+		comment.Replies[i] = commentFromJson(jCommReply.Data)
+	}
+	return *comment
 }
 
 type CommentsResponse struct {
 	Data struct {
 		Children []struct {
-			Data Comment `json:"data"`
+			Data jsonComment `json:"data"`
 		}
 	}
 }
