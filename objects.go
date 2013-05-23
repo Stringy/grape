@@ -1,9 +1,11 @@
 package reddit
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	_ "github.com/bitly/go-simplejson"
+	"io"
 	_ "io/ioutil"
 	_ "time"
 )
@@ -59,19 +61,19 @@ func (r *RedditPost) GetComments() []Comment {
 		panic(err)
 	}
 	defer resp.Body.Close()
-	cresp := make([]CommentsResponse, 2)
-	err = json.NewDecoder(resp.Body).Decode(cresp)
-	fmt.Println(cresp)
+	cresp := make([]*CommentsResponse, 2)
+	buf := new(bytes.Buffer)
+	_, err = io.Copy(buf, resp.Body)
+	if err != nil {
+		panic(err)
+	}
+	err = json.Unmarshal(buf.Bytes(), &cresp)
+	//	fmt.Println(cresp[1])
 	comments := make([]Comment, len(cresp[1].Data.Children))
 	for i, comment := range cresp[1].Data.Children {
 		comments[i] = comment.Data
 	}
-	fmt.Println(cresp)
-	//bytes, _ := ioutil.ReadAll(resp.Body)
-	//_, _ = sjson.NewJson(bytes)
-	//fmt.Printf("%s", bytes)
 	return comments
-	//return nil
 }
 
 type Subreddit struct {
@@ -92,13 +94,18 @@ type Comment struct {
 	ScoreHidden bool `json:"score_hidden"`
 	Ups         int
 	Downs       int
-	Replies     []struct {
+	Replies     struct {
 		Data struct {
 			Children []struct {
 				Data Comment
 			}
 		}
 	}
+}
+
+type Comments struct {
+	Submission RedditResponse
+	Comments   *CommentsResponse
 }
 
 type CommentsResponse struct {

@@ -10,4 +10,5 @@ func TestReddit(t *testing.T) {
 	post := r.Items[0]
 	p := post.GetComments()
 	fmt.Println(len(p))
+	fmt.Println(p[0])
 }
