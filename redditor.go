@@ -14,5 +14,25 @@ type Redditor struct {
 }
 
 func (r *Redditor) IsLoggedIn() bool {
-	return r.Cookie != "" && r.ModHash != ""
+	return r.Cookie != "" || r.ModHash != ""
+}
+
+func (r *Redditor) MakeComment(parent, body string) error {
+	return nil
+}
+
+func (r *Redditor) SubmitLink(subreddit, body, link string) error {
+
+}
+
+func (r *Redditor) DeleteAccount() error {
+	return nil
+}
+
+func (r *Redditor) GetUnreadMail() ([]string, error) {
+	return nil, nil
+}
+
+func (r *Redditor) GetFrontpage() (*Subreddit, error) {
+	return nil, nil
 }

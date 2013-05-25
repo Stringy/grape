@@ -6,5 +6,5 @@ import (
 )
 
 func TestReddit(t *testing.T) {
-	usernameAvailable("Stringy218")
+	Login("Stringy217", "", false)
 }

@@ -17,7 +17,7 @@ var (
 
 const (
 	home_url       = "http://www.reddit.com/"
-	login_url      = "http://www.reddit.com/api/login"
+	login_url      = "https://www.reddit.com/api/login"
 	subreddit_url  = "http://www.reddit.com/r/%s.json"
 	frontpage_url  = "http://www.reddit.com/.json"
 	user_url       = "http://www.reddit.com/user/%s/about.json"
