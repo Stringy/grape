@@ -1,6 +1,7 @@
 package reddit
 
 import (
+	_ "bufio"
 	"bytes"
 	"encoding/json"
 	"errors"
@@ -12,29 +13,38 @@ import (
 )
 
 var (
-	client *http.Client //default http client for requests
+	client     *http.Client //default http client for requests
+	actual_url *url.URL
 )
 
 const (
-	home_url       = "http://www.reddit.com/"
-	login_url      = "https://www.reddit.com/api/login"
-	subreddit_url  = "http://www.reddit.com/r/%s.json"
-	frontpage_url  = "http://www.reddit.com/.json"
-	user_url       = "http://www.reddit.com/user/%s/about.json"
-	me_url         = "http://www.reddit.com/api/me.json"
-	comment_url    = "http://www.reddit.com/r/%s/%s.json"
-	user_avail_url = "http://www.reddit.com/api/username_available.json"
-
 	UserAgent = "Go Reddit API by String217 v0.1"
+
+	local = "reddit.local"
+
+	home_url       = "http://reddit.local/"
+	login_url      = "http://reddit.local/api/login"
+	subreddit_url  = "http://reddit.local/r/%s.json"
+	frontpage_url  = "http://reddit.local/.json"
+	user_url       = "http://reddit.local/user/%s/about.json"
+	me_url         = "http://reddit.local/api/me.json"
+	comment_url    = "http://reddit.local/r/%s/%s.json"
+	user_avail_url = "http://reddit.local/api/username_available.json"
+	submit_url     = "http://reddit.local/api/submit"
+	delete_url     = "http://reddit.local/api/delete_user"
+
+	KindLink = "link"
+	KindSelf = "self"
 )
 
 func init() {
 	client = new(http.Client)
+	actual_url, _ = url.Parse("http://reddit.local/")
 }
 
 // GetSubreddit gets the front page of a named subreddit
 // TODO: add support for arbitrary number of posts returned
-func GetSubreddit(sub string) *Subreddit {
+func GetSubreddit(sub string) (*Subreddit, error) {
 	req := constructDefaultRequest(
 		"GET",
 		fmt.Sprintf(subreddit_url, sub))
@@ -46,7 +56,7 @@ func GetSubreddit(sub string) *Subreddit {
 	rresp := new(redditResponse)
 	err = json.NewDecoder(resp.Body).Decode(rresp)
 	rresp.Data.Name = sub
-	return &rresp.Data
+	return &rresp.Data, nil
 }
 
 // GetFrontPage currently gets the front page of *default* reddit
@@ -67,9 +77,12 @@ func GetFrontPage() *Subreddit {
 
 // GetRedditor returns information about a given redditor
 func GetRedditor(user string) (*Redditor, error) {
-	req := constructDefaultRequest(
+	req, err := http.NewRequest(
 		"GET",
-		fmt.Sprintf(user_url, user))
+		fmt.Sprintf(user_url, user), nil)
+	if err != nil {
+		return nil, err
+	}
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
@@ -103,13 +116,12 @@ func Login(user, pass string, rem bool) (*Redditor, error) {
 	if err != nil {
 		panic(err)
 	}
+	//	fmt.Println(buf.String())
 	loginResp := new(loginResponse)
 	err = json.Unmarshal(buf.Bytes(), &loginResp)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(loginResp)
-	//	fmt.Println(buf.String())
 	if len(loginResp.Json.Errors) != 0 {
 		str := ""
 		for _, group := range loginResp.Json.Errors {
@@ -121,13 +133,13 @@ func Login(user, pass string, rem bool) (*Redditor, error) {
 	redditor := new(Redditor)
 	redditor.Name = user
 	redditor.ModHash = loginResp.Json.Data.ModHash
-	redditor.Cookie = loginResp.Json.Data.Cookie
+	redditor.Cookies = resp.Cookies()
 	return redditor, nil
 }
 
 func usernameAvailable(user string) bool {
 	resp, err := http.Get(user_avail_url)
-	//url.Values{
+	// url.Values{
 	// 	"user": {user},
 	// }
 	if err != nil {
