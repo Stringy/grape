@@ -72,15 +72,32 @@ func TestSubmitLink(t *testing.T) {
 		t.Fail()
 	}
 
-	if user != nil {
-		err = user.SubmitLink(
-			"reddit_test0",
-			"This is a test",
-			"",
-			"http://www.google.com",
-			KindLink)
-	}
+	// capt, err := user.getCaptcha()
+	// if err != nil {
+	// 	t.Errorf("%v", err)
+	// 	t.Fail()
+	// }
+	//	t.Log(capt)
+	err = user.SubmitLink(
+		"reddit_test0",
+		"This is a test",
+		"",
+		"http://www.google.com",
+		KindLink)
 
+	if err != nil {
+		t.Errorf("%v", err)
+		t.Fail()
+	}
+}
+
+func TestDeleteAccount(t *testing.T) {
+	u, err := Login("Stringy", "test", true)
+	if err != nil {
+		t.Errorf("%v", err)
+		t.Fail()
+	}
+	err = u.DeleteAccount("test")
 	if err != nil {
 		t.Errorf("%v", err)
 		t.Fail()

@@ -1,11 +1,9 @@
 package reddit
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
-	"net/http"
+	"net/url"
 )
 
 type RedditPost struct {
@@ -36,24 +34,13 @@ func (r *RedditPost) String() string {
 }
 
 func (r *RedditPost) GetComments() []Comment {
-	req := constructDefaultRequest(
-		"GET",
-		fmt.Sprintf(comment_url, r.Sub, r.Id))
-	resp, err := client.Do(req)
+	link, _ := url.Parse(fmt.Sprintf(comment_url, r.Sub, r.Id))
+	b, err := getJsonBytes(link)
 	if err != nil {
-		panic(err)
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
 		panic(err)
 	}
 	cresp := make([]*commentsResponse, 2)
-	buf := new(bytes.Buffer)
-	_, err = io.Copy(buf, resp.Body)
-	if err != nil {
-		panic(err)
-	}
-	err = json.Unmarshal(buf.Bytes(), &cresp)
+	err = json.Unmarshal(b, &cresp)
 	//	fmt.Println(cresp[1])
 	comments := make([]Comment, len(cresp[1].Data.Children))
 	for i, comment := range cresp[1].Data.Children {
