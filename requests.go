@@ -18,9 +18,11 @@ var (
 )
 
 func init() {
+	actual_url, _ = url.Parse("http://reddit.local/")
 	jar := NewJar()
 	client = &http.Client{nil, nil, jar}
-	get, err := http.NewRequest("GET", "", nil)
+	var err error
+	get, err = http.NewRequest("GET", "", nil)
 	if err != nil {
 		panic(err)
 	}
@@ -36,6 +38,14 @@ func init() {
 	get.Header.Set("User-Agent", UserAgent)
 	post.Header.Set("User-Agent", UserAgent)
 	post_form.Header.Set("User-Agent", UserAgent)
+}
+
+type ClosingBuffer struct {
+	*bytes.Buffer
+}
+
+func (cb *ClosingBuffer) Close() error {
+	return nil
 }
 
 type Jar struct {
@@ -74,16 +84,22 @@ func SetUserAgent(ua string) {
 
 func getPostJsonBytes(u *url.URL, data *url.Values) ([]byte, error) {
 	post_form.URL = u
+	post_form.Host = u.Host
+	content_len := len(data.Encode())
+	post_form.ContentLength = int64(content_len)
 	post_form.Body = &ClosingBuffer{bytes.NewBufferString(data.Encode())}
 	resp, err := client.Do(post_form)
+	if err != nil {
+		return nil, err
+	}
+	//	fmt.Println(resp)
 	if resp.StatusCode != http.StatusOK {
 		return nil, errors.New(
 			fmt.Sprintf("http: unexpected status code from request: %d", resp.StatusCode))
 	}
-	if err != nil {
-		return nil, err
+	if len(client.Jar.Cookies(actual_url)) == 0 {
+		client.Jar.SetCookies(actual_url, resp.Cookies())
 	}
-	client.Jar.SetCookies(actual_url, resp.Cookies())
 	buf := new(bytes.Buffer)
 	_, err = io.Copy(buf, resp.Body)
 	if err != nil {
@@ -94,6 +110,7 @@ func getPostJsonBytes(u *url.URL, data *url.Values) ([]byte, error) {
 
 func getJsonBytes(u *url.URL) ([]byte, error) {
 	get.URL = u
+	get.Host = u.Host
 	resp, err := client.Do(get)
 	if err != nil {
 		return nil, err

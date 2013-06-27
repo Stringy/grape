@@ -1,7 +1,7 @@
 package reddit
 
 import (
-	//	"fmt"
+	"fmt"
 	"testing"
 )
 
@@ -27,7 +27,7 @@ func TestGetSubreddit(t *testing.T) {
 }
 
 func TestLogin(t *testing.T) {
-	redditor, err := Login("Stringy", "test", false)
+	redditor, err := Login("reddit", "password", true)
 	if err != nil {
 		t.Errorf("Unexpected error from login: %v", err)
 		t.FailNow()
@@ -36,8 +36,8 @@ func TestLogin(t *testing.T) {
 		t.Errorf("nil modhash returned from login")
 		t.Fail()
 	}
-	if redditor.Cookies == nil {
-		t.Errorf("nil cookied from login")
+	if len(client.Jar.Cookies(actual_url)) == 0 {
+		t.Errorf("nil cookies from login")
 		t.Fail()
 	}
 }

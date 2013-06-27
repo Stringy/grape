@@ -33,10 +33,6 @@ const (
 	KindSelf = "self"
 )
 
-func init() {
-	actual_url, _ = url.Parse("http://reddit.local/")
-}
-
 // GetSubreddit gets the front page of a named subreddit
 // TODO: add support for arbitrary number of posts returned
 func GetSubreddit(sub string) (*Subreddit, error) {

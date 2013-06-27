@@ -1,13 +1,10 @@
 package reddit
 
 import (
-	"bytes"
 	"encoding/json"
 	"errors"
-	"net/http"
 	"net/url"
 	"strings"
-	"time"
 )
 
 type Redditor struct {
@@ -19,25 +16,11 @@ type Redditor struct {
 	IsOver18 bool `json:"over_18"`
 	IsGold   bool `json:"is_gold"`
 	IsMod    bool `json:"is_mod"`
-	Cookies  []*http.Cookie
 	ModHash  string
 }
 
-type ClosingBuffer struct {
-	*bytes.Buffer
-}
-
-func (cb *ClosingBuffer) Close() error {
-	return nil
-}
-
 func (r *Redditor) IsLoggedIn() bool {
-	for _, cookie := range r.Cookies {
-		if time.Now().Before(cookie.Expires) {
-			return true
-		}
-	}
-	return false
+	return len(r.ModHash) != 0
 }
 
 func (r *Redditor) MakeComment(parent, body string) error {
@@ -45,6 +28,9 @@ func (r *Redditor) MakeComment(parent, body string) error {
 }
 
 func (r *Redditor) SubmitLink(subreddit, title, body, link, kind string) error {
+	if r == nil {
+		return errors.New("reddit: nil redditor")
+	}
 	if !r.IsLoggedIn() {
 		return errors.New("Submission error: User is not logged in")
 	}
@@ -87,6 +73,9 @@ func (r *Redditor) SubmitLink(subreddit, title, body, link, kind string) error {
 }
 
 func (r *Redditor) DeleteAccount(passwd string) error {
+	if r == nil || !r.IsLoggedIn() {
+		return errors.New("reddit: can't delete redditor without logging in")
+	}
 	link, _ := url.Parse(delete_url)
 	data := url.Values{
 		"api_type":       {"json"},
