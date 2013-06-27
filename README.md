@@ -15,3 +15,28 @@ Immediate TODO:
  - Submitting comments
  - User account controls (mail/deletion/creation etc)
  - Captcha
+
+Example Code: 
+```go
+package main 
+
+import (
+  "github.com/Stringy/reddit"
+)
+
+func main() {
+  user, err := reddit.Login("username", "password", true)
+  if err != nil {
+    // handle error
+  } 
+  err = user.SubmitLink(
+    "learnprogramming", 
+    "Amazing Search Engine",
+	 "",
+	 "www.google.com",
+	 reddit.KindLink)
+  if err != nil {
+    // handle error
+  }
+}
+```
