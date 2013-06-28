@@ -10,36 +10,6 @@ import (
 	"sync"
 )
 
-var (
-	get       *http.Request
-	post      *http.Request
-	post_form *http.Request
-	client    *http.Client
-)
-
-func init() {
-	actual_url, _ = url.Parse("http://reddit.local/")
-	jar := NewJar()
-	client = &http.Client{nil, nil, jar}
-	var err error
-	get, err = http.NewRequest("GET", "", nil)
-	if err != nil {
-		panic(err)
-	}
-	post, err = http.NewRequest("POST", "", nil)
-	if err != nil {
-		panic(err)
-	}
-	post_form, err = http.NewRequest("POST", "", nil)
-	if err != nil {
-		panic(err)
-	}
-	post_form.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	get.Header.Set("User-Agent", UserAgent)
-	post.Header.Set("User-Agent", UserAgent)
-	post_form.Header.Set("User-Agent", UserAgent)
-}
-
 type ClosingBuffer struct {
 	*bytes.Buffer
 }
@@ -82,7 +52,11 @@ func SetUserAgent(ua string) {
 	post_form.Header.Set("User-Agent", UserAgent)
 }
 
-func getPostJsonBytes(u *url.URL, data *url.Values) ([]byte, error) {
+func getPostJsonBytes(link string, data *url.Values) ([]byte, error) {
+	u, err := url.Parse(link)
+	if err != nil {
+		return nil, err
+	}
 	post_form.URL = u
 	post_form.Host = u.Host
 	content_len := len(data.Encode())
@@ -108,7 +82,11 @@ func getPostJsonBytes(u *url.URL, data *url.Values) ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func getJsonBytes(u *url.URL) ([]byte, error) {
+func getJsonBytes(link string) ([]byte, error) {
+	u, err := url.Parse(link)
+	if err != nil {
+		return nil, err
+	}
 	get.URL = u
 	get.Host = u.Host
 	resp, err := client.Do(get)

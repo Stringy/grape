@@ -34,7 +34,6 @@ func (r *Redditor) SubmitLink(subreddit, title, body, link, kind string) error {
 	if !r.IsLoggedIn() {
 		return errors.New("Submission error: User is not logged in")
 	}
-	l, _ := url.Parse(submit_url)
 	data := url.Values{
 		"api_type":    {"json"},
 		"captcha":     {"this is a captcha"},
@@ -58,7 +57,7 @@ func (r *Redditor) SubmitLink(subreddit, title, body, link, kind string) error {
 		}
 	})
 
-	respBytes, err := getPostJsonBytes(l, &data)
+	respBytes, err := getPostJsonBytes(ApiUrls["submit"], &data)
 	if err != nil {
 		return err
 	}
@@ -76,7 +75,6 @@ func (r *Redditor) DeleteAccount(passwd string) error {
 	if r == nil || !r.IsLoggedIn() {
 		return errors.New("reddit: can't delete redditor without logging in")
 	}
-	link, _ := url.Parse(delete_url)
 	data := url.Values{
 		"api_type":       {"json"},
 		"confirm":        {"false"},
@@ -85,7 +83,7 @@ func (r *Redditor) DeleteAccount(passwd string) error {
 		"uh":             {r.ModHash},
 		"user":           {r.Name},
 	}
-	respBytes, err := getPostJsonBytes(link, &data)
+	respBytes, err := getPostJsonBytes(ApiUrls["delete"], &data)
 	if err != nil {
 		return err
 	}
@@ -116,8 +114,7 @@ func (r *Redditor) Me() error {
 	if !r.IsLoggedIn() {
 		return errors.New("reddit: user not logged in")
 	}
-	link, _ := url.Parse(me_url)
-	respBytes, err := getJsonBytes(link)
+	respBytes, err := getJsonBytes(ApiUrls["me"])
 	if err != nil {
 		return err
 	}
