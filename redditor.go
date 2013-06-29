@@ -17,14 +17,19 @@ type Redditor struct {
 	IsGold   bool `json:"is_gold"`
 	IsMod    bool `json:"is_mod"`
 	ModHash  string
+	*Thing
 }
 
 func (r *Redditor) IsLoggedIn() bool {
 	return len(r.ModHash) != 0
 }
 
-func (r *Redditor) MakeComment(parent, body string) error {
-	return nil
+func (r *Redditor) ReplyToComment(parent *Comment, body string) error {
+	return parent.Reply(r, body)
+}
+
+func (r *Redditor) PostComment(p *Submission, body string) error {
+	return p.PostComment(r, body)
 }
 
 func (r *Redditor) SubmitLink(subreddit, title, body, link, kind string) error {

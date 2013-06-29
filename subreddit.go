@@ -4,6 +4,6 @@ type Subreddit struct {
 	Id    string
 	Name  string
 	Items []struct {
-		RedditPost `json:"data"`
+		Submission `json:"data"`
 	} `json:"children"`
 }

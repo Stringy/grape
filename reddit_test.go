@@ -1,30 +1,31 @@
 package reddit
 
 import (
-	_ "fmt"
+	"fmt"
 	"testing"
 )
 
-// func TestGetSubreddit(t *testing.T) {
-// 	sub, err := GetSubreddit("reddit_test0")
-// 	if err != nil {
-// 		t.Errorf("Error from subreddit retrieval: %v", err)
-// 		t.FailNow()
-// 	}
-// 	if len(sub.Items) != 8 {
-// 		t.Errorf("Unexpected number of items from subreddit: %v", len(sub.Items))
-// 		t.Fail()
-// 	}
-// 	if sub.Name != "reddit_test0" {
-// 		t.Errorf("Queried incorrect subreddit: %v", sub.Name)
-// 		t.Fail()
-// 	}
-// 	sub, err = GetSubreddit("not_a_subreddit")
-// 	if err == nil {
-// 		t.Errorf("Expected error from GetSubreddit")
-// 		t.Fail()
-// 	}
-// }
+func TestGetSubreddit(t *testing.T) {
+	sub, err := GetSubreddit("reddit_test0")
+	if err != nil {
+		t.Errorf("Error from subreddit retrieval: %v", err)
+		t.FailNow()
+	}
+	if len(sub.Items) != 8 {
+		t.Errorf("Unexpected number of items from subreddit: %v", len(sub.Items))
+		t.Fail()
+	}
+	fmt.Println(sub.Items[0].Id)
+	if sub.Name != "reddit_test0" {
+		t.Errorf("Queried incorrect subreddit: %v", sub.Name)
+		t.Fail()
+	}
+	sub, err = GetSubreddit("not_a_subreddit")
+	if err == nil {
+		t.Errorf("Expected error from GetSubreddit")
+		t.Fail()
+	}
+}
 
 // func TestLogin(t *testing.T) {
 // 	redditor, err := Login("reddit", "password", true)
@@ -91,26 +92,23 @@ import (
 // 	}
 // }
 
-func TestSubmitComment(t *testing.T) {
-	user, err := Login("stringy", "test", true)
-	if err != nil {
-		t.Errorf("%v", err)
-		t.FailNow()
-	}
-	sub, err := GetSubreddit("reddit_test0")
-	if err != nil {
-		t.Errorf("%v", err)
-		t.FailNow()
-	}
-	comment := new(Comment)
-	comment.Author = user.Name
-	comment.Body = "This is a test comment"
-	err = sub.Items[0].PostComment(user, comment)
-	if err != nil {
-		t.Errorf("%v", err)
-		t.FailNow()
-	}
-}
+// func TestSubmitComment(t *testing.T) {
+// 	user, err := Login("stringy", "test", true)
+// 	if err != nil {
+// 		t.Errorf("%v", err)
+// 		t.FailNow()
+// 	}
+// 	sub, err := GetSubreddit("reddit_test0")
+// 	if err != nil {
+// 		t.Errorf("%v", err)
+// 		t.FailNow()
+// 	}
+// 	err = sub.Items[0].PostComment(user, "This is a test comment")
+// 	if err != nil {
+// 		t.Errorf("%v", err)
+// 		t.FailNow()
+// 	}
+// }
 
 // func TestDeleteAccount(t *testing.T) {
 // 	u, err := Login("Stringy", "test", true)

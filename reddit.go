@@ -9,15 +9,6 @@ import (
 	"strings"
 )
 
-// type Thing interface {
-// 	Report() error
-// 	Hide() error
-// 	Unhide() error
-// 	Info() error
-// 	MarkNsfw() error
-// 	UnmarkNsfw() error
-// }
-
 // GetSubreddit gets the front page of a named subreddit
 // TODO: add support for arbitrary number of posts returned
 func GetSubreddit(sub string) (*Subreddit, error) {

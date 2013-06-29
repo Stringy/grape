@@ -46,10 +46,10 @@ var (
 
 	Urls = map[string]string{
 		"home":      host,
-		"subreddit": "/r/%s.json",
-		"frontpage": "/.json",
-		"user":      "/user/%s/about.json",
-		"comment":   "/r/%s/%s.json",
+		"subreddit": host + "/r/%s.json",
+		"frontpage": host + "/.json",
+		"user":      host + "/user/%s/about.json",
+		"comment":   host + "/r/%s/%s.json",
 	}
 )
 

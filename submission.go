@@ -2,11 +2,13 @@ package reddit
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/url"
+	"strings"
 )
 
-type RedditPost struct {
+type Submission struct {
 	Title       string
 	Url         string
 	NumComments int `json:"num_comments"`
@@ -18,11 +20,12 @@ type RedditPost struct {
 	Score       int
 	Ups         int
 	Downs       int
-	Id          string
-	Sub         string `json:"subreddit"`
+	//	Id          string
+	Sub string `json:"subreddit"`
+	*Thing
 }
 
-func (r *RedditPost) String() string {
+func (r *Submission) String() string {
 	str := fmt.Sprintf(
 		"Title: %s\n\t%d Up \n\t%d Down\n\tAuthor: %s\n\tSub: %s\n",
 		r.Title,
@@ -33,7 +36,7 @@ func (r *RedditPost) String() string {
 	return str
 }
 
-func (r *RedditPost) GetComments() []Comment {
+func (r *Submission) GetComments() []Comment {
 	b, err := getJsonBytes(fmt.Sprintf(Urls["comment"], r.Sub, r.Id))
 	if err != nil {
 		panic(err)
@@ -47,51 +50,31 @@ func (r *RedditPost) GetComments() []Comment {
 	return comments
 }
 
-func (r *RedditPost) PostComment(user *Redditor, comment *Comment) error {
+func (r *Submission) PostComment(user *Redditor, body string) error {
 	if !user.IsLoggedIn() {
 		return NotLoggedInError
 	}
 	data := &url.Values{
 		"api_type": {"json"},
-		"text":     {comment.Body},
+		"text":     {body},
 		"uh":       {user.ModHash},
 		"thing_id": {"t6_" + r.Id},
 	}
-	_, err := getPostJsonBytes(ApiUrls["comment"], data)
+	b, err := getPostJsonBytes(ApiUrls["comment"], data)
 	if err != nil {
 		return err
 	}
-	return nil
-}
-
-func (r *RedditPost) Report() error {
-	return nil
-}
-
-func (r *RedditPost) MarkNsfw() error {
-	return nil
-}
-
-func (r *RedditPost) UnmarkNsfw() error {
-	return nil
-}
-
-func (r *RedditPost) Hide() error {
-	return nil
-}
-
-func (r *RedditPost) Unhide() error {
-	return nil
-}
-
-func (r *RedditPost) Save() error {
-	return nil
-}
-
-func (r *RedditPost) Vote(vote bool) error {
-	return nil
-}
-
-func (r *RedditPost) Info() error {
+	errstruct := new(struct {
+		Json struct {
+			Errors [][]string
+		}
+	})
+	err = json.Unmarshal(b, &errstruct)
+	if err != nil {
+		return err
+	}
+	if len(errstruct.Json.Errors) != 0 {
+		return errors.New(strings.Join(errstruct.Json.Errors[0], ", "))
+	}
 	return nil
 }
