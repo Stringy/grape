@@ -25,6 +25,16 @@ func TestGetSubreddit(t *testing.T) {
 		t.Errorf("Expected error from GetSubreddit")
 		t.Fail()
 	}
+
+	sub, err = GetSubredditN("reddit_test0", 3)
+	if err != nil {
+		t.Errorf("Error from get subreddit N: %v", err)
+		t.Fail()
+	}
+	if len(sub.Items) != 3 {
+		t.Errorf("Unexpected number of items from subreddit: %v", len(sub.Items))
+		t.Fail()
+	}
 }
 
 // func TestLogin(t *testing.T) {

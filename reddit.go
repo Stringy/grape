@@ -22,6 +22,35 @@ func GetSubreddit(sub string) (*Subreddit, error) {
 	return &rresp.Data, nil
 }
 
+//GetSubredditN gets the first n items from a subreddit
+//returns a subreddit object containing the items
+func GetSubredditN(sub string, n int) (*Subreddit, error) {
+	var tempsub *Subreddit
+	for ; n > 0; n -= 100 {
+		data := url.Values{
+			"limit": {fmt.Sprintf("%d", n)},
+		}
+		if tempsub != nil && len(tempsub.Items) != 0 {
+			data.Set("after", tempsub.Items[len(tempsub.Items)-1].Name)
+		}
+		b, err := getPostJsonBytes(fmt.Sprintf(Urls["subreddit"], sub), &data)
+		if err != nil {
+			return nil, err
+		}
+		rresp := new(redditResponse)
+		err = json.Unmarshal(b, rresp)
+		if err != nil {
+			return nil, err
+		}
+		if tempsub == nil {
+			tempsub = &rresp.Data
+		} else {
+			tempsub.Items = append(tempsub.Items, rresp.Data.Items...)
+		}
+	}
+	return tempsub, nil
+}
+
 // GetFrontPage currently gets the front page of *default* reddit
 // TODO: apply this to currently logged in user
 func GetFrontPage(user *Redditor) (*Subreddit, error) {

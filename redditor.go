@@ -3,12 +3,12 @@ package reddit
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/url"
 	"strings"
 )
 
 type Redditor struct {
-	Name     string
 	LKarma   int  `json:"link_karma"`
 	CKarma   int  `json:"comment_karma"`
 	IsFriend bool `json:"is_friend"`
@@ -20,29 +20,47 @@ type Redditor struct {
 	*Thing
 }
 
+//IsLoggedIn returns true if the user is currently logged into reddit
 func (r *Redditor) IsLoggedIn() bool {
 	return len(r.ModHash) != 0
 }
 
+//ReplyToComment replies to a reddit comment on behalf of the user 
 func (r *Redditor) ReplyToComment(parent *Comment, body string) error {
 	return parent.Reply(r, body)
 }
 
-func (r *Redditor) PostComment(p *Submission, body string) error {
-	return p.PostComment(r, body)
+//PostComment posts a top level comment to a reddit submission
+func (r *Redditor) PostComment(parent *Submission, body string) error {
+	return parent.PostComment(r, body)
 }
 
-func (r *Redditor) SubmitLink(subreddit, title, body, link, kind string) error {
+//SubmitSelf submits a self (non-link) submission to the subreddit of choice
+func (r *Redditor) SubmitSelf(subreddit, title, body string) error {
+	return r.submit(subreddit, title, body, "", "self", true)
+}
+
+//SubmitLink submits a link to the subreddit
+func (r *Redditor) SubmitLink(subreddit, title, link string, resubmit bool) error {
+	return r.submit(subreddit, title, "", link, "link", resubmit)
+}
+
+//submit handles all the submission semantics for the top level functions
+func (r *Redditor) submit(subreddit, title, body, link, kind string, resubmit bool) error {
 	if r == nil {
 		return errors.New("reddit: nil redditor")
+	}
+	if len(title) > 300 {
+		return TitleTooLongError
 	}
 	if !r.IsLoggedIn() {
 		return errors.New("Submission error: User is not logged in")
 	}
+
 	data := url.Values{
 		"api_type":    {"json"},
-		"captcha":     {"this is a captcha"},
-		"resubmit":    {"true"},
+		"captcha":     {""},
+		"resubmit":    {fmt.Sprintf("%v", resubmit)},
 		"extension":   {"/"},
 		"iden":        {""},
 		"save":        {"false"},
@@ -76,6 +94,7 @@ func (r *Redditor) SubmitLink(subreddit, title, body, link, kind string) error {
 	return nil
 }
 
+//DeleteAccount deletes the user from reddit
 func (r *Redditor) DeleteAccount(passwd string) error {
 	if r == nil || !r.IsLoggedIn() {
 		return errors.New("reddit: can't delete redditor without logging in")
@@ -107,14 +126,18 @@ func (r *Redditor) DeleteAccount(passwd string) error {
 	return nil
 }
 
+//GetUnreadMail gets the unread mail for the user
 func (r *Redditor) GetUnreadMail() ([]string, error) {
 	return nil, nil
 }
 
+//GetFrontpage returns the frontpage for the user, including all 
+//subscribed subreddits
 func (r *Redditor) GetFrontpage() (*Subreddit, error) {
 	return nil, nil
 }
 
+//Me populates the redditor with their information
 func (r *Redditor) Me() error {
 	if !r.IsLoggedIn() {
 		return errors.New("reddit: user not logged in")

@@ -20,8 +20,7 @@ type Submission struct {
 	Score       int
 	Ups         int
 	Downs       int
-	//	Id          string
-	Sub string `json:"subreddit"`
+	Sub         string `json:"subreddit"`
 	*Thing
 }
 

@@ -1,33 +1,141 @@
 package reddit
 
-import ()
+import (
+	"encoding/json"
+	"errors"
+	"net/url"
+	"strings"
+)
 
 type Thing struct {
 	Id   string
-	Name string
-	Kind string
+	Name string //fullname of a reddit thing (t1_, t2_, ...)
+	Kind string //type
 }
 
-func (t *Thing) Report() error {
+//Report reports a reddit Thing by user
+//returns any errors recieved from reddit
+func (t *Thing) Report(user *Redditor) error {
+	if !user.IsLoggedIn() {
+		return NotLoggedInError
+	}
+	data := &url.Values{
+		"id": {t.Name},
+		"uh": {user.ModHash},
+	}
+	b, err := getPostJsonBytes(ApiUrls["report"], data)
+	if err != nil {
+		return err
+	}
+	es := new(errorJson)
+	err = json.Unmarshal(b, &es)
+	if err != nil {
+		return err
+	}
+	if len(es.Json.Errors) != 0 {
+		return errors.New(strings.Join(es.Json.Errors[0], ", "))
+	}
 	return nil
 }
 
-func (t *Thing) Hide() error {
+//Hide hides a Thing for user, so that it won't appear on any requests
+//returns any errors from reddit
+func (t *Thing) Hide(user *Redditor) error {
+	//id
+	//ModHash
+	data := &url.Values{
+		"id": {t.Name},
+		"uh": {user.ModHash},
+	}
+	b, err := getPostJsonBytes(ApiUrls["hide"], data)
+	if err != nil {
+		return nil
+	}
+	es := new(errorJson)
+	err = json.Unmarshal(b, &es)
+	if err != nil {
+		return err
+	}
+	if len(es.Json.Errors) != 0 {
+		return errors.New(strings.Join(es.Json.Errors[0], ", "))
+	}
 	return nil
 }
 
-func (t *Thing) Unhide() error {
+//Unhide undoes Hide to allow a Thing to turn up in user's requests
+//returns any errors from reddit
+func (t *Thing) Unhide(user *Redditor) error {
+	//id
+	//modhash
+	data := &url.Values{
+		"id": {t.Name},
+		"uh": {user.ModHash},
+	}
+	b, err := getPostJsonBytes(ApiUrls["unhide"], data)
+	if err != nil {
+		return nil
+	}
+	es := new(errorJson)
+	err = json.Unmarshal(b, &es)
+	if err != nil {
+		return err
+	}
+	if len(es.Json.Errors) != 0 {
+		return errors.New(strings.Join(es.Json.Errors[0], ", "))
+	}
 	return nil
 }
 
-func (t *Thing) Info() error {
+// This might not apply to all objects
+// func (t *Thing) Info() error {
+// 	return nil
+// }
+
+//MarkNsfw marks a reddit thing as not safe for work for user
+//returns errors from reddit
+func (t *Thing) MarkNsfw(user *Redditor) error {
+	//id
+	//modhash
+	data := &url.Values{
+		"id": {t.Name},
+		"uh": {user.ModHash},
+	}
+	b, err := getPostJsonBytes(ApiUrls["marknsfw"], data)
+	if err != nil {
+		return nil
+	}
+	es := new(errorJson)
+	err = json.Unmarshal(b, &es)
+	if err != nil {
+		return err
+	}
+	if len(es.Json.Errors) != 0 {
+		return errors.New(strings.Join(es.Json.Errors[0], ", "))
+	}
+
 	return nil
 }
 
-func (t *Thing) MarkNsfw() error {
-	return nil
-}
-
-func (t *Thing) UnmarkNsfw() error {
+//UnmarkNsfw unmarks a Thing as not safe for work
+//returns errors recieved from reddit 
+func (t *Thing) UnmarkNsfw(user *Redditor) error {
+	//id 
+	//modhash
+	data := &url.Values{
+		"id": {t.Name},
+		"uh": {user.ModHash},
+	}
+	b, err := getPostJsonBytes(ApiUrls["unmarknsfw"], data)
+	if err != nil {
+		return nil
+	}
+	es := new(errorJson)
+	err = json.Unmarshal(b, &es)
+	if err != nil {
+		return err
+	}
+	if len(es.Json.Errors) != 0 {
+		return errors.New(strings.Join(es.Json.Errors[0], ", "))
+	}
 	return nil
 }
