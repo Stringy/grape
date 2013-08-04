@@ -30,11 +30,12 @@ func main() {
     // handle error
   } 
   err = user.SubmitLink(
-    "learnprogramming", 
-    "Amazing Search Engine",
-	 "",
-	 "www.google.com",
-	 reddit.KindLink)
+      "learnprogramming", 
+      "Amazing Search Engine",
+	    "",
+	    "www.google.com",
+      true
+      )
   if err != nil {
     // handle error
   }
