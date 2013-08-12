@@ -5,3 +5,6 @@
 #misc
 *.txt
 *.html
+
+#test logging files
+*.log

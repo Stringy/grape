@@ -3,6 +3,7 @@ package reddit
 import (
 	"net/http"
 	"net/url"
+	"runtime"
 )
 
 var (
@@ -57,6 +58,7 @@ const (
 )
 
 func init() {
+	runtime.GOMAXPROCS(runtime.NumCPU())
 	actual_url, _ = url.Parse("http://reddit.local/")
 	jar := NewJar()
 	client = &http.Client{nil, nil, jar}

@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"net/url"
 	"strings"
 )
@@ -12,6 +13,7 @@ import (
 // GetSubreddit gets the front page of a named subreddit
 // TODO: add support for arbitrary number of posts returned
 func GetSubreddit(sub string) (*Subreddit, error) {
+	log.Printf("Getting subreddit: %s\n", sub)
 	b, err := makeGetRequest(fmt.Sprintf(Urls["subreddit"], sub))
 	if err != nil {
 		return nil, err
@@ -68,6 +70,7 @@ func GetFrontPage(user *Redditor) (*Subreddit, error) {
 
 // GetRedditor returns information about a given redditor
 func GetRedditor(user string) (*Redditor, error) {
+	log.Printf("Getting Redditor: %s\n", user)
 	b, err := makeGetRequest(fmt.Sprintf(Urls["user"], user))
 	if err != nil {
 		return nil, err
@@ -84,6 +87,7 @@ func GetRedditor(user string) (*Redditor, error) {
 //returns the same errors recieved from reddit, if applicable
 //otherwise returns a redditor with populated modhash and cookie strings
 func Login(user, pass string, rem bool) (*Redditor, error) {
+	log.Printf("Logging in to user: %s\n", user)
 	data := url.Values{
 		"user":     {user},
 		"passwd":   {pass},

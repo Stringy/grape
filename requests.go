@@ -2,8 +2,10 @@ package reddit
 
 import (
 	"bytes"
+	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"sync"
 	"time"
 )
@@ -11,8 +13,10 @@ import (
 type priority chan *http.Request
 
 var (
-	priorities    []priority
-	responseCache RedditCache
+	priorities    []chan *http.Request
+	responseCache *RedditCache
+
+	resps = make(chan *http.Response)
 )
 
 const (
@@ -25,9 +29,21 @@ const (
 )
 
 func init() {
-	priorities = make([]priority, 3)
-	responseCache = *new(RedditCache)
+	priorities = []chan *http.Request{
+		make(chan *http.Request),
+		make(chan *http.Request),
+		make(chan *http.Request),
+	}
+	responseCache = new(RedditCache)
 	responseCache.cache = make(map[string]*http.Response, cacheSize)
+	responseCache.RWMutex = new(sync.RWMutex)
+	lf, err := os.Create("reddit.log")
+	if err != nil {
+		panic(err)
+	}
+	log.SetOutput(lf)
+	go cacheResponses()
+	go makeRequests()
 }
 
 type RedditCache struct {
@@ -35,8 +51,16 @@ type RedditCache struct {
 	*sync.RWMutex
 }
 
-func (r *RedditCache) Get(url string) (*http.Response, error) {
-	return nil, nil
+func (r *RedditCache) Set(key string, value *http.Response) {
+	r.Lock()
+	defer r.Unlock()
+	r.cache[key] = value
+}
+
+func (r *RedditCache) Get(key string) *http.Response {
+	r.Lock()
+	defer r.Unlock()
+	return r.cache[key]
 }
 
 type ClosingBuffer struct {
@@ -138,6 +162,7 @@ func makePostRequest(link string, data *url.Values) ([]byte, error) {
 	}
 	req.Header.Set("User-Agent", UserAgent)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	log.Printf("Sending POST request to scheduler\n")
 	priorities[0] <- req
 	return nil, nil
 }
@@ -149,54 +174,68 @@ func makeGetRequest(url string) ([]byte, error) {
 	}
 	req.Header.Set("User-Agent", UserAgent)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	log.Printf("Sendinng GET request to scheduler")
 	priorities[0] <- req
 	return nil, nil
 }
 
-func cacheRequests(resps chan *http.Response) {
+func cacheResponses() {
 	for {
 		select {
 		case resp := <-resps:
-			// cache response for retrieval
-			_ = resp
+			if resp != nil {
+				u := resp.Request.URL.String()
+				responseCache.Set(u, resp)
+			}
 		default:
 		}
 	}
 }
 
-func makeRequests(resps chan *http.Response, errs chan error) {
+func makeRequests() {
 	schedule := time.Tick(2 * time.Second)
-	for _ = range schedule {
-		for i := range priorities {
-			select {
-			case req := <-priorities[i]:
-				resp, err := client.Do(req)
-				if err != nil {
-					panic(err)
+	log.Printf("Entering For\n")
+	var req *http.Request
+	for {
+		select {
+		case <-schedule:
+			log.Println("Recieved from ticker")
+			for i := 0; i < len(priorities); i++ {
+				select {
+				case req = <-priorities[i]:
+					log.Printf("Making request of priority: %d\n", i)
+					go doRequest(req)
+					goto CONTINUE
+				default:
 				}
-				resps <- resp
+			}
+			log.Println("Trying first possible job")
+			select {
+			case req = <-priorities[0]: //high
+				log.Printf("Making high priority request to %v\n", req.URL)
+				go doRequest(req)
+				goto CONTINUE
+			case req = <-priorities[1]: //medium
+				log.Printf("Making medium priority request to %v\n", req.URL)
+				go doRequest(req)
+				goto CONTINUE
+			case req = <-priorities[2]: //low
+				log.Printf("Making low priority request to %v\n", req.URL)
+				go doRequest(req)
+				goto CONTINUE
 			default:
 			}
+		default:
 		}
-		select {
-		case req := <-priorities[0]: //high
-			resp, err := client.Do(req)
-			if err != nil {
-				panic(err)
-			}
-			resps <- resp
-		case req := <-priorities[1]: //medium
-			resp, err := client.Do(req)
-			if err != nil {
-				panic(err)
-			}
-			resps <- resp
-		case req := <-priorities[2]: //low
-			resp, err := client.Do(req)
-			if err != nil {
-				panic(err)
-			}
-			resps <- resp
-		}
+	CONTINUE:
 	}
+}
+
+func doRequest(req *http.Request) {
+	log.Printf("Doing request: %v", req.URL)
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Fatalf("error in response from %v\n", req.URL)
+	}
+	resps <- resp
 }

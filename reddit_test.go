@@ -1,41 +1,57 @@
 package reddit
 
 import (
-	"fmt"
+	"log"
 	"testing"
 )
 
-func TestGetSubreddit(t *testing.T) {
-	sub, err := GetSubreddit("reddit_test0")
+func TestRequestSchedulingAndCache(t *testing.T) {
+	_, err := Login("reddit", "password", true)
 	if err != nil {
-		t.Errorf("Error from subreddit retrieval: %v", err)
-		t.FailNow()
-	}
-	if len(sub.Items) != 8 {
-		t.Errorf("Unexpected number of items from subreddit: %v", len(sub.Items))
+		t.Errorf("Error from logging in: %v\n", err)
 		t.Fail()
 	}
-	fmt.Println(sub.Items[0].Id)
-	if sub.Name != "reddit_test0" {
-		t.Errorf("Queried incorrect subreddit: %v", sub.Name)
-		t.Fail()
-	}
-	sub, err = GetSubreddit("not_a_subreddit")
-	if err == nil {
-		t.Errorf("Expected error from GetSubreddit")
-		t.Fail()
-	}
-
-	sub, err = GetSubredditN("reddit_test0", 3)
-	if err != nil {
-		t.Errorf("Error from get subreddit N: %v", err)
-		t.Fail()
-	}
-	if len(sub.Items) != 3 {
-		t.Errorf("Unexpected number of items from subreddit: %v", len(sub.Items))
-		t.Fail()
+	for i := 0; i < 20; i++ {
+		log.Printf("Getting reddit_test0\n")
+		_, err := GetSubreddit("reddit_test0")
+		if err != nil {
+			t.Errorf("Error from Get Subreddit: %v\n", err)
+			t.Fail()
+		}
 	}
 }
+
+// func TestGetSubreddit(t *testing.T) {
+// 	sub, err := GetSubreddit("reddit_test0")
+// 	if err != nil {
+// 		t.Errorf("Error from subreddit retrieval: %v", err)
+// 		t.FailNow()
+// 	}
+// 	if len(sub.Items) != 8 {
+// 		t.Errorf("Unexpected number of items from subreddit: %v", len(sub.Items))
+// 		t.Fail()
+// 	}
+// 	fmt.Println(sub.Items[0].Id)
+// 	if sub.Name != "reddit_test0" {
+// 		t.Errorf("Queried incorrect subreddit: %v", sub.Name)
+// 		t.Fail()
+// 	}
+// 	sub, err = GetSubreddit("not_a_subreddit")
+// 	if err == nil {
+// 		t.Errorf("Expected error from GetSubreddit")
+// 		t.Fail()
+// 	}
+
+// 	sub, err = GetSubredditN("reddit_test0", 3)
+// 	if err != nil {
+// 		t.Errorf("Error from get subreddit N: %v", err)
+// 		t.Fail()
+// 	}
+// 	if len(sub.Items) != 3 {
+// 		t.Errorf("Unexpected number of items from subreddit: %v", len(sub.Items))
+// 		t.Fail()
+// 	}
+// }
 
 // func TestLogin(t *testing.T) {
 // 	redditor, err := Login("reddit", "password", true)
