@@ -12,7 +12,7 @@ func TestRequestSchedulingAndCache(t *testing.T) {
 		t.Fail()
 	}
 	for i := 0; i < 20; i++ {
-		log.Printf("Getting reddit_test0\n")
+		log.Printf("[TEST] Getting reddit_test0\n")
 		_, err := GetSubreddit("reddit_test0")
 		if err != nil {
 			t.Errorf("Error from Get Subreddit: %v\n", err)

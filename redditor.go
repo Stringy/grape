@@ -20,6 +20,12 @@ type Redditor struct {
 	*Thing
 }
 
+func NewRedditor() *Redditor {
+	r := new(Redditor)
+	r.Thing = new(Thing)
+	return r
+}
+
 //IsLoggedIn returns true if the user is currently logged into reddit
 func (r *Redditor) IsLoggedIn() bool {
 	return len(r.ModHash) != 0

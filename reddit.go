@@ -87,7 +87,7 @@ func GetRedditor(user string) (*Redditor, error) {
 //returns the same errors recieved from reddit, if applicable
 //otherwise returns a redditor with populated modhash and cookie strings
 func Login(user, pass string, rem bool) (*Redditor, error) {
-	log.Printf("Logging in to user: %s\n", user)
+	log.Printf("[REDDIT] logging in to user: %s\n", user)
 	data := url.Values{
 		"user":     {user},
 		"passwd":   {pass},
@@ -112,7 +112,7 @@ func Login(user, pass string, rem bool) (*Redditor, error) {
 		return nil, errors.New("Login Error: " + str)
 	}
 
-	redditor := new(Redditor)
+	redditor := NewRedditor()
 	redditor.Name = user
 	redditor.ModHash = loginResp.Json.Data.ModHash
 	return redditor, nil

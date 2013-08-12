@@ -2,6 +2,7 @@ package reddit
 
 import (
 	"bytes"
+	"io"
 	"log"
 	"net/http"
 	"net/url"
@@ -16,7 +17,8 @@ var (
 	priorities    []chan *http.Request
 	responseCache *RedditCache
 
-	resps = make(chan *http.Response)
+	resps       = make(chan *http.Response)
+	cacheUpdate = make(chan struct{})
 )
 
 const (
@@ -34,9 +36,7 @@ func init() {
 		make(chan *http.Request),
 		make(chan *http.Request),
 	}
-	responseCache = new(RedditCache)
-	responseCache.cache = make(map[string]*http.Response, cacheSize)
-	responseCache.RWMutex = new(sync.RWMutex)
+	responseCache = NewRedditCache()
 	lf, err := os.Create("reddit.log")
 	if err != nil {
 		panic(err)
@@ -47,8 +47,30 @@ func init() {
 }
 
 type RedditCache struct {
-	cache map[string]*http.Response
+	cache  map[string]*http.Response
+	update chan struct{}
 	*sync.RWMutex
+}
+
+func NewRedditCache() *RedditCache {
+	rc := new(RedditCache)
+	rc.cache = make(map[string]*http.Response, cacheSize)
+	rc.update = make(chan struct{})
+	rc.RWMutex = new(sync.RWMutex)
+	return rc
+}
+
+func (r *RedditCache) Update() {
+	r.Lock()
+	defer r.Unlock()
+	close(r.update)
+	r.update = make(chan struct{})
+}
+
+func (r *RedditCache) GetUpdateChan() chan struct{} {
+	r.RLock()
+	defer r.RUnlock()
+	return r.update
 }
 
 func (r *RedditCache) Set(key string, value *http.Response) {
@@ -57,10 +79,11 @@ func (r *RedditCache) Set(key string, value *http.Response) {
 	r.cache[key] = value
 }
 
-func (r *RedditCache) Get(key string) *http.Response {
+func (r *RedditCache) Get(key string) (*http.Response, bool) {
 	r.Lock()
 	defer r.Unlock()
-	return r.cache[key]
+	resp, exists := r.cache[key]
+	return resp, exists
 }
 
 type ClosingBuffer struct {
@@ -102,59 +125,6 @@ func SetUserAgent(ua string) {
 	UserAgent = ua
 }
 
-// func getPostJsonBytes(link string, data *url.Values) ([]byte, error) {
-// 	u, err := url.Parse(link)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	post_form.URL = u
-// 	post_form.Host = u.Host
-// 	content_len := len(data.Encode())
-// 	post_form.ContentLength = int64(content_len)
-// 	post_form.Body = &ClosingBuffer{bytes.NewBufferString(data.Encode())}
-// 	resp, err := client.Do(post_form)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	//	fmt.Println(resp)
-// 	if resp.StatusCode != http.StatusOK {
-// 		return nil, errors.New(
-// 			fmt.Sprintf("http: unexpected status code from request: %d", resp.StatusCode))
-// 	}
-// 	if len(client.Jar.Cookies(actual_url)) == 0 {
-// 		client.Jar.SetCookies(actual_url, resp.Cookies())
-// 	}
-// 	buf := new(bytes.Buffer)
-// 	_, err = io.Copy(buf, resp.Body)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return buf.Bytes(), nil
-// }
-
-// func getJsonBytes(link string) ([]byte, error) {
-// 	u, err := url.Parse(link)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	get.URL = u
-// 	get.Host = u.Host
-// 	resp, err := client.Do(get)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	if resp.StatusCode != http.StatusOK {
-// 		return nil, errors.New(
-// 			fmt.Sprintf("http: unexpected status code from request: %d", resp.StatusCode))
-// 	}
-// 	buf := new(bytes.Buffer)
-// 	_, err = io.Copy(buf, resp.Body)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return buf.Bytes(), nil
-// }
-
 func makePostRequest(link string, data *url.Values) ([]byte, error) {
 	req, err := http.NewRequest("POST", link, &ClosingBuffer{bytes.NewBufferString(data.Encode())})
 	if err != nil {
@@ -162,8 +132,26 @@ func makePostRequest(link string, data *url.Values) ([]byte, error) {
 	}
 	req.Header.Set("User-Agent", UserAgent)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	log.Printf("Sending POST request to scheduler\n")
 	priorities[0] <- req
+	cache := responseCache.GetUpdateChan()
+	for {
+		select {
+		case _, ok := <-cache:
+			if !ok {
+				resp, exists := responseCache.Get(req.URL.String())
+				if exists {
+					log.Printf("[CACHE] retrieved desired response for %v", req.URL)
+					buf := new(bytes.Buffer)
+					_, err := io.Copy(buf, resp.Body)
+					if err != nil {
+						return nil, err
+					}
+					return buf.Bytes(), nil
+				}
+			}
+		default:
+		}
+	}
 	return nil, nil
 }
 
@@ -174,8 +162,25 @@ func makeGetRequest(url string) ([]byte, error) {
 	}
 	req.Header.Set("User-Agent", UserAgent)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	log.Printf("Sendinng GET request to scheduler")
 	priorities[0] <- req
+	cache := responseCache.GetUpdateChan()
+	for {
+		select {
+		case _, ok := <-cache:
+			if !ok {
+				resp, exists := responseCache.Get(req.URL.String())
+				if exists {
+					log.Printf("[CACHE] retrieved desired response for %v", req.URL)
+					buf := new(bytes.Buffer)
+					_, err := io.Copy(buf, resp.Body)
+					if err != nil {
+						return nil, err
+					}
+					return buf.Bytes(), nil
+				}
+			}
+		}
+	}
 	return nil, nil
 }
 
@@ -185,7 +190,9 @@ func cacheResponses() {
 		case resp := <-resps:
 			if resp != nil {
 				u := resp.Request.URL.String()
+				log.Printf("[CACHE] caching response from %s\n", u)
 				responseCache.Set(u, resp)
+				responseCache.Update()
 			}
 		default:
 		}
@@ -194,33 +201,26 @@ func cacheResponses() {
 
 func makeRequests() {
 	schedule := time.Tick(2 * time.Second)
-	log.Printf("Entering For\n")
 	var req *http.Request
 	for {
 		select {
 		case <-schedule:
-			log.Println("Recieved from ticker")
 			for i := 0; i < len(priorities); i++ {
 				select {
 				case req = <-priorities[i]:
-					log.Printf("Making request of priority: %d\n", i)
 					go doRequest(req)
 					goto CONTINUE
 				default:
 				}
 			}
-			log.Println("Trying first possible job")
 			select {
 			case req = <-priorities[0]: //high
-				log.Printf("Making high priority request to %v\n", req.URL)
 				go doRequest(req)
 				goto CONTINUE
 			case req = <-priorities[1]: //medium
-				log.Printf("Making medium priority request to %v\n", req.URL)
 				go doRequest(req)
 				goto CONTINUE
 			case req = <-priorities[2]: //low
-				log.Printf("Making low priority request to %v\n", req.URL)
 				go doRequest(req)
 				goto CONTINUE
 			default:
@@ -232,7 +232,7 @@ func makeRequests() {
 }
 
 func doRequest(req *http.Request) {
-	log.Printf("Doing request: %v", req.URL)
+	log.Printf("[CLIENT] doing request: %v", req.URL)
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Fatalf("error in response from %v\n", req.URL)
