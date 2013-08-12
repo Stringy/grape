@@ -25,7 +25,7 @@ func (c *Comment) Reply(user *Redditor, body string) error {
 		"uh":       {user.ModHash},
 		"thing_id": {"t6_" + c.Id},
 	}
-	_, err := getPostJsonBytes(ApiUrls["comment"], data)
+	_, err := makePostRequest(ApiUrls["comment"], data)
 	if err != nil {
 		return err
 	}
@@ -33,31 +33,20 @@ func (c *Comment) Reply(user *Redditor, body string) error {
 }
 
 func (c *Comment) Edit(user *Redditor, body string) error {
+	if !user.IsLoggedIn() {
+		return NotLoggedInError
+	}
+	data := &url.Values{
+		"api_type": {"json"},
+		"text":     {body},
+		"uh":       {user.ModHash},
+		"thing_id": {"t6_" + c.Id},
+	}
+	_, err := makePostRequest(ApiUrls["editusertext"], data)
+	if err != nil {
+		return err
+	}
 	return nil
-}
-
-func (c *Comment) Report() error {
-	return nil
-}
-
-func (c *Comment) Hide() error {
-	return nil
-}
-
-func (c *Comment) Unhide() error {
-	return nil
-}
-
-func (c *Comment) MarkNsfw() error {
-	return nil
-}
-
-func (c *Comment) UnmarkNsfw() error {
-	return nil
-}
-
-func (c *Comment) Save() (*Comment, error) {
-	return nil, nil
 }
 
 func (c *Comment) MoreChildren() ([]*Comment, error) {

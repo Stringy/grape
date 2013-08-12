@@ -25,7 +25,7 @@ func (r *Redditor) IsLoggedIn() bool {
 	return len(r.ModHash) != 0
 }
 
-//ReplyToComment replies to a reddit comment on behalf of the user 
+//ReplyToComment replies to a reddit comment on behalf of the user
 func (r *Redditor) ReplyToComment(parent *Comment, body string) error {
 	return parent.Reply(r, body)
 }
@@ -54,7 +54,7 @@ func (r *Redditor) submit(subreddit, title, body, link, kind string, resubmit bo
 		return TitleTooLongError
 	}
 	if !r.IsLoggedIn() {
-		return errors.New("Submission error: User is not logged in")
+		return NotLoggedInError
 	}
 
 	data := url.Values{
@@ -80,7 +80,7 @@ func (r *Redditor) submit(subreddit, title, body, link, kind string, resubmit bo
 		}
 	})
 
-	respBytes, err := getPostJsonBytes(ApiUrls["submit"], &data)
+	respBytes, err := makePostRequest(ApiUrls["submit"], &data)
 	if err != nil {
 		return err
 	}
@@ -97,7 +97,7 @@ func (r *Redditor) submit(subreddit, title, body, link, kind string, resubmit bo
 //DeleteAccount deletes the user from reddit
 func (r *Redditor) DeleteAccount(passwd string) error {
 	if r == nil || !r.IsLoggedIn() {
-		return errors.New("reddit: can't delete redditor without logging in")
+		return NotLoggedInError
 	}
 	data := url.Values{
 		"api_type":       {"json"},
@@ -107,7 +107,7 @@ func (r *Redditor) DeleteAccount(passwd string) error {
 		"uh":             {r.ModHash},
 		"user":           {r.Name},
 	}
-	respBytes, err := getPostJsonBytes(ApiUrls["delete"], &data)
+	respBytes, err := makePostRequest(ApiUrls["delete"], &data)
 	if err != nil {
 		return err
 	}
@@ -131,7 +131,7 @@ func (r *Redditor) GetUnreadMail() ([]string, error) {
 	return nil, nil
 }
 
-//GetFrontpage returns the frontpage for the user, including all 
+//GetFrontpage returns the frontpage for the user, including all
 //subscribed subreddits
 func (r *Redditor) GetFrontpage() (*Subreddit, error) {
 	return nil, nil
@@ -140,9 +140,9 @@ func (r *Redditor) GetFrontpage() (*Subreddit, error) {
 //Me populates the redditor with their information
 func (r *Redditor) Me() error {
 	if !r.IsLoggedIn() {
-		return errors.New("reddit: user not logged in")
+		return NotLoggedInError
 	}
-	respBytes, err := getJsonBytes(ApiUrls["me"])
+	respBytes, err := makeGetRequest(ApiUrls["me"])
 	if err != nil {
 		return err
 	}

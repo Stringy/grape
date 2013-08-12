@@ -10,9 +10,9 @@ The current functionality is limited to the following:
  - Retrieving a subreddit (limited to front page only)
  - Retrieving comments from a link
  - Submitting a link from the currently logged in user to a subreddit
+ - Submitting comments
 
 Immediate TODO:
- - Submitting comments
  - User account controls (mail/deletion/creation etc)
  - Captcha
 
@@ -30,11 +30,10 @@ func main() {
     // handle error
   } 
   err = user.SubmitLink(
-      "learnprogramming", 
-      "Amazing Search Engine",
-	    "",
-	    "www.google.com",
-      true
+      "learnprogramming", // reddit name
+      "Amazing Search Engine", // title of submission
+	    "www.google.com", // url
+      true // resubmit
       )
   if err != nil {
     // handle error

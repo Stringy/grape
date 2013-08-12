@@ -7,10 +7,7 @@ import (
 
 var (
 	// requests
-	get       *http.Request
-	post      *http.Request
-	post_form *http.Request
-	client    *http.Client
+	client *http.Client
 
 	actual_url *url.URL
 
@@ -57,30 +54,10 @@ const (
 	host = "http://reddit.local"
 
 	config_file = "reddit.conf"
-
-	KindLink = "link"
-	KindSelf = "self"
 )
 
 func init() {
 	actual_url, _ = url.Parse("http://reddit.local/")
 	jar := NewJar()
 	client = &http.Client{nil, nil, jar}
-	var err error
-	get, err = http.NewRequest("GET", "", nil)
-	if err != nil {
-		panic(err)
-	}
-	post, err = http.NewRequest("POST", "", nil)
-	if err != nil {
-		panic(err)
-	}
-	post_form, err = http.NewRequest("POST", "", nil)
-	if err != nil {
-		panic(err)
-	}
-	post_form.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	get.Header.Set("User-Agent", UserAgent)
-	post.Header.Set("User-Agent", UserAgent)
-	post_form.Header.Set("User-Agent", UserAgent)
 }

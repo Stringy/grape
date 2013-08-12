@@ -3,6 +3,5 @@
 *\#
 
 #misc
-json.txt
-notes.txt
-blag.html
+*.txt
+*.html

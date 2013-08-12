@@ -23,7 +23,7 @@ func (t *Thing) Report(user *Redditor) error {
 		"id": {t.Name},
 		"uh": {user.ModHash},
 	}
-	b, err := getPostJsonBytes(ApiUrls["report"], data)
+	b, err := makePostRequest(ApiUrls["report"], data)
 	if err != nil {
 		return err
 	}
@@ -47,7 +47,7 @@ func (t *Thing) Hide(user *Redditor) error {
 		"id": {t.Name},
 		"uh": {user.ModHash},
 	}
-	b, err := getPostJsonBytes(ApiUrls["hide"], data)
+	b, err := makePostRequest(ApiUrls["hide"], data)
 	if err != nil {
 		return nil
 	}
@@ -71,7 +71,7 @@ func (t *Thing) Unhide(user *Redditor) error {
 		"id": {t.Name},
 		"uh": {user.ModHash},
 	}
-	b, err := getPostJsonBytes(ApiUrls["unhide"], data)
+	b, err := makePostRequest(ApiUrls["unhide"], data)
 	if err != nil {
 		return nil
 	}
@@ -100,7 +100,7 @@ func (t *Thing) MarkNsfw(user *Redditor) error {
 		"id": {t.Name},
 		"uh": {user.ModHash},
 	}
-	b, err := getPostJsonBytes(ApiUrls["marknsfw"], data)
+	b, err := makePostRequest(ApiUrls["marknsfw"], data)
 	if err != nil {
 		return nil
 	}
@@ -117,15 +117,15 @@ func (t *Thing) MarkNsfw(user *Redditor) error {
 }
 
 //UnmarkNsfw unmarks a Thing as not safe for work
-//returns errors recieved from reddit 
+//returns errors recieved from reddit
 func (t *Thing) UnmarkNsfw(user *Redditor) error {
-	//id 
+	//id
 	//modhash
 	data := &url.Values{
 		"id": {t.Name},
 		"uh": {user.ModHash},
 	}
-	b, err := getPostJsonBytes(ApiUrls["unmarknsfw"], data)
+	b, err := makePostRequest(ApiUrls["unmarknsfw"], data)
 	if err != nil {
 		return nil
 	}

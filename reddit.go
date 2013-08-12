@@ -12,7 +12,7 @@ import (
 // GetSubreddit gets the front page of a named subreddit
 // TODO: add support for arbitrary number of posts returned
 func GetSubreddit(sub string) (*Subreddit, error) {
-	b, err := getJsonBytes(fmt.Sprintf(Urls["subreddit"], sub))
+	b, err := makeGetRequest(fmt.Sprintf(Urls["subreddit"], sub))
 	if err != nil {
 		return nil, err
 	}
@@ -33,7 +33,7 @@ func GetSubredditN(sub string, n int) (*Subreddit, error) {
 		if tempsub != nil && len(tempsub.Items) != 0 {
 			data.Set("after", tempsub.Items[len(tempsub.Items)-1].Name)
 		}
-		b, err := getPostJsonBytes(fmt.Sprintf(Urls["subreddit"], sub), &data)
+		b, err := makePostRequest(fmt.Sprintf(Urls["subreddit"], sub), &data)
 		if err != nil {
 			return nil, err
 		}
@@ -54,7 +54,7 @@ func GetSubredditN(sub string, n int) (*Subreddit, error) {
 // GetFrontPage currently gets the front page of *default* reddit
 // TODO: apply this to currently logged in user
 func GetFrontPage(user *Redditor) (*Subreddit, error) {
-	b, err := getJsonBytes(Urls["frontpage"])
+	b, err := makeGetRequest(Urls["frontpage"])
 	if err != nil {
 		return nil, err
 	}
@@ -68,7 +68,7 @@ func GetFrontPage(user *Redditor) (*Subreddit, error) {
 
 // GetRedditor returns information about a given redditor
 func GetRedditor(user string) (*Redditor, error) {
-	b, err := getJsonBytes(fmt.Sprintf(Urls["user"], user))
+	b, err := makeGetRequest(fmt.Sprintf(Urls["user"], user))
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ func Login(user, pass string, rem bool) (*Redditor, error) {
 		"api_type": {"json"},
 		"rem":      {fmt.Sprintf("%v", rem)},
 	}
-	b, err := getPostJsonBytes(ApiUrls["login"], &data)
+	b, err := makePostRequest(ApiUrls["login"], &data)
 	if err != nil {
 		return nil, err
 	}
@@ -99,9 +99,10 @@ func Login(user, pass string, rem bool) (*Redditor, error) {
 	if err != nil {
 		return nil, err
 	}
-	if len(loginResp.Json.Errors) != 0 {
+	resperrs := loginResp.Json.Errors
+	if len(resperrs) != 0 {
 		str := ""
-		for _, group := range loginResp.Json.Errors {
+		for _, group := range resperrs {
 			str += strings.Join(group, " ") + "\n"
 		}
 		return nil, errors.New("Login Error: " + str)

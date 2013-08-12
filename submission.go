@@ -36,7 +36,7 @@ func (r *Submission) String() string {
 }
 
 func (r *Submission) GetComments() []Comment {
-	b, err := getJsonBytes(fmt.Sprintf(Urls["comment"], r.Sub, r.Id))
+	b, err := makeGetRequest(fmt.Sprintf(Urls["comment"], r.Sub, r.Id))
 	if err != nil {
 		panic(err)
 	}
@@ -59,7 +59,7 @@ func (r *Submission) PostComment(user *Redditor, body string) error {
 		"uh":       {user.ModHash},
 		"thing_id": {"t6_" + r.Id},
 	}
-	b, err := getPostJsonBytes(ApiUrls["comment"], data)
+	b, err := makePostRequest(ApiUrls["comment"], data)
 	if err != nil {
 		return err
 	}
