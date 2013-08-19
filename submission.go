@@ -35,6 +35,10 @@ func (r *Submission) String() string {
 	return str
 }
 
+func (r *Submission) SubmissionUrl() string {
+	return fmt.Sprintf(Urls["comment"], r.Sub, r.Id)
+}
+
 func (r *Submission) GetComments() []Comment {
 	b, err := makeGetRequest(fmt.Sprintf(Urls["comment"], r.Sub, r.Id))
 	if err != nil {
