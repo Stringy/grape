@@ -11,8 +11,9 @@ var conf = new(cfg)
 type cfg struct {
 	UserAgent string `json: "user_agent"`
 	Host      string
-	ApiUrls   map[string]string `json: "api_urls"`
-	Urls      map[string]string
+	ApiUrl    map[string]string `json: "api_urls"`
+	Url       map[string]string `json: "urls"`
+	Log       bool              `json: "enable_logging"`
 }
 
 func init() {
@@ -38,18 +39,26 @@ func Load(fn string) error {
 	return nil
 }
 
-func ApiUrl(name string) string {
-	return conf.Host + conf.ApiUrls[name]
+func GetInstance() *cfg {
+	return conf
 }
 
-func Url(name string) string {
-	return conf.Host + conf.Urls[name]
-}
+// func ApiUrl(name string) string {
+// 	return conf.Host + conf.ApiUrls[name]
+// }
 
-func Host() string {
-	return conf.Host
-}
+// func Url(name string) string {
+// 	return conf.Host + conf.Urls[name]
+// }
 
-func UserAgent() string {
-	return conf.UserAgent
-}
+// func Host() string {
+// 	return conf.Host
+// }
+
+// func UserAgent() string {
+// 	return conf.UserAgent
+// }
+
+// func Log() bool {
+// 	return conf.Log
+// }

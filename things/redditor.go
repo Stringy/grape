@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/url"
 	"reddit/client"
-	"reddit/config"
 	"strings"
 )
 
@@ -88,7 +87,7 @@ func (r *Redditor) submit(subreddit, title, body, link, kind string, resubmit bo
 		}
 	})
 
-	respBytes, err := client.MakePostRequest(config.ApiUrl("submit"), &data)
+	respBytes, err := client.MakePostRequest(cfg.ApiUrl["submit"], &data)
 	if err != nil {
 		return err
 	}
@@ -115,7 +114,7 @@ func (r *Redditor) DeleteAccount(passwd string) error {
 		"uh":             {r.ModHash},
 		"user":           {r.Name},
 	}
-	respBytes, err := client.MakePostRequest(config.ApiUrl("delete"), &data)
+	respBytes, err := client.MakePostRequest(cfg.ApiUrl["delete"], &data)
 	if err != nil {
 		return err
 	}
@@ -150,7 +149,7 @@ func (r *Redditor) Me() error {
 	if !r.IsLoggedIn() {
 		return NotLoggedInError
 	}
-	respBytes, err := client.MakeGetRequest(config.ApiUrl("me"))
+	respBytes, err := client.MakeGetRequest(cfg.ApiUrl["me"])
 	if err != nil {
 		return err
 	}

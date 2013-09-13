@@ -3,7 +3,6 @@ package things
 import (
 	"net/url"
 	"reddit/client"
-	"reddit/config"
 )
 
 type Comment struct {
@@ -27,7 +26,7 @@ func (c *Comment) Reply(user *Redditor, body string) error {
 		"uh":       {user.ModHash},
 		"thing_id": {"t6_" + c.Id},
 	}
-	_, err := client.MakePostRequest(config.ApiUrl("comment"), data)
+	_, err := client.MakePostRequest(cfg.ApiUrl["comment"], data)
 	if err != nil {
 		return err
 	}
@@ -44,7 +43,7 @@ func (c *Comment) Edit(user *Redditor, body string) error {
 		"uh":       {user.ModHash},
 		"thing_id": {"t6_" + c.Id},
 	}
-	_, err := client.MakePostRequest(config.ApiUrl("editusertext"), data)
+	_, err := client.MakePostRequest(cfg.ApiUrl["editusertext"], data)
 	if err != nil {
 		return err
 	}

@@ -9,14 +9,16 @@ import (
 	"strings"
 )
 
+var cfg = config.GetInstance()
+
 type Thing struct {
 	Id   string
 	Name string //fullname of a reddit thing (t1_, t2_, ...)
 	Kind string //type
 }
 
-//Report reports a reddit Thing by user
-//returns any errors recieved from reddit
+// Report reports a reddit Thing by user
+// returns any errors recieved from reddit
 func (t *Thing) Report(user *Redditor) error {
 	if !user.IsLoggedIn() {
 		return NotLoggedInError
@@ -25,7 +27,7 @@ func (t *Thing) Report(user *Redditor) error {
 		"id": {t.Name},
 		"uh": {user.ModHash},
 	}
-	b, err := client.MakePostRequest(config.ApiUrl("report"), data)
+	b, err := client.MakePostRequest(cfg.ApiUrl["report"], data)
 	if err != nil {
 		return err
 	}
@@ -49,7 +51,7 @@ func (t *Thing) Hide(user *Redditor) error {
 		"id": {t.Name},
 		"uh": {user.ModHash},
 	}
-	b, err := client.MakePostRequest(config.ApiUrl("hide"), data)
+	b, err := client.MakePostRequest(cfg.ApiUrl["hide"], data)
 	if err != nil {
 		return nil
 	}
@@ -73,7 +75,7 @@ func (t *Thing) Unhide(user *Redditor) error {
 		"id": {t.Name},
 		"uh": {user.ModHash},
 	}
-	b, err := client.MakePostRequest(config.ApiUrl("unhide"), data)
+	b, err := client.MakePostRequest(cfg.ApiUrl["unhide"], data)
 	if err != nil {
 		return nil
 	}
@@ -102,7 +104,7 @@ func (t *Thing) MarkNsfw(user *Redditor) error {
 		"id": {t.Name},
 		"uh": {user.ModHash},
 	}
-	b, err := client.MakePostRequest(config.ApiUrl("marknsfw"), data)
+	b, err := client.MakePostRequest(cfg.ApiUrl["marknsfw"], data)
 	if err != nil {
 		return nil
 	}
@@ -127,7 +129,7 @@ func (t *Thing) UnmarkNsfw(user *Redditor) error {
 		"id": {t.Name},
 		"uh": {user.ModHash},
 	}
-	b, err := client.MakePostRequest(config.ApiUrl("unmarknsfw"), data)
+	b, err := client.MakePostRequest(cfg.ApiUrl["unmarknsfw"], data)
 	if err != nil {
 		return nil
 	}

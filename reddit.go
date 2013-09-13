@@ -12,11 +12,13 @@ import (
 	"strings"
 )
 
+var cfg = config.GetInstance()
+
 // GetSubreddit gets the front page of a named subreddit
 // TODO: add support for arbitrary number of posts returned
 func GetSubreddit(sub string) (*things.Subreddit, error) {
 	//rlog.Printf("Getting subreddit: %s\n", sub)
-	b, err := client.MakeGetRequest(fmt.Sprintf(config.Url("subreddit"), sub))
+	b, err := client.MakeGetRequest(fmt.Sprintf(cfg.Url["subreddit"], sub))
 	if err != nil {
 		return nil, err
 	}
@@ -37,7 +39,7 @@ func GetSubredditN(sub string, n int) (*things.Subreddit, error) {
 		if tempsub != nil && len(tempsub.Items) != 0 {
 			data.Set("after", tempsub.Items[len(tempsub.Items)-1].Name)
 		}
-		b, err := client.MakePostRequest(fmt.Sprintf(config.Url("subreddit"), sub), &data)
+		b, err := client.MakePostRequest(fmt.Sprintf(cfg.Url["subreddit"], sub), &data)
 		if err != nil {
 			return nil, err
 		}
@@ -58,7 +60,7 @@ func GetSubredditN(sub string, n int) (*things.Subreddit, error) {
 // GetFrontPage currently gets the front page of *default* reddit
 // TODO: apply this to currently logged in user
 func GetFrontPage(user *things.Redditor) (*things.Subreddit, error) {
-	b, err := client.MakeGetRequest(config.ApiUrl("frontpage"))
+	b, err := client.MakeGetRequest(cfg.ApiUrl["frontpage"])
 	if err != nil {
 		return nil, err
 	}
@@ -73,7 +75,7 @@ func GetFrontPage(user *things.Redditor) (*things.Subreddit, error) {
 // GetRedditor returns information about a given redditor
 func GetRedditor(user string) (*things.Redditor, error) {
 	// rlog.Printf("getting Redditor: %s\n", user)
-	b, err := client.MakeGetRequest(fmt.Sprintf(config.Url("user"), user))
+	b, err := client.MakeGetRequest(fmt.Sprintf(cfg.Url["user"], user))
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +98,7 @@ func Login(user, pass string, rem bool) (*things.Redditor, error) {
 		"api_type": {"json"},
 		"rem":      {fmt.Sprintf("%v", rem)},
 	}
-	b, err := client.MakePostRequest(config.ApiUrl("login"), &data)
+	b, err := client.MakePostRequest(cfg.ApiUrl["login"], &data)
 	if err != nil {
 		return nil, err
 	}

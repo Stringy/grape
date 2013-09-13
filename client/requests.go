@@ -5,7 +5,8 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	_ "reddit/logging"
+	"reddit/config"
+	"reddit/logging"
 	"sync"
 	"time"
 )
@@ -21,7 +22,7 @@ var (
 
 	client *http.Client // http client for making requests
 
-	UserAgent = "/u/Stringy217's Go reddit API v0.1"
+	cfg = config.GetInstance()
 )
 
 const (
@@ -82,14 +83,14 @@ func (jar *Jar) Cookies(u *url.URL) []*http.Cookie {
 	return jar.cookies[u.Host]
 }
 
-//makePostRequest adds a post request to the request schedule and waits for the
-//existence of a response in the cache
+// MakePostRequest adds a post request to the request schedule and waits for the
+// existence of a response in the cache
 func MakePostRequest(url string, data *url.Values) ([]byte, error) {
 	req, err := http.NewRequest("POST", url, &ClosingBuffer{bytes.NewBufferString(data.Encode())})
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("User-Agent", UserAgent)
+	req.Header.Set("User-Agent", cfg.UserAgent)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	priorities[0] <- req
 	cache := responseCache.GetUpdateChan()
@@ -99,7 +100,7 @@ func MakePostRequest(url string, data *url.Values) ([]byte, error) {
 			if !ok {
 				resp, exists := responseCache.Get(req.URL.String())
 				if exists {
-					//log.Printf("[CACHE] retrieved desired response for %v", req.URL)
+					logging.Printf("[CACHE] retrieved desired response for %v", req.URL)
 					buf := new(bytes.Buffer)
 					_, err := io.Copy(buf, resp.Body)
 					if err != nil {
@@ -114,14 +115,14 @@ func MakePostRequest(url string, data *url.Values) ([]byte, error) {
 	return nil, nil
 }
 
-//makeGetRequest adds a get request to the request schedule and waits for the
-//existence of a response in the cache
+// MakeGetRequest adds a get request to the request schedule and waits for the
+// existence of a response in the cache
 func MakeGetRequest(url string) ([]byte, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("User-Agent", UserAgent)
+	req.Header.Set("User-Agent", cfg.UserAgent)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	priorities[0] <- req
 	cache := responseCache.GetUpdateChan()
@@ -131,7 +132,7 @@ func MakeGetRequest(url string) ([]byte, error) {
 			if !ok {
 				resp, exists := responseCache.Get(req.URL.String())
 				if exists {
-					//rlog.Printf("retrieved desired response for %v from cache.", req.URL)
+					logging.Printf("retrieved desired response for %v from cache.", req.URL)
 					buf := new(bytes.Buffer)
 					_, err := io.Copy(buf, resp.Body)
 					if err != nil {
@@ -145,15 +146,15 @@ func MakeGetRequest(url string) ([]byte, error) {
 	return nil, nil
 }
 
-//cacheResponses is run as a go routine upon startup. it waits for a response
-//and adds it to the cache.
+// cacheResponses is run as a go routine upon startup. it waits for a response
+// and adds it to the cache.
 func cacheResponses() {
 	for {
 		select {
 		case resp := <-resps:
 			if resp != nil {
 				u := resp.Request.URL.String()
-				//rlog.Printf("caching response from %s\n", u)
+				logging.Printf("caching response from %s\n", u)
 				responseCache.Set(u, resp)
 				responseCache.Update()
 			}
@@ -194,10 +195,10 @@ func makeRequests() {
 }
 
 func doRequest(req *http.Request) {
-	//rlog.Printf("client doing request: %v", req.URL)
+	logging.Printf("client doing request: %v", req.URL)
 	resp, err := client.Do(req)
 	if err != nil {
-		//rlog.Fatalf("error in response from %v\n", req.URL)
+		logging.Fatalf("error in response from %v\n%v\n", req.URL, err)
 	}
 	resps <- resp
 }
