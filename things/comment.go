@@ -1,8 +1,8 @@
 package things
 
 import (
+	"github.com/Stringy/reddit/client"
 	"net/url"
-	"reddit/client"
 )
 
 type Comment struct {

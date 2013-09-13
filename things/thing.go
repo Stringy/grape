@@ -3,9 +3,9 @@ package things
 import (
 	"encoding/json"
 	"errors"
+	"github.com/Stringy/reddit/client"
+	"github.com/Stringy/reddit/config"
 	"net/url"
-	"reddit/client"
-	"reddit/config"
 	"strings"
 )
 

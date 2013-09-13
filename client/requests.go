@@ -2,11 +2,11 @@ package client
 
 import (
 	"bytes"
+	"github.com/Stringy/reddit/config"
+	"github.com/Stringy/reddit/logging"
 	"io"
 	"net/http"
 	"net/url"
-	"reddit/config"
-	"reddit/logging"
 	"sync"
 	"time"
 )

@@ -1,7 +1,8 @@
 {
 	"user_agent": "/u/stringy217's Go reddit api v0.1",
-	"host": "reddit.local",
+	"host": "http://reddit.local",
 	"enable_logging": true,
+	"log_file": "../reddit.log",
 	"api_urls": {
 		"login":          "/api/login",
 		"me":             "/api/me.json",
@@ -27,12 +28,12 @@
 		"block":          "/api/block",
 		"compose":        "/api/compose",
 		"read_message":   "/api/read_message",
-		"unread_message": "/api/unread_message",
+		"unread_message": "/api/unread_message"
 	},
 	"urls": {
 		"subreddit":  "/r/%s.json",
 		"frontpage":  "/.json",
 		"user":       "/user/%s/about.json",
-		"comment":    "/r/%s/%s.json",
+		"comment":    "/r/%s/%s.json"
 	}
 }

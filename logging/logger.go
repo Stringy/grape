@@ -1,9 +1,9 @@
 package logging
 
 import (
+	"github.com/Stringy/reddit/config"
 	"log"
 	"os"
-	"reddit/config"
 )
 
 var rlog *log.Logger
@@ -14,7 +14,7 @@ const (
 )
 
 func init() {
-	f, err := os.Create("reddit.log")
+	f, err := os.Create("../reddit.log")
 	if err != nil {
 		panic(err)
 	}

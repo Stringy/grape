@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/Stringy/reddit/client"
 	"net/url"
-	"reddit/client"
 	"strings"
 )
 

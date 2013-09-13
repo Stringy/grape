@@ -9,22 +9,23 @@ import (
 var conf = new(cfg)
 
 type cfg struct {
-	UserAgent string `json: "user_agent"`
-	Host      string
-	ApiUrl    map[string]string `json: "api_urls"`
-	Url       map[string]string `json: "urls"`
-	Log       bool              `json: "enable_logging"`
+	UserAgent string            `json:"user_agent"`
+	Host      string            `json:"host"`
+	ApiUrl    map[string]string `json:"api_urls"`
+	Url       map[string]string `json:"urls"`
+	Log       bool              `json:"enable_logging"`
+	LogFile   string            `json:"log_file"`
 }
 
 func init() {
-	err := Load("config.json")
+	err := Load("../config.json")
 	if err != nil {
 		panic(err)
 	}
 }
 
 func Load(fn string) error {
-	f, err := os.Open("config.json")
+	f, err := os.Open(fn)
 	if err != nil {
 		return err
 	}

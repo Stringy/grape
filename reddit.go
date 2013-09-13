@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/Stringy/reddit/client"
+	"github.com/Stringy/reddit/config"
+	"github.com/Stringy/reddit/things"
 	"net/url"
-	"reddit/client"
-	"reddit/config"
-	"reddit/things"
 	"strings"
 )
 
