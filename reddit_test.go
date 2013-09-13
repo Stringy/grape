@@ -13,9 +13,17 @@ func TestRequestSchedulingAndCache(t *testing.T) {
 	}
 	for i := 0; i < 20; i++ {
 		log.Printf("[TEST] Getting reddit_test0\n")
-		_, err := GetSubreddit("reddit_test0")
+		sub, err := GetSubreddit("reddit_test0")
 		if err != nil {
 			t.Errorf("Error from Get Subreddit: %v\n", err)
+			t.Fail()
+		}
+		if sub == nil {
+			t.Errorf("Nil subreddit returned from GetSubreddit\n")
+			t.Fail()
+		}
+		if len(sub.Items) == 0 {
+			t.Errorf("No Items from subreddit\n")
 			t.Fail()
 		}
 	}
