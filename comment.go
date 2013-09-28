@@ -5,9 +5,8 @@ import (
 )
 
 type Comment struct {
-	Author string
-	Body   string
-	//	Id          string
+	Author      string
+	Body        string
 	ScoreHidden bool
 	Ups         int
 	Downs       int
@@ -35,6 +34,9 @@ func (c *Comment) Reply(user *Redditor, body string) error {
 func (c *Comment) Edit(user *Redditor, body string) error {
 	if !user.IsLoggedIn() {
 		return notLoggedInError
+	}
+	if c.Author != user.Name {
+		return incorrectOwnerError
 	}
 	data := &url.Values{
 		"api_type": {"json"},

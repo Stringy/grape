@@ -65,7 +65,8 @@ func GetFrontPage(user *Redditor) (*Subreddit, error) {
 	return &rresp.Data, nil
 }
 
-// GetRedditor returns information about a given redditor
+// GetRedditor returns a redditor object containing all information relevant to that
+// reddit user
 func GetRedditor(user string) (*Redditor, error) {
 	log.Printf("getting Redditor: %s\n", user)
 	b, err := makeGetRequest(fmt.Sprintf(config.GetUrl("user"), user))

@@ -101,7 +101,6 @@ func makePostRequest(url string, data *url.Values) ([]byte, error) {
 					return buf.Bytes(), nil
 				}
 			}
-		default:
 		}
 	}
 	return nil, nil
