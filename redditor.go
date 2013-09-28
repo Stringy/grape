@@ -213,3 +213,28 @@ func (r *Redditor) Me() error {
 	r = &uresp.Data
 	return nil
 }
+
+// ClearSessions clears the current user's reddit sessions
+// This will result in immediate logging out of the user
+func (r *Redditor) ClearSessions(pass string) error {
+	data := url.Values{
+		"api_type": {"json"},
+		"curpass":  {pass},
+		"uh":       {r.ModHash},
+		"dest":     {config.Host},
+	}
+	b, err := makePostRequest(config.GetApiUrl("clear_sessions"), &data)
+	if err != nil {
+		return err
+	}
+	debug.Println(string(b))
+	erresp := new(errorJson)
+	err = json.Unmarshal(b, erresp)
+	if err != nil {
+		return err
+	}
+	if len(erresp.Json.Errors) != 0 {
+		return errors.New(strings.Join(erresp.Json.Errors[0], ", "))
+	}
+	return nil
+}
