@@ -14,7 +14,7 @@ type redditCache struct {
 }
 
 //NewRedditCache returns a new initialised reddit cache
-func NewRedditCache() *redditCache {
+func newRedditCache() *redditCache {
 	rc := new(redditCache)
 	rc.cache = make(map[string]*http.Response, cacheSize)
 	rc.update = make(chan struct{})

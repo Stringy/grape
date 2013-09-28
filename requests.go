@@ -38,8 +38,8 @@ func init() {
 		make(chan *http.Request),
 		make(chan *http.Request),
 	}
-	client = &http.Client{nil, nil, NewJar()}
-	responseCache = NewRedditCache()
+	client = &http.Client{nil, nil, newJar()}
+	responseCache = newRedditCache()
 	go cacheResponses()
 	go makeRequests()
 }
@@ -51,7 +51,7 @@ type jar struct {
 }
 
 // NewJar creates and returns a new Cookie Jar
-func NewJar() *jar {
+func newJar() *jar {
 	jar := new(jar)
 	jar.cookies = make(map[string][]*http.Cookie)
 	return jar
