@@ -43,15 +43,6 @@ func init() {
 	go makeRequests()
 }
 
-//ClosingBuffer is used to wrap the url.Values data for post requests
-type ClosingBuffer struct {
-	*bytes.Buffer
-}
-
-func (cb *ClosingBuffer) Close() error {
-	return nil
-}
-
 //Jar is an implementation of a CookieJar for use in the http client
 type Jar struct {
 	sync.Mutex
