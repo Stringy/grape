@@ -189,6 +189,12 @@ func (r *Redditor) GetFrontpage() (*Subreddit, error) {
 	return nil, nil
 }
 
+// GetFrontpageN returns the first n submissions from their frontpage
+// similar semantics to GetSubredditN
+func (r *Redditor) GetFrontpageN(n int) (*Subreddit, error) {
+	return nil, nil
+}
+
 // Me populates the redditor with their information
 func (r *Redditor) Me() error {
 	if !r.IsLoggedIn() {
