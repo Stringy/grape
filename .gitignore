@@ -8,3 +8,6 @@
 
 #test logging files
 *.log
+
+# ignore test files
+*_test.go

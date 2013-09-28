@@ -83,7 +83,7 @@ func GetRedditor(user string) (*Redditor, error) {
 
 // Login logs a user into reddit through the api login page
 // returns the same errors recieved from reddit, if applicable
-// otherwise returns a redditor with populated modhash and cookie strings
+// otherwise returns a redditor with populated modhash
 func Login(user, pass string, rem bool) (*Redditor, error) {
 	log.Printf("logging in to user: %s\n", user)
 	data := url.Values{
@@ -92,10 +92,12 @@ func Login(user, pass string, rem bool) (*Redditor, error) {
 		"api_type": {"json"},
 		"rem":      {fmt.Sprintf("%v", rem)},
 	}
+	// debug.Println("making login request")
 	b, err := makePostRequest(config.GetApiUrl("login"), &data)
 	if err != nil {
 		return nil, err
 	}
+	// debug.Println("response body:", string(b))
 	loginResp := new(LoginResponse)
 	err = json.Unmarshal(b, &loginResp)
 	if err != nil {

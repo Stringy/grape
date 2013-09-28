@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 	"sync"
 	"time"
 )
@@ -82,13 +83,14 @@ func (jar *Jar) Cookies(u *url.URL) []*http.Cookie {
 // MakePostRequest adds a post request to the request schedule and waits for the
 // existence of a response in the cache
 func makePostRequest(url string, data *url.Values) ([]byte, error) {
-	url = config.Host + url
-	req, err := http.NewRequest("POST", url, &ClosingBuffer{bytes.NewBufferString(data.Encode())})
+	req, err := http.NewRequest("POST", url, strings.NewReader(data.Encode()))
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Set("User-Agent", config.UserAgent)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	//req.Header.Set("Content-Length", fmt.Sprintf("%d", len(data.Encode())))
+	//debug.Println(req)
 	priorities[0] <- req
 	cache := responseCache.GetUpdateChan()
 	for {
@@ -115,13 +117,12 @@ func makePostRequest(url string, data *url.Values) ([]byte, error) {
 // MakeGetRequest adds a get request to the request schedule and waits for the
 // existence of a response in the cache
 func makeGetRequest(url string) ([]byte, error) {
-	url = config.Host + url
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Set("User-Agent", config.UserAgent)
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	//req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	priorities[0] <- req
 	cache := responseCache.GetUpdateChan()
 	for {
@@ -196,8 +197,9 @@ func doRequest(req *http.Request) {
 	if err != nil {
 		log.Fatalf("error in response from %v\n\t%v\n", req.URL, err)
 	}
+	debug.Println(resp)
 	if len(resp.Cookies()) != 0 {
-		client.SetCookies(actual_url, resp.Cookies())
+		client.Jar.SetCookies(reddit_url, resp.Cookies())
 	}
 	resps <- resp
 }

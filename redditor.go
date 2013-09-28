@@ -29,12 +29,14 @@ func NewRedditor() *Redditor {
 
 //IsLoggedIn returns true if the user is currently logged into reddit
 func (r *Redditor) IsLoggedIn() bool {
-	if len(r.ModHash) == 0 || len(client.Jar.Cookies(config.Host)) == 0 {
+	if len(r.ModHash) == 0 || len(client.Jar.Cookies(reddit_url)) == 0 {
 		return false
 	}
-	for _, cookie := range client.Jar.Cookies(config.Host) {
+	for _, cookie := range client.Jar.Cookies(reddit_url) {
 		if cookie.Expires.After(time.Now()) {
 			return true
+		} else {
+			debug.Println("Expired cookie: ", cookie)
 		}
 	}
 	return false
