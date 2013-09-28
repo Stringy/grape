@@ -12,7 +12,7 @@ import (
 // TODO: add support for arbitrary number of posts returned
 func GetSubreddit(sub string) (*Subreddit, error) {
 	log.Printf("Getting subreddit: %s\n", sub)
-	b, err := makeGetRequest(fmt.Sprintf(config.Url["subreddit"], sub))
+	b, err := makeGetRequest(fmt.Sprintf(config.GetUrl("subreddit"), sub))
 	if err != nil {
 		return nil, err
 	}
@@ -33,7 +33,7 @@ func GetSubredditN(sub string, n int) (*Subreddit, error) {
 		if tempsub != nil && len(tempsub.Items) != 0 {
 			data.Set("after", tempsub.Items[len(tempsub.Items)-1].Name)
 		}
-		b, err := makePostRequest(fmt.Sprintf(config.Url["subreddit"], sub), &data)
+		b, err := makePostRequest(fmt.Sprintf(config.GetUrl("subreddit"), sub), &data)
 		if err != nil {
 			return nil, err
 		}
@@ -54,7 +54,7 @@ func GetSubredditN(sub string, n int) (*Subreddit, error) {
 // GetFrontPage currently gets the front page of *default* reddit
 // TODO: apply this to currently logged in user
 func GetFrontPage(user *Redditor) (*Subreddit, error) {
-	b, err := makeGetRequest(config.ApiUrl["frontpage"])
+	b, err := makeGetRequest(config.GetApiUrl("frontpage"))
 	if err != nil {
 		return nil, err
 	}
@@ -69,7 +69,7 @@ func GetFrontPage(user *Redditor) (*Subreddit, error) {
 // GetRedditor returns information about a given redditor
 func GetRedditor(user string) (*Redditor, error) {
 	log.Printf("getting Redditor: %s\n", user)
-	b, err := makeGetRequest(fmt.Sprintf(config.Url["user"], user))
+	b, err := makeGetRequest(fmt.Sprintf(config.GetUrl("user"), user))
 	if err != nil {
 		return nil, err
 	}
@@ -92,7 +92,7 @@ func Login(user, pass string, rem bool) (*Redditor, error) {
 		"api_type": {"json"},
 		"rem":      {fmt.Sprintf("%v", rem)},
 	}
-	b, err := makePostRequest(config.ApiUrl["login"], &data)
+	b, err := makePostRequest(config.GetApiUrl("login"), &data)
 	if err != nil {
 		return nil, err
 	}

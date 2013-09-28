@@ -54,7 +54,7 @@ func (r *Redditor) SubmitLink(subreddit, title, link string, resubmit bool) erro
 //submit handles all the submission semantics for the top level functions
 func (r *Redditor) submit(subreddit, title, body, link, kind string, resubmit bool) error {
 	if r == nil {
-		return errors.New("reddit: nil redditor")
+		return errors.New("nil redditor")
 	}
 	if len(title) > 300 {
 		return TitleTooLongError
@@ -86,7 +86,7 @@ func (r *Redditor) submit(subreddit, title, body, link, kind string, resubmit bo
 		}
 	})
 
-	respBytes, err := makePostRequest(config.ApiUrl["submit"], &data)
+	respBytes, err := makePostRequest(config.GetApiUrl("submit"), &data)
 	if err != nil {
 		return err
 	}
@@ -113,7 +113,7 @@ func (r *Redditor) DeleteAccount(passwd string) error {
 		"uh":             {r.ModHash},
 		"user":           {r.Name},
 	}
-	respBytes, err := makePostRequest(config.ApiUrl["delete"], &data)
+	respBytes, err := makePostRequest(config.GetApiUrl("delete"), &data)
 	if err != nil {
 		return err
 	}
@@ -148,7 +148,7 @@ func (r *Redditor) Me() error {
 	if !r.IsLoggedIn() {
 		return NotLoggedInError
 	}
-	respBytes, err := makeGetRequest(config.ApiUrl["me"])
+	respBytes, err := makeGetRequest(config.GetApiUrl("me"))
 	if err != nil {
 		return err
 	}

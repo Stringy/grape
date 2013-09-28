@@ -36,7 +36,7 @@ func (r *Submission) String() string {
 }
 
 func (r *Submission) SubmissionUrl() string {
-	return fmt.Sprintf(config.Url["comment"], r.Sub, r.Id)
+	return fmt.Sprintf(config.GetUrl("comment"), r.Sub, r.Id)
 }
 
 func (r *Submission) GetComments() []Comment {
@@ -63,7 +63,7 @@ func (r *Submission) PostComment(user *Redditor, body string) error {
 		"uh":       {user.ModHash},
 		"thing_id": {"t6_" + r.Id},
 	}
-	b, err := makePostRequest(config.ApiUrl["comment"], data)
+	b, err := makePostRequest(config.GetApiUrl("comment"), data)
 	if err != nil {
 		return err
 	}
