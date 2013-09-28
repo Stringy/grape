@@ -1,28 +1,22 @@
 package reddit
 
 import (
-	_ "bufio"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/Stringy/reddit/client"
-	"github.com/Stringy/reddit/config"
-	"github.com/Stringy/reddit/things"
 	"net/url"
 	"strings"
 )
 
-var cfg = config.GetInstance()
-
 // GetSubreddit gets the front page of a named subreddit
 // TODO: add support for arbitrary number of posts returned
-func GetSubreddit(sub string) (*things.Subreddit, error) {
-	//rlog.Printf("Getting subreddit: %s\n", sub)
-	b, err := client.MakeGetRequest(fmt.Sprintf(cfg.Url["subreddit"], sub))
+func GetSubreddit(sub string) (*Subreddit, error) {
+	log.Printf("Getting subreddit: %s\n", sub)
+	b, err := makeGetRequest(fmt.Sprintf(config.Url["subreddit"], sub))
 	if err != nil {
 		return nil, err
 	}
-	rresp := new(things.RedditResponse)
+	rresp := new(RedditResponse)
 	err = json.Unmarshal(b, rresp)
 	rresp.Data.Name = sub
 	return &rresp.Data, nil
@@ -30,8 +24,8 @@ func GetSubreddit(sub string) (*things.Subreddit, error) {
 
 // GetSubredditN gets the first n items from a subreddit
 // returns a subreddit object containing the items
-func GetSubredditN(sub string, n int) (*things.Subreddit, error) {
-	var tempsub *things.Subreddit
+func GetSubredditN(sub string, n int) (*Subreddit, error) {
+	var tempsub *Subreddit
 	for ; n > 0; n -= 100 {
 		data := url.Values{
 			"limit": {fmt.Sprintf("%d", n)},
@@ -39,11 +33,11 @@ func GetSubredditN(sub string, n int) (*things.Subreddit, error) {
 		if tempsub != nil && len(tempsub.Items) != 0 {
 			data.Set("after", tempsub.Items[len(tempsub.Items)-1].Name)
 		}
-		b, err := client.MakePostRequest(fmt.Sprintf(cfg.Url["subreddit"], sub), &data)
+		b, err := makePostRequest(fmt.Sprintf(config.Url["subreddit"], sub), &data)
 		if err != nil {
 			return nil, err
 		}
-		rresp := new(things.RedditResponse)
+		rresp := new(RedditResponse)
 		err = json.Unmarshal(b, rresp)
 		if err != nil {
 			return nil, err
@@ -59,12 +53,12 @@ func GetSubredditN(sub string, n int) (*things.Subreddit, error) {
 
 // GetFrontPage currently gets the front page of *default* reddit
 // TODO: apply this to currently logged in user
-func GetFrontPage(user *things.Redditor) (*things.Subreddit, error) {
-	b, err := client.MakeGetRequest(cfg.ApiUrl["frontpage"])
+func GetFrontPage(user *Redditor) (*Subreddit, error) {
+	b, err := makeGetRequest(config.ApiUrl["frontpage"])
 	if err != nil {
 		return nil, err
 	}
-	rresp := new(things.RedditResponse)
+	rresp := new(RedditResponse)
 	err = json.Unmarshal(b, rresp)
 	if err != nil {
 		return nil, err
@@ -73,13 +67,13 @@ func GetFrontPage(user *things.Redditor) (*things.Subreddit, error) {
 }
 
 // GetRedditor returns information about a given redditor
-func GetRedditor(user string) (*things.Redditor, error) {
-	// rlog.Printf("getting Redditor: %s\n", user)
-	b, err := client.MakeGetRequest(fmt.Sprintf(cfg.Url["user"], user))
+func GetRedditor(user string) (*Redditor, error) {
+	log.Printf("getting Redditor: %s\n", user)
+	b, err := makeGetRequest(fmt.Sprintf(config.Url["user"], user))
 	if err != nil {
 		return nil, err
 	}
-	uresp := new(things.UserResponse)
+	uresp := new(UserResponse)
 	err = json.Unmarshal(b, uresp)
 	if err != nil {
 		return nil, err
@@ -90,19 +84,19 @@ func GetRedditor(user string) (*things.Redditor, error) {
 // Login logs a user into reddit through the api login page
 // returns the same errors recieved from reddit, if applicable
 // otherwise returns a redditor with populated modhash and cookie strings
-func Login(user, pass string, rem bool) (*things.Redditor, error) {
-	// rlog.Printf("logging in to user: %s\n", user)
+func Login(user, pass string, rem bool) (*Redditor, error) {
+	log.Printf("logging in to user: %s\n", user)
 	data := url.Values{
 		"user":     {user},
 		"passwd":   {pass},
 		"api_type": {"json"},
 		"rem":      {fmt.Sprintf("%v", rem)},
 	}
-	b, err := client.MakePostRequest(cfg.ApiUrl["login"], &data)
+	b, err := makePostRequest(config.ApiUrl["login"], &data)
 	if err != nil {
 		return nil, err
 	}
-	loginResp := new(things.LoginResponse)
+	loginResp := new(LoginResponse)
 	err = json.Unmarshal(b, &loginResp)
 	if err != nil {
 		return nil, err
@@ -116,7 +110,7 @@ func Login(user, pass string, rem bool) (*things.Redditor, error) {
 		return nil, errors.New("Login Error: " + str)
 	}
 
-	redditor := things.NewRedditor()
+	redditor := NewRedditor()
 	redditor.Name = user
 	redditor.ModHash = loginResp.Json.Data.ModHash
 	return redditor, nil
