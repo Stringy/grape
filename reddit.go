@@ -9,7 +9,6 @@ import (
 )
 
 // GetSubreddit gets the front page of a named subreddit
-// TODO: add support for arbitrary number of posts returned
 func GetSubreddit(sub string) (*Subreddit, error) {
 	log.Printf("Getting subreddit: %s\n", sub)
 	b, err := makeGetRequest(fmt.Sprintf(config.GetUrl("subreddit"), sub))
@@ -52,7 +51,7 @@ func GetSubredditN(sub string, n int) (*Subreddit, error) {
 }
 
 // GetFrontPage currently gets the front page of *default* reddit
-// TODO: apply this to currently logged in user
+// TODO(Stringy): apply this to currently logged in user
 func GetFrontPage(user *Redditor) (*Subreddit, error) {
 	b, err := makeGetRequest(config.GetApiUrl("frontpage"))
 	if err != nil {
@@ -84,6 +83,7 @@ func GetRedditor(user string) (*Redditor, error) {
 // Login logs a user into reddit through the api login page
 // returns the same errors recieved from reddit, if applicable
 // otherwise returns a redditor with populated modhash
+// TODO(Stringy): add support for ssl.reddit.com/login
 func Login(user, pass string, rem bool) (*Redditor, error) {
 	log.Printf("logging in to user: %s\n", user)
 	data := url.Values{

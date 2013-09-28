@@ -144,8 +144,43 @@ func (r *Redditor) DeleteAccount(passwd string) error {
 }
 
 // GetUnreadMail gets the unread mail for the user
-func (r *Redditor) GetUnreadMail() ([]string, error) {
-	return nil, nil
+// doesn't require modhash for reading messages
+func (r *Redditor) GetUnreadMail() ([]Message, error) {
+	b, err := makeGetRequest(config.GetUrl("unread"))
+	if err != nil {
+		return nil, err
+	}
+	//debug.Println("unread messages json:", string(b))
+	msgresp := new(MessageResponse)
+	err = json.Unmarshal(b, msgresp)
+	if err != nil {
+		return nil, err
+	}
+	msgs := make([]Message, len(msgresp.Data.Children))
+	for i, msg := range msgresp.Data.Children {
+		msgs[i] = msg.Msg
+	}
+	return msgs, nil
+}
+
+// GetInbox gets all mail from the user's mail
+// doesn't require modhash for reading
+func (r *Redditor) GetInbox() ([]Message, error) {
+	b, err := makeGetRequest(config.GetUrl("inbox"))
+	if err != nil {
+		return nil, err
+	}
+	msgresp := new(MessageResponse)
+	err = json.Unmarshal(b, msgresp)
+	if err != nil {
+		return nil, err
+	}
+	debug.Println(msgresp.Data.Children)
+	msgs := make([]Message, len(msgresp.Data.Children))
+	for i, msg := range msgresp.Data.Children {
+		msgs[i] = msg.Msg
+	}
+	return msgs, nil
 }
 
 // GetFrontpage returns the frontpage for the user, including all

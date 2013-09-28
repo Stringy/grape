@@ -56,3 +56,11 @@ type LoginResponse struct {
 		}
 	}
 }
+
+type MessageResponse struct {
+	Data struct {
+		Children []struct {
+			Msg Message `json:"data"`
+		}
+	}
+}

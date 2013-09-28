@@ -36,6 +36,9 @@
 		"subreddit":  "/r/%s.json",
 		"frontpage":  "/.json",
 		"user":       "/user/%s/about.json",
-		"comment":    "/r/%s/%s.json"
+		"comment":    "/r/%s/%s.json",
+		"inbox": 	  "/message/inbox.json",
+		"unread": 	  "/message/unread.json",
+		"sent": 	  "/message/sent.json"
 	}
 }

@@ -10,8 +10,6 @@ import (
 	"time"
 )
 
-type priority chan *http.Request
-
 var (
 	priorities    []chan *http.Request // priorities channel
 	responseCache *RedditCache         // cache of prefetched results
@@ -23,11 +21,14 @@ var (
 )
 
 const (
+	// prefetching type enumeration
+	// used for future prefetching logic
 	dontPrefetch = iota
 	commentReq
 	listingReq
 	userReq
 
+	// default cache size
 	cacheSize = 25
 )
 
@@ -49,6 +50,7 @@ type Jar struct {
 	cookies map[string][]*http.Cookie
 }
 
+// NewJar creates and returns a new Cookie Jar
 func NewJar() *Jar {
 	jar := new(Jar)
 	jar.cookies = make(map[string][]*http.Cookie)
@@ -182,13 +184,16 @@ func makeRequests() {
 	}
 }
 
+// doRequest is called in a new go routine to send the request to reddit
+// it then updates the client cookies and sends the response to be cached for
+// retrieval
 func doRequest(req *http.Request) {
 	debug.Printf("client doing request: %v", req.URL)
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Fatalf("error in response from %v\n\t%v\n", req.URL, err)
 	}
-	debug.Println(resp)
+	//	debug.Println(resp)
 	if len(resp.Cookies()) != 0 {
 		client.Jar.SetCookies(reddit_url, resp.Cookies())
 	}
