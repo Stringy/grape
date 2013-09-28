@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+	"time"
 )
 
 type Redditor struct {
@@ -28,7 +29,15 @@ func NewRedditor() *Redditor {
 
 //IsLoggedIn returns true if the user is currently logged into reddit
 func (r *Redditor) IsLoggedIn() bool {
-	return len(r.ModHash) != 0
+	if len(r.ModHash) == 0 || len(client.Jar.Cookies(config.Host)) == 0 {
+		return false
+	}
+	for _, cookie := range client.Jar.Cookies(config.Host) {
+		if cookie.Expires.After(time.Now()) {
+			return true
+		}
+	}
+	return false
 }
 
 //ReplyToComment replies to a reddit comment on behalf of the user

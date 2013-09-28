@@ -196,5 +196,8 @@ func doRequest(req *http.Request) {
 	if err != nil {
 		log.Fatalf("error in response from %v\n\t%v\n", req.URL, err)
 	}
+	if len(resp.Cookies()) != 0 {
+		client.SetCookies(actual_url, resp.Cookies())
+	}
 	resps <- resp
 }
