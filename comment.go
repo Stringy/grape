@@ -17,7 +17,7 @@ type Comment struct {
 
 func (c *Comment) Reply(user *Redditor, body string) error {
 	if !user.IsLoggedIn() {
-		return NotLoggedInError
+		return notLoggedInError
 	}
 	data := &url.Values{
 		"api_type": {"json"},
@@ -34,7 +34,7 @@ func (c *Comment) Reply(user *Redditor, body string) error {
 
 func (c *Comment) Edit(user *Redditor, body string) error {
 	if !user.IsLoggedIn() {
-		return NotLoggedInError
+		return notLoggedInError
 	}
 	data := &url.Values{
 		"api_type": {"json"},

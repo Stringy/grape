@@ -15,7 +15,7 @@ func GetSubreddit(sub string) (*Subreddit, error) {
 	if err != nil {
 		return nil, err
 	}
-	rresp := new(RedditResponse)
+	rresp := new(redditResponse)
 	err = json.Unmarshal(b, rresp)
 	rresp.Data.Name = sub
 	return &rresp.Data, nil
@@ -36,7 +36,7 @@ func GetSubredditN(sub string, n int) (*Subreddit, error) {
 		if err != nil {
 			return nil, err
 		}
-		rresp := new(RedditResponse)
+		rresp := new(redditResponse)
 		err = json.Unmarshal(b, rresp)
 		if err != nil {
 			return nil, err
@@ -57,7 +57,7 @@ func GetFrontPage(user *Redditor) (*Subreddit, error) {
 	if err != nil {
 		return nil, err
 	}
-	rresp := new(RedditResponse)
+	rresp := new(redditResponse)
 	err = json.Unmarshal(b, rresp)
 	if err != nil {
 		return nil, err
@@ -72,7 +72,7 @@ func GetRedditor(user string) (*Redditor, error) {
 	if err != nil {
 		return nil, err
 	}
-	uresp := new(UserResponse)
+	uresp := new(userResponse)
 	err = json.Unmarshal(b, uresp)
 	if err != nil {
 		return nil, err
@@ -98,7 +98,7 @@ func Login(user, pass string, rem bool) (*Redditor, error) {
 		return nil, err
 	}
 	// debug.Println("response body:", string(b))
-	loginResp := new(LoginResponse)
+	loginResp := new(loginResponse)
 	err = json.Unmarshal(b, &loginResp)
 	if err != nil {
 		return nil, err

@@ -17,7 +17,7 @@ type Thing struct {
 // returns any errors recieved from reddit
 func (t *Thing) Report(user *Redditor) error {
 	if !user.IsLoggedIn() {
-		return NotLoggedInError
+		return notLoggedInError
 	}
 	data := &url.Values{
 		"id": {t.Name},

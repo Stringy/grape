@@ -2,11 +2,11 @@ package reddit
 
 import ()
 
-type UserResponse struct {
+type userResponse struct {
 	Data Redditor
 }
 
-type RedditResponse struct {
+type redditResponse struct {
 	Data Subreddit
 }
 
@@ -39,7 +39,7 @@ func commentFromJson(jComm jsonComment) Comment {
 	return *comment
 }
 
-type CommentsResponse struct {
+type commentsResponse struct {
 	Data struct {
 		Children []struct {
 			Data jsonComment `json:"data"`
@@ -47,7 +47,7 @@ type CommentsResponse struct {
 	}
 }
 
-type LoginResponse struct {
+type loginResponse struct {
 	Json struct {
 		Errors [][]string
 		Data   struct {
@@ -57,7 +57,7 @@ type LoginResponse struct {
 	}
 }
 
-type MessageResponse struct {
+type messageResponse struct {
 	Data struct {
 		Children []struct {
 			Msg Message `json:"data"`

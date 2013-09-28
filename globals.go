@@ -85,8 +85,8 @@ func (c *cfg) GetUrl(name string) string {
 
 // Reusable Errors
 var (
-	NotLoggedInError  = errors.New("reddit: user not logged in")
-	TitleTooLongError = errors.New("reddit: title too long; must be <= 300 characters")
+	notLoggedInError  = errors.New("reddit: user not logged in")
+	titleTooLongError = errors.New("reddit: title too long; must be <= 300 characters")
 )
 
 // Error json response

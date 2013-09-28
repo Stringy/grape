@@ -68,10 +68,10 @@ func (r *Redditor) submit(subreddit, title, body, link, kind string, resubmit bo
 		return errors.New("nil redditor")
 	}
 	if len(title) > 300 {
-		return TitleTooLongError
+		return titleTooLongError
 	}
 	if !r.IsLoggedIn() {
-		return NotLoggedInError
+		return notLoggedInError
 	}
 
 	data := url.Values{
@@ -114,7 +114,7 @@ func (r *Redditor) submit(subreddit, title, body, link, kind string, resubmit bo
 //DeleteAccount deletes the user from reddit
 func (r *Redditor) DeleteAccount(passwd string) error {
 	if r == nil || !r.IsLoggedIn() {
-		return NotLoggedInError
+		return notLoggedInError
 	}
 	data := url.Values{
 		"api_type":       {"json"},
@@ -151,7 +151,7 @@ func (r *Redditor) GetUnreadMail() ([]Message, error) {
 		return nil, err
 	}
 	//debug.Println("unread messages json:", string(b))
-	msgresp := new(MessageResponse)
+	msgresp := new(messageResponse)
 	err = json.Unmarshal(b, msgresp)
 	if err != nil {
 		return nil, err
@@ -170,7 +170,7 @@ func (r *Redditor) GetInbox() ([]Message, error) {
 	if err != nil {
 		return nil, err
 	}
-	msgresp := new(MessageResponse)
+	msgresp := new(messageResponse)
 	err = json.Unmarshal(b, msgresp)
 	if err != nil {
 		return nil, err
@@ -198,13 +198,13 @@ func (r *Redditor) GetFrontpageN(n int) (*Subreddit, error) {
 // Me populates the redditor with their information
 func (r *Redditor) Me() error {
 	if !r.IsLoggedIn() {
-		return NotLoggedInError
+		return notLoggedInError
 	}
 	respBytes, err := makeGetRequest(config.GetApiUrl("me"))
 	if err != nil {
 		return err
 	}
-	uresp := new(UserResponse)
+	uresp := new(userResponse)
 	uresp.Data = *r
 	err = json.Unmarshal(respBytes, uresp)
 	if err != nil {

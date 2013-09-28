@@ -44,7 +44,7 @@ func (r *Submission) GetComments() []Comment {
 	if err != nil {
 		panic(err)
 	}
-	cresp := make([]*CommentsResponse, 2)
+	cresp := make([]*commentsResponse, 2)
 	err = json.Unmarshal(b, &cresp)
 	comments := make([]Comment, len(cresp[1].Data.Children))
 	for i, comment := range cresp[1].Data.Children {
@@ -55,7 +55,7 @@ func (r *Submission) GetComments() []Comment {
 
 func (r *Submission) PostComment(user *Redditor, body string) error {
 	if !user.IsLoggedIn() {
-		return NotLoggedInError
+		return notLoggedInError
 	}
 	data := &url.Values{
 		"api_type": {"json"},
