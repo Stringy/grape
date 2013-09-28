@@ -1,6 +1,7 @@
 package reddit
 
 import (
+	"fmt"
 	"sync"
 )
 
@@ -11,6 +12,10 @@ type Subreddit struct {
 		Submission `json:"data"`
 	} `json:"children"`
 	*sync.RWMutex
+}
+
+func (s *Subreddit) GetUrl() string {
+	return fmt.Sprintf(config.GetUrl("subreddit"), s.Name)
 }
 
 func NewSubreddit() *Subreddit {
