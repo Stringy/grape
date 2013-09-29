@@ -1,7 +1,7 @@
-reddit
+grape
 ======
 
-reddit is a Go wrapper for the Reddit API. It will provide functionality for all aspects of the API for use in the creation of bots. 
+grape is a Go wrapper for the Reddit API. It will provide functionality for all aspects of the API for use in the creation of bots. 
 
 The current functionality is limited to the following:
  - Logging in
@@ -21,11 +21,11 @@ Example Code:
 package main 
 
 import (
-  "github.com/Stringy/reddit"
+  "github.com/Stringy/grape"
 )
 
 func main() {
-  user, err := reddit.Login("username", "password", true)
+  user, err := grape.Login("username", "password", true)
   if err != nil {
     // handle error
   } 

@@ -1,4 +1,4 @@
-package reddit
+package grape
 
 type Message struct {
 	WasComment bool
