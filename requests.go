@@ -2,6 +2,7 @@ package grape
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -82,8 +83,7 @@ func makePostRequest(url string, data *url.Values) ([]byte, error) {
 	}
 	req.Header.Set("User-Agent", config.UserAgent)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	//req.Header.Set("Content-Length", fmt.Sprintf("%d", len(data.Encode())))
-	//debug.Println(req)
+	req.Header.Set("Content-Length", fmt.Sprintf("%d", len(data.Encode())))
 	priorities[0] <- req
 	cache := responseCache.GetUpdateChan()
 	for {

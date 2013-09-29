@@ -9,6 +9,7 @@ import (
 )
 
 // GetSubreddit gets the front page of a named subreddit
+// sub is the name of a valid subreddit
 func GetSubreddit(sub string) (*Subreddit, error) {
 	log.Printf("Getting subreddit: %s\n", sub)
 	b, err := makeGetRequest(fmt.Sprintf(config.GetUrl("subreddit"), sub))
@@ -21,21 +22,44 @@ func GetSubreddit(sub string) (*Subreddit, error) {
 	return &rresp.Data, nil
 }
 
+// GetSortedSubreddit gets the front page of a named subreddit with submissions sorted
+// sub is the name of a valid subreddit
+// s is the required sorting of the subreddit (hot, new, controversial, top or default)
+// p is the required time period for the sorting (hour, day, week, month, year, all)
+func GetSortedSubreddit(sub string, s sort, p period) (*Subreddit, error) {
+	log.Printf("getting sorted subreddit %s sorted by %s over period %s", sub, s, p)
+	data := url.Values{
+		"t": {string(p)},
+	}
+	b, err := makePostRequest(fmt.Sprintf(config.GetUrl(string(s)), sub), &data)
+	if err != nil {
+		return nil, err
+	}
+	rresp := new(redditResponse)
+	err = json.Unmarshal(b, rresp)
+	rresp.Data.Name = sub
+	return &rresp.Data, nil
+}
+
 // GetSubredditN gets the first n items from a subreddit
 // returns a subreddit object containing the items
+// sub is the name of a valid subreddit
 func GetSubredditN(sub string, n int) (*Subreddit, error) {
+	u := fmt.Sprintf(config.GetUrl("limited_sub"), sub)
 	var tempsub *Subreddit
 	for ; n > 0; n -= 100 {
 		data := url.Values{
-			"limit": {fmt.Sprintf("%d", n)},
+			"limit":    {fmt.Sprintf("%d", n)},
+			"api_type": {"json"},
 		}
 		if tempsub != nil && len(tempsub.Items) != 0 {
 			data.Set("after", tempsub.Items[len(tempsub.Items)-1].Name)
 		}
-		b, err := makePostRequest(fmt.Sprintf(config.GetUrl("subreddit"), sub), &data)
+		b, err := makePostRequest(u, &data)
 		if err != nil {
 			return nil, err
 		}
+		fmt.Println(string(b))
 		rresp := new(redditResponse)
 		err = json.Unmarshal(b, rresp)
 		if err != nil {
@@ -50,10 +74,20 @@ func GetSubredditN(sub string, n int) (*Subreddit, error) {
 	return tempsub, nil
 }
 
+// GetSubredditN gets the first n items from a subreddit with submissions sorted
+// returns a subreddit object containing the items
+// sub is the name of a valid subreddit
+// s is the required sorting of the subreddit (hot, new, controversial, top or default) can be nil
+// p is the required time period for the sorting (hour, day, week, month, year, all) can be nil
+// n is the number of required submissions
+func GetSortedSubredditN(sub string, s sort, p period, n int) (*Subreddit, error) {
+	return nil, nil
+}
+
 // GetFrontPage currently gets the front page of *default* reddit
 // TODO(Stringy): apply this to currently logged in user
 func GetFrontPage(user *Redditor) (*Subreddit, error) {
-	b, err := makeGetRequest(config.GetApiUrl("frontpage"))
+	b, err := makeGetRequest(config.GetUrl("frontpage"))
 	if err != nil {
 		return nil, err
 	}

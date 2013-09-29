@@ -12,9 +12,37 @@ import (
 
 var reddit_url *url.URL
 
-// Logging
+// Standard Logging
 var log = logging.New(ioutil.Discard, "[reddit] ", logging.LstdFlags)
+
+// Debugging
 var debug = logging.New(ioutil.Discard, "[reddit debug] ", logging.LstdFlags)
+
+// sorting type
+type sort string
+
+// Listing sort constants
+const (
+	HOT       sort = "hot"
+	TOP       sort = "top"
+	NEW       sort = "new"
+	CONT      sort = "controversial"
+	DEFAULT_S sort = "subreddit"
+)
+
+// time period for sorting
+type period string
+
+// time period constants
+const (
+	HOUR      period = "hour"
+	DAY       period = "day"
+	WEEK      period = "week"
+	MONTH     period = "month"
+	YEAR      period = "year"
+	ALL       period = "all"
+	DEFAULT_P period = ""
+)
 
 func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())

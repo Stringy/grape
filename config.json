@@ -33,12 +33,16 @@
 		"unread_message": "/api/unread_message"
 	},
 	"urls": {
-		"subreddit":  "/r/%s.json",
-		"frontpage":  "/.json",
-		"user":       "/user/%s/about.json",
-		"comment":    "/r/%s/%s.json",
-		"inbox": 	  "/message/inbox.json",
-		"unread": 	  "/message/unread.json",
-		"sent": 	  "/message/sent.json"
+		"subreddit":  	 "/r/%s.json",
+		"limited_sub": 	 "/r/%s/",
+		"frontpage":  	 "/.json",
+		"user":       	 "/user/%s/about.json",
+		"comment":    	 "/r/%s/%s.json",
+		"inbox": 	  	 "/message/inbox.json",
+		"unread": 	  	 "/message/unread.json",
+		"sent": 	  	 "/message/sent.json",
+		"hot": 		  	 "/r/%s/hot.json",
+		"new": 		  	 "/r/%s/new.json",
+		"controversial": "/r/%s/controversial.json"
 	}
 }

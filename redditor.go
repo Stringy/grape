@@ -10,14 +10,18 @@ import (
 )
 
 type Redditor struct {
-	LKarma   int  `json:"link_karma"`
-	CKarma   int  `json:"comment_karma"`
-	IsFriend bool `json:"is_friend"`
-	HasMail  bool `json:"has_mail"`
-	IsOver18 bool `json:"over_18"`
-	IsGold   bool `json:"is_gold"`
-	IsMod    bool `json:"is_mod"`
-	ModHash  string
+	LKarma        int  `json:"link_karma"`
+	CKarma        int  `json:"comment_karma"`
+	IsFriend      bool `json:"is_friend"`
+	HasMail       bool `json:"has_mail"`
+	IsOver18      bool `json:"over_18"`
+	IsGold        bool `json:"is_gold"`
+	IsMod         bool `json:"is_mod"`
+	Created       int
+	CreatedUTC    time.Time `json:"created_utc"`
+	HasModMail    bool      `json:"has_mod_mail"`
+	VerifiedEmail bool      `json:"has_verified_email"`
+	ModHash       string
 	*Thing
 }
 

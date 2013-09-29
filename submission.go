@@ -9,18 +9,31 @@ import (
 )
 
 type Submission struct {
-	Title       string
-	Url         string
-	NumComments int `json:"num_comments"`
-	Author      string
-	IsSelf      bool `json:"is_self"`
-	IsNSFW      bool `json:"over_18"`
-	SelfText    string
-	Created     float64 `json:"created_utc"`
-	Score       int
-	Ups         int
-	Downs       int
-	Sub         string `json:"subreddit"`
+	Title           string
+	Url             string
+	NumComments     int `json:"num_comments"`
+	Author          string
+	IsSelf          bool `json:"is_self"`
+	IsNSFW          bool `json:"over_18"`
+	SelfText        string
+	Created         float64 `json:"created_utc"`
+	Score           int
+	Ups             int
+	Downs           int
+	Sub             string `json:"subreddit"`
+	AuthorFlairCSS  string `json:"author_flair_css_class"`
+	AuthorFlairText string `json:"author_flair_text"`
+	LinkFlairCSS    string `json:"link_flair_css_class"`
+	LinkFlairText   string `json:"link_flair_text"`
+	Clicked         bool
+	Domain          string
+	Hidden          bool
+	Likes           bool
+	Permalink       string
+	Saved           bool
+	Edited          int
+	Distinguished   string
+	Stickied        bool
 	*Thing
 }
 
