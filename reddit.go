@@ -8,11 +8,12 @@ import (
 	"strings"
 )
 
-// GetSubreddit gets the front page of a named subreddit
+// GetSubreddit gets the front page of a named subreddit.
+//
 // sub is the name of a valid subreddit
 func GetSubreddit(sub string) (*Subreddit, error) {
 	log.Printf("Getting subreddit: %s\n", sub)
-	b, err := makeGetRequest(fmt.Sprintf(config.GetUrl("subreddit"), sub))
+	b, err := makeGetRequest(fmt.Sprintf(Config.GetUrl("subreddit"), sub))
 	if err != nil {
 		return nil, err
 	}
@@ -22,16 +23,19 @@ func GetSubreddit(sub string) (*Subreddit, error) {
 	return &rresp.Data, nil
 }
 
-// GetSortedSubreddit gets the front page of a named subreddit with submissions sorted
-// sub is the name of a valid subreddit
-// s is the required sorting of the subreddit (hot, new, controversial, top or default)
-// p is the required time period for the sorting (hour, day, week, month, year, all)
+// GetSortedSubreddit gets the front page of a named subreddit with submissions sorted.
+//
+// sub is the name of a valid subreddit.
+//
+// s is the required sorting of the subreddit (hot, new, controversial, top or default).
+//
+// p is the required time period for the sorting (hour, day, week, month, year, all).
 func GetSortedSubreddit(sub string, s sort, p period) (*Subreddit, error) {
 	log.Printf("getting sorted subreddit %s sorted by %s over period %s", sub, s, p)
 	data := url.Values{
 		"t": {string(p)},
 	}
-	b, err := makePostRequest(fmt.Sprintf(config.GetUrl(string(s)), sub), &data)
+	b, err := makePostRequest(fmt.Sprintf(Config.GetUrl(string(s)), sub), &data)
 	if err != nil {
 		return nil, err
 	}
@@ -41,11 +45,13 @@ func GetSortedSubreddit(sub string, s sort, p period) (*Subreddit, error) {
 	return &rresp.Data, nil
 }
 
-// GetSubredditN gets the first n items from a subreddit
-// returns a subreddit object containing the items
-// sub is the name of a valid subreddit
+// GetSubredditN gets the first n items from a subreddit.
+//
+// returns a subreddit object containing the items.
+//
+// sub is the name of a valid subreddit.
 func GetSubredditN(sub string, n int) (*Subreddit, error) {
-	u := fmt.Sprintf(config.GetUrl("limited_sub"), sub)
+	u := fmt.Sprintf(Config.GetUrl("limited_sub"), sub)
 	var tempsub *Subreddit
 	for ; n > 0; n -= 100 {
 		data := url.Values{
@@ -74,11 +80,16 @@ func GetSubredditN(sub string, n int) (*Subreddit, error) {
 	return tempsub, nil
 }
 
-// GetSubredditN gets the first n items from a subreddit with submissions sorted
+// GetSubredditN gets the first n items from a subreddit with submissions sorted.
+//
 // returns a subreddit object containing the items
+//
 // sub is the name of a valid subreddit
+//
 // s is the required sorting of the subreddit (hot, new, controversial, top or default) can be nil
+//
 // p is the required time period for the sorting (hour, day, week, month, year, all) can be nil
+//
 // n is the number of required submissions
 func GetSortedSubredditN(sub string, s sort, p period, n int) (*Subreddit, error) {
 	return nil, nil
@@ -87,7 +98,7 @@ func GetSortedSubredditN(sub string, s sort, p period, n int) (*Subreddit, error
 // GetFrontPage currently gets the front page of *default* reddit
 // TODO(Stringy): apply this to currently logged in user
 func GetFrontPage(user *Redditor) (*Subreddit, error) {
-	b, err := makeGetRequest(config.GetUrl("frontpage"))
+	b, err := makeGetRequest(Config.GetUrl("frontpage"))
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +114,7 @@ func GetFrontPage(user *Redditor) (*Subreddit, error) {
 // reddit user
 func GetRedditor(user string) (*Redditor, error) {
 	log.Printf("getting Redditor: %s\n", user)
-	b, err := makeGetRequest(fmt.Sprintf(config.GetUrl("user"), user))
+	b, err := makeGetRequest(fmt.Sprintf(Config.GetUrl("user"), user))
 	if err != nil {
 		return nil, err
 	}
@@ -128,7 +139,7 @@ func Login(user, pass string, rem bool) (*Redditor, error) {
 		"rem":      {fmt.Sprintf("%v", rem)},
 	}
 	// debug.Println("making login request")
-	b, err := makePostRequest(config.GetApiUrl("login"), &data)
+	b, err := makePostRequest(Config.GetApiUrl("login"), &data)
 	if err != nil {
 		return nil, err
 	}

@@ -39,7 +39,7 @@ func (c *Comment) Reply(user *Redditor, body string) error {
 		"uh":       {user.ModHash},
 		"thing_id": {"t6_" + c.Id},
 	}
-	_, err := makePostRequest(config.GetApiUrl("comment"), data)
+	_, err := makePostRequest(Config.GetApiUrl("comment"), data)
 	if err != nil {
 		return err
 	}
@@ -59,7 +59,7 @@ func (c *Comment) Edit(user *Redditor, body string) error {
 		"uh":       {user.ModHash},
 		"thing_id": {"t6_" + c.Id},
 	}
-	_, err := makePostRequest(config.GetApiUrl("editusertext"), data)
+	_, err := makePostRequest(Config.GetApiUrl("editusertext"), data)
 	if err != nil {
 		return err
 	}

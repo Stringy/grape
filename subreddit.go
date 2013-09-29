@@ -32,7 +32,7 @@ type Subreddit struct {
 }
 
 func (s *Subreddit) GetUrl() string {
-	return config.Host + s.Url
+	return Config.Host + s.Url
 }
 
 func NewSubreddit() *Subreddit {

@@ -101,7 +101,7 @@ func (r *Redditor) submit(subreddit, title, body, link, kind string, resubmit bo
 		}
 	})
 
-	respBytes, err := makePostRequest(config.GetApiUrl("submit"), &data)
+	respBytes, err := makePostRequest(Config.GetApiUrl("submit"), &data)
 	if err != nil {
 		return err
 	}
@@ -128,7 +128,7 @@ func (r *Redditor) DeleteAccount(passwd string) error {
 		"uh":             {r.ModHash},
 		"user":           {r.Name},
 	}
-	respBytes, err := makePostRequest(config.GetApiUrl("delete"), &data)
+	respBytes, err := makePostRequest(Config.GetApiUrl("delete"), &data)
 	if err != nil {
 		return err
 	}
@@ -150,7 +150,7 @@ func (r *Redditor) DeleteAccount(passwd string) error {
 // GetUnreadMail gets the unread mail for the user
 // doesn't require modhash for reading messages
 func (r *Redditor) GetUnreadMail() ([]Message, error) {
-	b, err := makeGetRequest(config.GetUrl("unread"))
+	b, err := makeGetRequest(Config.GetUrl("unread"))
 	if err != nil {
 		return nil, err
 	}
@@ -170,7 +170,7 @@ func (r *Redditor) GetUnreadMail() ([]Message, error) {
 // GetInbox gets all mail from the user's mail
 // doesn't require modhash for reading
 func (r *Redditor) GetInbox() ([]Message, error) {
-	b, err := makeGetRequest(config.GetUrl("inbox"))
+	b, err := makeGetRequest(Config.GetUrl("inbox"))
 	if err != nil {
 		return nil, err
 	}
@@ -204,7 +204,7 @@ func (r *Redditor) Me() error {
 	if !r.IsLoggedIn() {
 		return notLoggedInError
 	}
-	respBytes, err := makeGetRequest(config.GetApiUrl("me"))
+	respBytes, err := makeGetRequest(Config.GetApiUrl("me"))
 	if err != nil {
 		return err
 	}
@@ -225,9 +225,9 @@ func (r *Redditor) ClearSessions(pass string) error {
 		"api_type": {"json"},
 		"curpass":  {pass},
 		"uh":       {r.ModHash},
-		"dest":     {config.Host},
+		"dest":     {Config.Host},
 	}
-	b, err := makePostRequest(config.GetApiUrl("clear_sessions"), &data)
+	b, err := makePostRequest(Config.GetApiUrl("clear_sessions"), &data)
 	if err != nil {
 		return err
 	}

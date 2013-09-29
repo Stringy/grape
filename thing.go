@@ -23,7 +23,7 @@ func (t *Thing) Report(user *Redditor) error {
 		"id": {t.Name},
 		"uh": {user.ModHash},
 	}
-	b, err := makePostRequest(config.GetApiUrl("report"), data)
+	b, err := makePostRequest(Config.GetApiUrl("report"), data)
 	if err != nil {
 		return err
 	}
@@ -47,7 +47,7 @@ func (t *Thing) Hide(user *Redditor) error {
 		"id": {t.Name},
 		"uh": {user.ModHash},
 	}
-	b, err := makePostRequest(config.GetApiUrl("hide"), data)
+	b, err := makePostRequest(Config.GetApiUrl("hide"), data)
 	if err != nil {
 		return nil
 	}
@@ -71,7 +71,7 @@ func (t *Thing) Unhide(user *Redditor) error {
 		"id": {t.Name},
 		"uh": {user.ModHash},
 	}
-	b, err := makePostRequest(config.GetApiUrl("unhide"), data)
+	b, err := makePostRequest(Config.GetApiUrl("unhide"), data)
 	if err != nil {
 		return nil
 	}
@@ -100,7 +100,7 @@ func (t *Thing) MarkNsfw(user *Redditor) error {
 		"id": {t.Name},
 		"uh": {user.ModHash},
 	}
-	b, err := makePostRequest(config.GetApiUrl("marknsfw"), data)
+	b, err := makePostRequest(Config.GetApiUrl("marknsfw"), data)
 	if err != nil {
 		return nil
 	}
@@ -125,7 +125,7 @@ func (t *Thing) UnmarkNsfw(user *Redditor) error {
 		"id": {t.Name},
 		"uh": {user.ModHash},
 	}
-	b, err := makePostRequest(config.GetApiUrl("unmarknsfw"), data)
+	b, err := makePostRequest(Config.GetApiUrl("unmarknsfw"), data)
 	if err != nil {
 		return nil
 	}

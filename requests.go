@@ -81,7 +81,7 @@ func makePostRequest(url string, data *url.Values) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("User-Agent", config.UserAgent)
+	req.Header.Set("User-Agent", Config.UserAgent)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Set("Content-Length", fmt.Sprintf("%d", len(data.Encode())))
 	priorities[0] <- req
@@ -113,7 +113,7 @@ func makeGetRequest(url string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("User-Agent", config.UserAgent)
+	req.Header.Set("User-Agent", Config.UserAgent)
 	//req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	priorities[0] <- req
 	cache := responseCache.GetUpdateChan()

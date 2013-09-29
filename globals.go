@@ -1,7 +1,6 @@
 package grape
 
 import (
-	"encoding/json"
 	"errors"
 	"io/ioutil"
 	logging "log"
@@ -46,59 +45,90 @@ const (
 
 func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
-	err := loadConfig("config.json")
-	if err != nil {
-		panic(err)
-	}
-	if config.Log {
-		out, err := os.Create(config.LogFile)
+	initConfig()
+	if Config.Log {
+		out, err := os.Create(Config.LogFile)
 		if err != nil {
 			panic(err)
 		}
 		log = logging.New(out, "[reddit] ", logging.LstdFlags)
 	}
-	if config.Debug {
-		out, err := os.Create(config.DebugFile)
+	if Config.Debug {
+		out, err := os.Create(Config.DebugFile)
 		if err != nil {
 			panic(err)
 		}
 		debug = logging.New(out, "[reddit debug] ", logging.LstdFlags|logging.Lshortfile)
 	}
-	reddit_url, err = url.Parse(config.Host)
+	var err error
+	reddit_url, err = url.Parse(Config.Host)
 	if err != nil {
-		log.Panicf("error parsing config.Host into url: %v", err)
+		log.Panicf("error parsing Config.Host into url: %v", err)
 	}
 }
 
 // Configuration structures
-var config = new(cfg)
+var Config = new(cfg)
 
 type cfg struct {
-	UserAgent string            `json:"user_agent"`
-	Host      string            `json:"host"`
-	ApiUrl    map[string]string `json:"api_urls"`
-	Url       map[string]string `json:"urls"`
-	Log       bool              `json:"enable_logging"`
-	Debug     bool              `json:"enable_debug"`
-	DebugFile string            `json:"debug_file"`
-	LogFile   string            `json:"log_file"`
+	UserAgent string
+	Host      string
+	ApiUrl    map[string]string
+	Url       map[string]string
+	Log       bool
+	Debug     bool
+	DebugFile string
+	LogFile   string
 }
 
-// loadConfig decodes the configuration information from the config file
-func loadConfig(fn string) error {
-	f, err := os.Open(fn)
-	if err != nil {
-		return err
+// initConfig decodes the Configuration information from the Config file
+func initConfig() {
+	Config.UserAgent = "/u/stringy217's Go reddit api v0.1"
+	Config.Host = "http://reddit.local"
+	Config.ApiUrl = map[string]string{
+		"login":          "/api/login",
+		"me":             "/api/me.json",
+		"comment":        "/api/comment",
+		"delete_user":    "/api/delete_user",
+		"captcha":        "/api/new_captcha",
+		"submit":         "/api/submit",
+		"user_avail":     "/api/username_available.json",
+		"clear_sessions": "/api/clear_sessions",
+		"register":       "/api/register",
+		"update":         "/api/update",
+		"del":            "/api/del",
+		"editusertext":   "/api/editusertext",
+		"hide":           "/api/hide",
+		"info":           "/api/info",
+		"marknsfw":       "/api/marknsfw",
+		"morechildren":   "/api/morechildren",
+		"report":         "/api/report",
+		"save":           "/api/save",
+		"unhide":         "/api/unhide",
+		"unmarknsfw":     "/api/unmarknsfw",
+		"vote":           "/api/vote",
+		"block":          "/api/block",
+		"compose":        "/api/compose",
+		"read_message":   "/api/read_message",
+		"unread_message": "/api/unread_message",
 	}
-	b, err := ioutil.ReadAll(f)
-	if err != nil {
-		return err
+	Config.Url = map[string]string{
+		"subreddit":     "/r/%s.json",
+		"limited_sub":   "/r/%s/",
+		"frontpage":     "/.json",
+		"user":          "/user/%s/about.json",
+		"comment":       "/r/%s/%s.json",
+		"inbox":         "/message/inbox.json",
+		"unread":        "/message/unread.json",
+		"sent":          "/message/sent.json",
+		"hot":           "/r/%s/hot.json",
+		"new":           "/r/%s/new.json",
+		"controversial": "/r/%s/controversial.json",
 	}
-	err = json.Unmarshal(b, config)
-	if err != nil {
-		return err
-	}
-	return nil
+	Config.Log = true
+	Config.Debug = true
+	Config.LogFile = "reddit.log"
+	Config.DebugFile = "reddit.debug.log"
 }
 
 // GetApiUrl gives the api url including host
