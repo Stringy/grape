@@ -28,9 +28,6 @@ const (
 	commentReq
 	listingReq
 	userReq
-
-	// default cache size
-	cacheSize = 25
 )
 
 func init() {
@@ -84,6 +81,17 @@ func makePostRequest(url string, data *url.Values) ([]byte, error) {
 	req.Header.Set("User-Agent", Config.UserAgent)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Set("Content-Length", fmt.Sprintf("%d", len(data.Encode())))
+
+	// check existance of data for url which is not expired
+	if !responseCache.IsExpired(url) {
+		resp, _ := responseCache.Get(url) // existance is checked in IsExpired
+		buf := new(bytes.Buffer)
+		_, err := io.Copy(buf, resp.Body)
+		if err != nil {
+			return nil, err
+		}
+		return buf.Bytes(), nil
+	}
 	priorities[0] <- req
 	cache := responseCache.GetUpdateChan()
 	for {
@@ -114,7 +122,17 @@ func makeGetRequest(url string) ([]byte, error) {
 		return nil, err
 	}
 	req.Header.Set("User-Agent", Config.UserAgent)
-	//req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+	// check existance of data for url which is not expired
+	if !responseCache.IsExpired(url) {
+		resp, _ := responseCache.Get(url) // existance is checked in IsExpired
+		buf := new(bytes.Buffer)
+		_, err := io.Copy(buf, resp.Body)
+		if err != nil {
+			return nil, err
+		}
+		return buf.Bytes(), nil
+	}
 	priorities[0] <- req
 	cache := responseCache.GetUpdateChan()
 	for {
