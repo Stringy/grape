@@ -2,6 +2,7 @@ package grape
 
 import (
 	"net/http"
+	"strings"
 	"sync"
 	"time"
 )
@@ -53,11 +54,17 @@ func (r *redditCache) GetUpdateChan() chan struct{} {
 	return r.update
 }
 
-// Set sets the key, value pair in the cache
+// Set sets the key, value pair in the cache.
+// If the url is an api call, the retrieval time is set as Now - expirationTime
+// to prevent the blocking of api calls. The 30 second rule applies only to normal page retrieval.
 func (r *redditCache) Set(key string, value *http.Response) {
 	r.Lock()
 	defer r.Unlock()
-	r.cache[key] = &cacheEntry{value, time.Now()}
+	if strings.Contains(key, "/api/") {
+		r.cache[key] = &cacheEntry{value, time.Now().Add(-expirationTime)}
+	} else {
+		r.cache[key] = &cacheEntry{value, time.Now()}
+	}
 }
 
 // Get returns the value for key, if it exists along with a bool denoting
@@ -72,6 +79,7 @@ func (r *redditCache) Get(key string) (*http.Response, bool) {
 // IsExpired check a cache entry for expiration.
 // if no entry exists for key exists, then the function returns true
 // to ensure it is then fetched.
+// If the request is to /api/login it will always return true
 func (r *redditCache) IsExpired(key string) bool {
 	r.Lock()
 	defer r.Unlock()

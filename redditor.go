@@ -95,12 +95,7 @@ func (r *Redditor) submit(subreddit, title, body, link, kind string, resubmit bo
 		"sendreplies": {"true"},
 	}
 
-	errstruct := new(struct {
-		Json struct {
-			Errors [][]string
-		}
-	})
-
+	errstruct := new(errorJson)
 	respBytes, err := makePostRequest(Config.GetApiUrl("submit"), &data)
 	if err != nil {
 		return err

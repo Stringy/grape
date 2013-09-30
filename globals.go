@@ -73,8 +73,8 @@ var Config = new(cfg)
 type cfg struct {
 	UserAgent string
 	Host      string
-	ApiUrl    map[string]string
-	Url       map[string]string
+	apiUrl    map[string]string
+	url       map[string]string
 	Log       bool
 	Debug     bool
 	DebugFile string
@@ -85,7 +85,7 @@ type cfg struct {
 func initConfig() {
 	Config.UserAgent = "/u/stringy217's Go reddit api v0.1"
 	Config.Host = "http://reddit.local"
-	Config.ApiUrl = map[string]string{
+	Config.apiUrl = map[string]string{
 		"login":          "/api/login",
 		"me":             "/api/me.json",
 		"comment":        "/api/comment",
@@ -112,7 +112,7 @@ func initConfig() {
 		"read_message":   "/api/read_message",
 		"unread_message": "/api/unread_message",
 	}
-	Config.Url = map[string]string{
+	Config.url = map[string]string{
 		"subreddit":     "/r/%s.json",
 		"limited_sub":   "/r/%s/",
 		"frontpage":     "/.json",
@@ -133,12 +133,16 @@ func initConfig() {
 
 // GetApiUrl gives the api url including host
 func (c *cfg) GetApiUrl(name string) string {
-	return c.Host + c.ApiUrl[name]
+	return c.Host + c.apiUrl[name]
 }
 
 // GetUrl gives the reddit url format string including host
 func (c *cfg) GetUrl(name string) string {
-	return c.Host + c.Url[name]
+	return c.Host + c.url[name]
+}
+
+func (c *cfg) SetUserAgent(ua string) {
+	c.UserAgent = ua
 }
 
 // Reusable Errors

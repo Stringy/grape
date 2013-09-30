@@ -21,15 +21,6 @@ var (
 	client *http.Client // http client for making requests
 )
 
-const (
-	// prefetching type enumeration
-	// used for future prefetching logic
-	dontPrefetch = iota
-	commentReq
-	listingReq
-	userReq
-)
-
 func init() {
 	priorities = []chan *http.Request{
 		make(chan *http.Request),
@@ -74,14 +65,6 @@ func (jar *jar) Cookies(u *url.URL) []*http.Cookie {
 // MakePostRequest adds a post request to the request schedule and waits for the
 // existence of a response in the cache
 func makePostRequest(url string, data *url.Values) ([]byte, error) {
-	req, err := http.NewRequest("POST", url, strings.NewReader(data.Encode()))
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Set("User-Agent", Config.UserAgent)
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	req.Header.Set("Content-Length", fmt.Sprintf("%d", len(data.Encode())))
-
 	// check existance of data for url which is not expired
 	if !responseCache.IsExpired(url) {
 		resp, _ := responseCache.Get(url) // existance is checked in IsExpired
@@ -92,7 +75,16 @@ func makePostRequest(url string, data *url.Values) ([]byte, error) {
 		}
 		return buf.Bytes(), nil
 	}
-	priorities[0] <- req
+
+	req, err := http.NewRequest("POST", url, strings.NewReader(data.Encode()))
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("User-Agent", Config.UserAgent)
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Set("Content-Length", fmt.Sprintf("%d", len(data.Encode())))
+
+	priorities[0] <- req // high priority
 	cache := responseCache.GetUpdateChan()
 	for {
 		select {
@@ -117,12 +109,6 @@ func makePostRequest(url string, data *url.Values) ([]byte, error) {
 // MakeGetRequest adds a get request to the request schedule and waits for the
 // existence of a response in the cache
 func makeGetRequest(url string) ([]byte, error) {
-	req, err := http.NewRequest("GET", url, nil)
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Set("User-Agent", Config.UserAgent)
-
 	// check existance of data for url which is not expired
 	if !responseCache.IsExpired(url) {
 		resp, _ := responseCache.Get(url) // existance is checked in IsExpired
@@ -133,6 +119,13 @@ func makeGetRequest(url string) ([]byte, error) {
 		}
 		return buf.Bytes(), nil
 	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("User-Agent", Config.UserAgent)
+
 	priorities[0] <- req
 	cache := responseCache.GetUpdateChan()
 	for {
