@@ -120,6 +120,7 @@ func makeGetRequest(url string, params *url.Values) ([]byte, error) {
 		return buf.Bytes(), nil
 	}
 
+	// add parameters to url if they exist
 	if params != nil {
 		url = url + "?" + params.Encode()
 	}
@@ -133,6 +134,7 @@ func makeGetRequest(url string, params *url.Values) ([]byte, error) {
 
 	priorities[0] <- req
 	cache := responseCache.GetUpdateChan()
+	// wait for response
 	for {
 		select {
 		case _, ok := <-cache:

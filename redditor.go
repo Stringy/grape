@@ -243,3 +243,30 @@ func (r *Redditor) ClearSessions(pass string) error {
 	}
 	return nil
 }
+
+// UpdateEmailAndPass updates the user's email and password.
+// The user must provide their current password for this to succeed.
+func (r *Redditor) UpdateEmailAndPass(email, newpass, curpass string) error {
+	data := url.Values{
+		"api_type": {"json"},
+		"email":    {email},
+		"curpass":  {curpass},
+		"newpass":  {newpass},
+		"uh":       {r.ModHash},
+		"verify":   {"true"},
+		"verpass":  {newpass},
+	}
+	b, err := makePostRequest(Config.GetApiUrl("update"), &data)
+	if err != nil {
+		return err
+	}
+	erresp := new(errorJson)
+	err = json.Unmarshal(b, erresp)
+	if err != nil {
+		return err
+	}
+	if len(erresp.Json.Errors) != 0 {
+		return errors.New(strings.Join(erresp.Json.Errors[0], ", "))
+	}
+	return nil
+}

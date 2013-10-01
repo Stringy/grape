@@ -78,7 +78,7 @@ func (s *Subreddit) GetTop(t period, limit int) ([]Submission, error) {
 	}
 	data := &url.Values{
 		"limit": {fmt.Sprintf("%d", limit)},
-		"t":     {fmt.Sprintf("%d", t)},
+		"t":     {fmt.Sprintf("%s", t)},
 	}
 	b, err := makeGetRequest(fmt.Sprintf(Config.GetUrl("top"), s.Name), data)
 	if err != nil {
@@ -119,4 +119,29 @@ func (s *Subreddit) GetNew(limit int) ([]Submission, error) {
 		items[i] = subm.Submission
 	}
 	return items, nil
+}
+
+func (s *Subreddit) GetControversial(limit int) ([]Submission, error) {
+	if limit == 0 {
+		log.Printf("requested 0 controversial entries from /r/%s", s.Name)
+		return make([]Submission, 0), nil
+	}
+	data := &url.Values{
+		"limit": {fmt.Sprintf("%d", limit)},
+	}
+	b, err := makePostRequest(fmt.Sprintf(Config.GetUrl("controversial"), s.Name), data)
+	if err != nil {
+		return nil, err
+	}
+	ts := new(redditResponse)
+	err = json.Unmarshal(b, ts)
+	if err != nil {
+		return nil, err
+	}
+	items := make([]Submission, len(ts.Data.Items))
+	for i, subm := range ts.Data.Items {
+		items[i] = subm.Submission
+	}
+	return items, nil
+
 }

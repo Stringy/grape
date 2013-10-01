@@ -25,6 +25,17 @@ var (
 	incorrectOwnerError = errors.New("reddit: user does not have ownership over reddit thing")
 )
 
+// reddit Id prefixes
+const (
+	CommentPrefix   = "t1_"
+	AccountPrefix   = "t2_"
+	LinkPrefix      = "t3_"
+	MessagePrefix   = "t4_"
+	SubredditPrefix = "t5_"
+	AwardPrefix     = "t6_"
+	PromoCampaign   = "t8_"
+)
+
 // sorting type
 type sort string
 

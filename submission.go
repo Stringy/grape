@@ -52,8 +52,12 @@ func (r *Submission) GetUrl() string {
 	return fmt.Sprintf(Config.GetUrl("comment"), r.Sub, r.Id)
 }
 
-func (r *Submission) GetComments() []Comment {
-	b, err := makeGetRequest(r.GetUrl(), nil)
+func (r *Submission) GetComments(s sort, t period) []Comment {
+	data := url.Values{
+		"sort": {string(s)},
+		"t":    {string(t)},
+	}
+	b, err := makeGetRequest(r.GetUrl(), &data)
 	if err != nil {
 		panic(err)
 	}
