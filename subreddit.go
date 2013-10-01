@@ -53,7 +53,7 @@ func (s *Subreddit) GetHot(limit int) ([]Submission, error) {
 	data := &url.Values{
 		"limit": {fmt.Sprintf("%d", limit)},
 	}
-	b, err := makePostRequest(fmt.Sprintf(Config.GetUrl("hot"), s.Name), data)
+	b, err := makeGetRequest(fmt.Sprintf(Config.GetUrl("hot"), s.Name), data)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ func (s *Subreddit) GetTop(t period, limit int) ([]Submission, error) {
 		"limit": {fmt.Sprintf("%d", limit)},
 		"t":     {fmt.Sprintf("%d", t)},
 	}
-	b, err := makePostRequest(fmt.Sprintf(Config.GetUrl("top"), s.Name), data)
+	b, err := makeGetRequest(fmt.Sprintf(Config.GetUrl("top"), s.Name), data)
 	if err != nil {
 		return nil, err
 	}

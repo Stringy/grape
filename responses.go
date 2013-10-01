@@ -1,7 +1,5 @@
 package grape
 
-import ()
-
 type userResponse struct {
 	Data Redditor
 }
@@ -25,16 +23,16 @@ type jsonComment struct {
 	}
 }
 
-func commentFromJson(jComm jsonComment) Comment {
+func (jc *jsonComment) toComment() Comment {
 	comment := new(Comment)
-	comment.Author = jComm.Author
-	comment.Body = jComm.Body
-	comment.ScoreHidden = jComm.ScoreHidden
-	comment.Ups = jComm.Ups
-	comment.Downs = jComm.Downs
-	comment.Replies = make([]Comment, len(jComm.Replies.Data.Children))
-	for i, jCommReply := range jComm.Replies.Data.Children {
-		comment.Replies[i] = commentFromJson(jCommReply.Data)
+	comment.Author = jc.Author
+	comment.Body = jc.Body
+	comment.ScoreHidden = jc.ScoreHidden
+	comment.Ups = jc.Ups
+	comment.Downs = jc.Downs
+	comment.Replies = make([]Comment, len(jc.Replies.Data.Children))
+	for i, jcReply := range jc.Replies.Data.Children {
+		comment.Replies[i] = jcReply.Data.toComment()
 	}
 	return *comment
 }

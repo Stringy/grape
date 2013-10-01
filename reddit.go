@@ -13,12 +13,15 @@ import (
 // sub is the name of a valid subreddit
 func GetSubreddit(sub string) (*Subreddit, error) {
 	log.Printf("Getting subreddit: %s\n", sub)
-	b, err := makeGetRequest(fmt.Sprintf(Config.GetUrl("subreddit"), sub))
+	b, err := makeGetRequest(fmt.Sprintf(Config.GetUrl("subreddit"), sub), nil)
 	if err != nil {
 		return nil, err
 	}
 	rresp := new(redditResponse)
 	err = json.Unmarshal(b, rresp)
+	if err != nil {
+		return nil, err
+	}
 	rresp.Data.Name = sub
 	return &rresp.Data, nil
 }
@@ -26,7 +29,7 @@ func GetSubreddit(sub string) (*Subreddit, error) {
 // GetFrontPage currently gets the front page of *default* reddit
 // TODO(Stringy): apply this to currently logged in user
 func GetFrontPage(user *Redditor) (*Subreddit, error) {
-	b, err := makeGetRequest(Config.GetUrl("frontpage"))
+	b, err := makeGetRequest(Config.GetUrl("frontpage"), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +45,7 @@ func GetFrontPage(user *Redditor) (*Subreddit, error) {
 // reddit user
 func GetRedditor(user string) (*Redditor, error) {
 	log.Printf("getting Redditor: %s\n", user)
-	b, err := makeGetRequest(fmt.Sprintf(Config.GetUrl("user"), user))
+	b, err := makeGetRequest(fmt.Sprintf(Config.GetUrl("user"), user), nil)
 	if err != nil {
 		return nil, err
 	}

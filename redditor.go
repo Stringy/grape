@@ -144,8 +144,11 @@ func (r *Redditor) DeleteAccount(passwd string) error {
 
 // GetUnreadMail gets the unread mail for the user
 // doesn't require modhash for reading messages
-func (r *Redditor) GetUnreadMail() ([]Message, error) {
-	b, err := makeGetRequest(Config.GetUrl("unread"))
+func (r *Redditor) GetUnreadMail(limit int) ([]Message, error) {
+	data := url.Values{
+		"limit": {fmt.Sprintf("%d", limit)},
+	}
+	b, err := makeGetRequest(Config.GetUrl("unread"), &data)
 	if err != nil {
 		return nil, err
 	}
@@ -164,8 +167,11 @@ func (r *Redditor) GetUnreadMail() ([]Message, error) {
 
 // GetInbox gets all mail from the user's mail
 // doesn't require modhash for reading
-func (r *Redditor) GetInbox() ([]Message, error) {
-	b, err := makeGetRequest(Config.GetUrl("inbox"))
+func (r *Redditor) GetInbox(limit int) ([]Message, error) {
+	data := url.Values{
+		"limit": {fmt.Sprintf("%d", limit)},
+	}
+	b, err := makeGetRequest(Config.GetUrl("inbox"), &data)
 	if err != nil {
 		return nil, err
 	}
@@ -199,7 +205,7 @@ func (r *Redditor) Me() error {
 	if !r.IsLoggedIn() {
 		return notLoggedInError
 	}
-	respBytes, err := makeGetRequest(Config.GetApiUrl("me"))
+	respBytes, err := makeGetRequest(Config.GetApiUrl("me"), nil)
 	if err != nil {
 		return err
 	}
@@ -226,7 +232,7 @@ func (r *Redditor) ClearSessions(pass string) error {
 	if err != nil {
 		return err
 	}
-	debug.Println(string(b))
+	//debug.Println(string(b))
 	erresp := new(errorJson)
 	err = json.Unmarshal(b, erresp)
 	if err != nil {

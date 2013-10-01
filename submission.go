@@ -48,12 +48,12 @@ func (r *Submission) String() string {
 	return str
 }
 
-func (r *Submission) SubmissionUrl() string {
+func (r *Submission) GetUrl() string {
 	return fmt.Sprintf(Config.GetUrl("comment"), r.Sub, r.Id)
 }
 
 func (r *Submission) GetComments() []Comment {
-	b, err := makeGetRequest(r.SubmissionUrl())
+	b, err := makeGetRequest(r.GetUrl(), nil)
 	if err != nil {
 		panic(err)
 	}
@@ -61,7 +61,7 @@ func (r *Submission) GetComments() []Comment {
 	err = json.Unmarshal(b, &cresp)
 	comments := make([]Comment, len(cresp[1].Data.Children))
 	for i, comment := range cresp[1].Data.Children {
-		comments[i] = commentFromJson(comment.Data)
+		comments[i] = comment.Data.toComment()
 	}
 	return comments
 }

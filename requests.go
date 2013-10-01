@@ -108,7 +108,7 @@ func makePostRequest(url string, data *url.Values) ([]byte, error) {
 
 // MakeGetRequest adds a get request to the request schedule and waits for the
 // existence of a response in the cache
-func makeGetRequest(url string) ([]byte, error) {
+func makeGetRequest(url string, params *url.Values) ([]byte, error) {
 	// check existance of data for url which is not expired
 	if !responseCache.IsExpired(url) {
 		resp, _ := responseCache.Get(url) // existance is checked in IsExpired
@@ -119,6 +119,11 @@ func makeGetRequest(url string) ([]byte, error) {
 		}
 		return buf.Bytes(), nil
 	}
+
+	if params != nil {
+		url = url + "?" + params.Encode()
+	}
+	debug.Println("attempting get from", url)
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -171,6 +176,7 @@ func makeRequests() {
 	schedule := time.Tick(2 * time.Second)
 	var req *http.Request
 	for {
+	check_schedule:
 		select {
 		case <-schedule:
 			//check for jobs in order of priority
@@ -178,6 +184,7 @@ func makeRequests() {
 				select {
 				case req = <-priorities[i]:
 					go doRequest(req)
+					goto check_schedule
 				default:
 				}
 			}
