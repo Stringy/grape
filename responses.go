@@ -1,11 +1,39 @@
 package grape
 
+import (
+	"errors"
+	"strings"
+)
+
+type response interface {
+	hasErrors() bool
+	getError() error
+}
+
 type userResponse struct {
 	Data Redditor
+	errorJson
+}
+
+func (u *userResponse) hasErrors() bool {
+	return len(u.errorJson.Json.Errors) > 0
+}
+
+func (u *userResponse) getError() error {
+	return errors.New(strings.Join(u.errorJson.Json.Errors[0], ", "))
 }
 
 type redditResponse struct {
 	Data Subreddit
+	errorJson
+}
+
+func (u *redditResponse) hasErrors() bool {
+	return len(u.errorJson.Json.Errors) > 0
+}
+
+func (u *redditResponse) getError() error {
+	return errors.New(strings.Join(u.errorJson.Json.Errors[0], ", "))
 }
 
 type jsonComment struct {
@@ -43,6 +71,15 @@ type commentsResponse struct {
 			Data jsonComment `json:"data"`
 		}
 	}
+	errorJson
+}
+
+func (u *commentsResponse) hasErrors() bool {
+	return len(u.errorJson.Json.Errors) > 0
+}
+
+func (u *commentsResponse) getError() error {
+	return errors.New(strings.Join(u.errorJson.Json.Errors[0], ", "))
 }
 
 type loginResponse struct {
@@ -55,10 +92,27 @@ type loginResponse struct {
 	}
 }
 
+func (u *loginResponse) hasErrors() bool {
+	return len(u.Json.Errors) > 0
+}
+
+func (u *loginResponse) getError() error {
+	return errors.New(strings.Join(u.Json.Errors[0], ", "))
+}
+
 type messageResponse struct {
 	Data struct {
 		Children []struct {
 			Msg Message `json:"data"`
 		}
 	}
+	errorJson
+}
+
+func (u *messageResponse) hasErrors() bool {
+	return len(u.errorJson.Json.Errors) > 0
+}
+
+func (u *messageResponse) getError() error {
+	return errors.New(strings.Join(u.errorJson.Json.Errors[0], ", "))
 }
