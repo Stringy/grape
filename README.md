@@ -8,13 +8,17 @@ The current functionality is limited to the following:
  - Retrieving information about any user
  - Retrieving information about the currently logged in user
  - Retrieving a subreddit (limited to front page only)
+ - Retrieving sorted subreddits (by new, hot and top)
  - Retrieving comments from a link
  - Submitting a link from the currently logged in user to a subreddit
  - Submitting comments
+ - Getting all mail (inbox as well as unread)
+ - Cached responses from reddit and a priority system in preparation for prefetching of data
 
 Immediate TODO:
- - User account controls (mail/deletion/creation etc)
- - Captcha
+ - Prefetching of extra information
+ - Replying to private messages
+ - Develop a way of incorporating OAuth
 
 Example Code: 
 ```go
@@ -22,6 +26,7 @@ package main
 
 import (
   "github.com/Stringy/grape"
+  "fmt"
 )
 
 func main() {
@@ -29,14 +34,12 @@ func main() {
   if err != nil {
     // handle error
   } 
-  err = user.SubmitLink(
-      "learnprogramming", // reddit name
-      "Amazing Search Engine", // title of submission
-	    "www.google.com", // url
-      true // resubmit
-      )
+  sub, err := grape.GetSubreddit("learnprogramming")
   if err != nil {
     // handle error
+  }
+  for i, item := range sub.Items {
+    fmt.Println(item.Submission)
   }
 }
 ```
