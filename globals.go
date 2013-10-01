@@ -1,6 +1,7 @@
 package grape
 
 import (
+	"encoding/json"
 	"errors"
 	"io"
 	"io/ioutil"
@@ -8,6 +9,7 @@ import (
 	"net/url"
 	"os"
 	"runtime"
+	"strings"
 )
 
 var reddit_url *url.URL
@@ -172,7 +174,7 @@ func initConfig() {
 		"comment":       "/r/%s/%s/.json",
 		"inbox":         "/message/inbox/.json",
 		"unread":        "/message/unread/.json",
-		"sent":          "/message/sent.json",
+		"sent":          "/message/sent/.json",
 		"hot":           "/r/%s/hot/.json",
 		"new":           "/r/%s/new/.json",
 		"controversial": "/r/%s/controversial/.json",
@@ -236,4 +238,16 @@ type errorJson struct {
 	Json struct {
 		Errors [][]string
 	}
+}
+
+func parseSimpleErrorResponse(b []byte) error {
+	errjson := new(errorJson)
+	err := json.Unmarshal(b, errjson)
+	if err != nil {
+		return err
+	}
+	if len(errjson.Json.Errors) != 0 {
+		return errors.New(strings.Join(errjson.Json.Errors[0], ", "))
+	}
+	return nil
 }

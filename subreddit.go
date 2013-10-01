@@ -143,5 +143,4 @@ func (s *Subreddit) GetControversial(limit int) ([]Submission, error) {
 		items[i] = subm.Submission
 	}
 	return items, nil
-
 }

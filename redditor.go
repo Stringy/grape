@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"net/url"
-	"strings"
 	"time"
 )
 
@@ -95,19 +94,11 @@ func (r *Redditor) submit(subreddit, title, body, link, kind string, resubmit bo
 		"sendreplies": {"true"},
 	}
 
-	errstruct := new(errorJson)
-	respBytes, err := makePostRequest(Config.GetApiUrl("submit"), &data)
+	b, err := makePostRequest(Config.GetApiUrl("submit"), &data)
 	if err != nil {
 		return err
 	}
-	err = json.Unmarshal(respBytes, &errstruct)
-	if err != nil {
-		return err
-	}
-	if len(errstruct.Json.Errors) != 0 {
-		return errors.New(strings.Join(errstruct.Json.Errors[0], ", "))
-	}
-	return nil
+	return parseSimpleErrorResponse(b)
 }
 
 //DeleteAccount deletes the user from reddit
@@ -123,23 +114,11 @@ func (r *Redditor) DeleteAccount(passwd string) error {
 		"uh":             {r.ModHash},
 		"user":           {r.Name},
 	}
-	respBytes, err := makePostRequest(Config.GetApiUrl("delete"), &data)
+	b, err := makePostRequest(Config.GetApiUrl("delete"), &data)
 	if err != nil {
 		return err
 	}
-	errstruct := new(struct {
-		Json struct {
-			Errors [][]string
-		}
-	})
-	err = json.Unmarshal(respBytes, errstruct)
-	if err != nil {
-		return err
-	}
-	if len(errstruct.Json.Errors) != 0 {
-		return errors.New(strings.Join(errstruct.Json.Errors[0], ", "))
-	}
-	return nil
+	return parseSimpleErrorResponse(b)
 }
 
 // GetUnreadMail gets the unread mail for the user
@@ -232,16 +211,7 @@ func (r *Redditor) ClearSessions(pass string) error {
 	if err != nil {
 		return err
 	}
-	//debug.Println(string(b))
-	erresp := new(errorJson)
-	err = json.Unmarshal(b, erresp)
-	if err != nil {
-		return err
-	}
-	if len(erresp.Json.Errors) != 0 {
-		return errors.New(strings.Join(erresp.Json.Errors[0], ", "))
-	}
-	return nil
+	return parseSimpleErrorResponse(b)
 }
 
 // UpdateEmailAndPass updates the user's email and password.
@@ -260,13 +230,9 @@ func (r *Redditor) UpdateEmailAndPass(email, newpass, curpass string) error {
 	if err != nil {
 		return err
 	}
-	erresp := new(errorJson)
-	err = json.Unmarshal(b, erresp)
-	if err != nil {
-		return err
-	}
-	if len(erresp.Json.Errors) != 0 {
-		return errors.New(strings.Join(erresp.Json.Errors[0], ", "))
-	}
+	return parseSimpleErrorResponse(b)
+}
+
+func (r *Redditor) ComposeMessage() error {
 	return nil
 }

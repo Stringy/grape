@@ -1,10 +1,7 @@
 package grape
 
 import (
-	"encoding/json"
-	"errors"
 	"net/url"
-	"strings"
 )
 
 type Thing struct {
@@ -27,15 +24,7 @@ func (t *Thing) Report(user *Redditor) error {
 	if err != nil {
 		return err
 	}
-	es := new(errorJson)
-	err = json.Unmarshal(b, &es)
-	if err != nil {
-		return err
-	}
-	if len(es.Json.Errors) != 0 {
-		return errors.New(strings.Join(es.Json.Errors[0], ", "))
-	}
-	return nil
+	return parseSimpleErrorResponse(b)
 }
 
 //Hide hides a Thing for user, so that it won't appear on any requests
@@ -51,15 +40,7 @@ func (t *Thing) Hide(user *Redditor) error {
 	if err != nil {
 		return nil
 	}
-	es := new(errorJson)
-	err = json.Unmarshal(b, &es)
-	if err != nil {
-		return err
-	}
-	if len(es.Json.Errors) != 0 {
-		return errors.New(strings.Join(es.Json.Errors[0], ", "))
-	}
-	return nil
+	return parseSimpleErrorResponse(b)
 }
 
 //Unhide undoes Hide to allow a Thing to turn up in user's requests
@@ -75,15 +56,7 @@ func (t *Thing) Unhide(user *Redditor) error {
 	if err != nil {
 		return nil
 	}
-	es := new(errorJson)
-	err = json.Unmarshal(b, &es)
-	if err != nil {
-		return err
-	}
-	if len(es.Json.Errors) != 0 {
-		return errors.New(strings.Join(es.Json.Errors[0], ", "))
-	}
-	return nil
+	return parseSimpleErrorResponse(b)
 }
 
 // This might not apply to all objects
@@ -104,23 +77,12 @@ func (t *Thing) MarkNsfw(user *Redditor) error {
 	if err != nil {
 		return nil
 	}
-	es := new(errorJson)
-	err = json.Unmarshal(b, &es)
-	if err != nil {
-		return err
-	}
-	if len(es.Json.Errors) != 0 {
-		return errors.New(strings.Join(es.Json.Errors[0], ", "))
-	}
-
-	return nil
+	return parseSimpleErrorResponse(b)
 }
 
 //UnmarkNsfw unmarks a Thing as not safe for work
 //returns errors recieved from reddit
 func (t *Thing) UnmarkNsfw(user *Redditor) error {
-	//id
-	//modhash
 	data := &url.Values{
 		"id": {t.Name},
 		"uh": {user.ModHash},
@@ -129,13 +91,5 @@ func (t *Thing) UnmarkNsfw(user *Redditor) error {
 	if err != nil {
 		return nil
 	}
-	es := new(errorJson)
-	err = json.Unmarshal(b, &es)
-	if err != nil {
-		return err
-	}
-	if len(es.Json.Errors) != 0 {
-		return errors.New(strings.Join(es.Json.Errors[0], ", "))
-	}
-	return nil
+	return parseSimpleErrorResponse(b)
 }

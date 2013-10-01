@@ -2,10 +2,8 @@ package grape
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"net/url"
-	"strings"
 )
 
 type Submission struct {
@@ -84,13 +82,5 @@ func (r *Submission) PostComment(user *Redditor, body string) error {
 	if err != nil {
 		return err
 	}
-	errstruct := new(errorJson)
-	err = json.Unmarshal(b, &errstruct)
-	if err != nil {
-		return err
-	}
-	if len(errstruct.Json.Errors) != 0 {
-		return errors.New(strings.Join(errstruct.Json.Errors[0], ", "))
-	}
-	return nil
+	return parseSimpleErrorResponse(b)
 }
